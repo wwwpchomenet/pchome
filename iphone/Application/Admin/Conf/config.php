@@ -1,5 +1,5 @@
 <?php
-define('DOMAIN', 'http://www.wap.com/admin');
+define('DOMAIN', 'http://www.wap.com/iphone');
 return array(
     //'配置项'=>'配置值'
     'DB_TYPE' => 'mysqli', // 数据库类型
@@ -9,7 +9,7 @@ return array(
     'DB_PWD' => '123456', // 密码
     'DB_PORT' => '3306', // 端口
     'DB_PREFIX' => '', // 数据库表前缀
-    'DB_PARAMS' => array(), // 数据库连接参数    
+    'DB_PARAMS' => array(), // 数据库连接参数
     'DB_DEBUG' => TRUE, // 数据库调试模式 开启后可以记录SQL日志
     'DB_FIELDS_CACHE' => false, // 启用字段缓存
     'DB_CHARSET' => 'utf8', // 数据库编码默认采用utf8
@@ -29,25 +29,25 @@ return array(
         '__UPLOADIFY__'=>DOMAIN."/Public/ext/uploadify",
         '__ZTREE__'=>DOMAIN."/Public/ext/zTree",
         '__LAYER__'=>DOMAIN."/Public/ext/layer",
-    '__UPLOAD_URL_PREFIX__'=>"http://www.wap.com"."/Uploads",
+        '__UPLOAD_URL_PREFIX__'=>"http://www.wap.com"."/Uploads",
         '__EXT__'=>DOMAIN."/Public/ext"
     ),
     'CAPTCHA_SETTING'   =>array(   //验证码长度
-         'length' => 4,         
-     ),
-     'IGNORE_PATHS'=>[
-            'Admin/Admin/login',
-            'Admin/Captcha/captcha',
-            'Admin/Index/index',
-            'Admin/Index/top',
-            'Admin/Index/menu',
-            'Admin/Index/main',  
-        ],
+        'length' => 4,
+    ),
+    'IGNORE_PATHS'=>[
+        'Admin/Admin/login',
+        'Admin/Captcha/captcha',
+        'Admin/Index/index',
+        'Admin/Index/top',
+        'Admin/Index/menu',
+        'Admin/Index/main',
+    ],
     'TMPL_CACHE_ON'     => false,
     'PAGE_SIZE'         => 1,
     'PAGE_THEME'        => '%HEADER% %FIRST% %UP_PAGE% %LINK_PAGE% %DOWN_PAGE% %END%',
     'UPLOAD_SETTING'    => array(
-       
+
         'maxSize'  => 1024000, //上传的文件大小限制 (0-不做限制)
         'exts'     => array('jpg', 'jpeg', 'png', 'gif'), //允许上传的文件后缀
         'autoSub'  => true, //自动子目录保存文件

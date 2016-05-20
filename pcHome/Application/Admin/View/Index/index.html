@@ -170,16 +170,6 @@
                     </div>
                     <div class="tabCon fl">
                         <div class="cur">
-                        	<a class="three_fengs">
-                            	<p class="three_fengs_head">成都分公司1</p>
-                                <p class="three_fengs_con">成都高新区天华二路81号天府软件园C区4号楼</p>
-                                <p class="three_fengs_con">(028)85225111</p>
-                            </a>
-                            <a class="three_fengs">
-                            	<p class="three_fengs_head">成都分公司2</p>
-                                <p class="three_fengs_con">成都高新区天华二路81号天府软件园C区4号楼</p>
-                                <p class="three_fengs_con">(028)85225111</p>
-                            </a>
                             <a class="three_fengs">
                             	<p class="three_fengs_head">成都分公司3</p>
                                 <p class="three_fengs_con">成都高新区天华二路81号天府软件园C区4号楼</p>
@@ -187,16 +177,6 @@
                             </a>
                         </div>
                         <div class="">
-                        	<a class="three_fengs">
-                            	<p class="three_fengs_head">成都分公司1</p>
-                                <p class="three_fengs_con">成都高新区天华二路81号天府软件园C区4号楼</p>
-                                <p class="three_fengs_con">(028)85225111</p>
-                            </a>
-                            <a class="three_fengs">
-                            	<p class="three_fengs_head">成都分公司2</p>
-                                <p class="three_fengs_con">成都高新区天华二路81号天府软件园C区4号楼</p>
-                                <p class="three_fengs_con">(028)85225111</p>
-                            </a>
                             <a class="three_fengs">
                             	<p class="three_fengs_head">成都分公司3</p>
                                 <p class="three_fengs_con">成都高新区天华二路81号天府软件园C区4号楼</p>
@@ -204,16 +184,6 @@
                             </a>
                         </div>
                         <div class="">
-                        	<a class="three_fengs">
-                            	<p class="three_fengs_head">成都分公司1</p>
-                                <p class="three_fengs_con">成都高新区天华二路81号天府软件园C区4号楼</p>
-                                <p class="three_fengs_con">(028)85225111</p>
-                            </a>
-                            <a class="three_fengs">
-                            	<p class="three_fengs_head">成都分公司2</p>
-                                <p class="three_fengs_con">成都高新区天华二路81号天府软件园C区4号楼</p>
-                                <p class="three_fengs_con">(028)85225111</p>
-                            </a>
                             <a class="three_fengs">
                             	<p class="three_fengs_head">成都分公司3</p>
                                 <p class="three_fengs_con">成都高新区天华二路81号天府软件园C区4号楼</p>
@@ -354,26 +324,28 @@
   </div>
   <!--第六页-->
   <div class="section s6">
-    	<div class="liu_zitu"><img src="images/zhaomu.png" /></div>
+    	<div class="liu_zitu"><img src="__IMG__/zhaomu.png" /></div>
          <a class="liu_head_anniu" href=""></a>
   </div>
   <!--第七页-->
   <div class="section s5">
     	<div class="four_1100">
-        	<div class="four_head_tu"><img src="images/gysc.png" width="196" height="109"></div>
+        	<div class="four_head_tu"><img src="__IMG__/gysc.png" width="196" height="109"></div>
         </div>
         <div class="qi_width_1440">
         	<ul>
-            	<li><img src="images/kf1.jpg" /></li>
+                <foreach  name="pics" item="pics" >
+                    <li><img src="__UPLOADS__/{:$pics}" /></li>
+                </foreach>
             </ul>
         </div>
   </div>
   <!--第八页-->
   <div class="section s7">
     	<div class="four_1100">
-        	<div class="four_head_tu"><img src="images/about.png" width="196" height="109" /></div>
+        	<div class="four_head_tu"><img src="__IMG__/about.png" width="196" height="109" /></div>
         </div>
-      <form name="form1" action="{:U('Admin/Agent/add')}" method="post">
+      <form name="form1" action="{:U('index.php/Admin/Agent/add')}" method="post">
         <div class="ba_con_1170">
         	<div class="ba_con_left fl">
             	<p class="ba_con_left_head">我们的地址</p>
