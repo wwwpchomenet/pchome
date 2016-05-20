@@ -1,5 +1,5 @@
 <?php
-define('DOMAIN', 'http://www.wap.com/Admin');
+define('DOMAIN', 'http://www.admin.com');
 return array(
     //'配置项'=>'配置值'
     'DB_TYPE' => 'mysqli', // 数据库类型
