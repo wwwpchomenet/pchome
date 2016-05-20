@@ -78,7 +78,10 @@ class AgentController extends \Think\Controller{
             $this->display('add');
         }
     }
-    
+   /**
+    * 逻辑删除
+    * @param integer $id
+    */ 
     public function  delete($id){
         $data = array(
             'status' => 0,
