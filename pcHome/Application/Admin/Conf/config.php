@@ -1,5 +1,5 @@
 <?php
-define('DOMAIN', 'http://www.pcHome.com');
+define('DOMAIN', 'http://www.pcHome.com/pcHome');
 return array(
     'TMPL_PARSE_STRING' => array(
         '__CSS__' => DOMAIN."/Public/Css",
@@ -12,6 +12,8 @@ return array(
         '__ZTREE__'=>DOMAIN."/Public/ext/zTree",
         '__LAYER__'=>DOMAIN."/Public/ext/layer",
         '__UPLOAD_URL_PREFIX__'=>DOMAIN."/Uploads",
-        '__EXT__'=>DOMAIN."/Public/ext"
+        '__EXT__'=>DOMAIN."/Public/ext",
+         '__UPLOADS__'=>"../Uploads",
+
     ),
 );
