@@ -1,5 +1,5 @@
 <?php
-define('DOMAIN', 'http://www.wap.com/pcHome');
+define('DOMAIN', 'http://www.pcHome.com');
 return array(
     'TMPL_PARSE_STRING' => array(
         '__CSS__' => DOMAIN."/Public/Css",
