@@ -37,6 +37,14 @@
                         </td>
                     </tr>
                    
+                 <tr>
+                <td class="label">审核</td>
+                <td>
+                    <input type="radio" name="check" <if condition="$row.check eq 1">checked</if> value="1"/>   通过 
+                    <input type="radio" name="check" <if condition="$row.check eq 0">checked</if> value="0"  /> 未通过
+                     <input type="radio" name="check" <if condition="$row.check eq -1">checked</if> value="-1"/> 待审核
+                </td>
+            </tr>
                     <tr>
                         <td colspan="2" align="center"><br />
                             <input type="hidden" name='id' value="{$row.id}" />

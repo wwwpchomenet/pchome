@@ -140,6 +140,7 @@
                       {:arr2select([],'city_id','id','name')}
                       {:arr2select([],'area_id','id','name')}
                     <span class="require-field">*</span>
+                    <a href="index.html"></a>
                 </td>
             </tr>
              <tr>
@@ -157,12 +158,15 @@
             
             <tr>
                 <td class="label">审核</td>
+            <a href="../Agent/add.html"></a>
                 <td>
                     <input type="radio" name="status" <if condition="$row.status eq 1">checked</if> value="1"/>   通过 
+                    <a href="../Agent/add.html"></a>
                     <input type="radio" name="status" <if condition="$row.status eq 0">checked</if> value="0"  /> 未通过
                      <input type="radio" name="status" <if condition="$row.status eq -1">checked</if> value="-1"/> 待审核
                 </td>
             </tr>
+            <a href="index.html"></a>
             
             <tr>
                 <td class="label">会员等级</td>

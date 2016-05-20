@@ -5,7 +5,7 @@
 <block name='admin'>
     <h1>
         <span class="action-span"><a href="{:U('add')}">添加我想成为代理商</a></span>
-        <span class="action-span1"><a href="{:U('Index/main')}">重庆火锅国际供应链股份有限公司 管理中心</a></span>
+        <span class="action-span1"><a href="{:U('Agent/index')}">重庆火锅国际供应链股份有限公司 管理中心</a></span>
         <span id="search_id" class="action-span1"> - {$meta_title} </span>
     </h1>
     <div style="clear:both"></div>
@@ -24,6 +24,7 @@
                     <th>电话</th>
                     <th>邮箱</th>
                     <th>留言</th>
+                    <th>审核</th>
                     <th>操作</th>
                 </tr>
                 <foreach name='rows' item='row'>
@@ -32,6 +33,15 @@
                         <td align="center">{$row.tel}</td>
                         <td align="center">{$row.email}</td>
                         <td align="center">{$row.intro}</td>
+                        <td align="center">
+                             <if condition="$row.check eq  -1 "> 
+                                 待审核
+                             <elseif condition="$row.check eq 1"/>
+                                 审核通过
+                             <elseif condition="$row.check eq 0"/>
+                                审核未通过
+                            </if>
+                        </td>
                         
                         <td align="center">
                             <a href="{:U('edit',array('id'=>$row['id']))}" title="编辑">编辑</a> |
