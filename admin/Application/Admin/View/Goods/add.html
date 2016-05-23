@@ -100,7 +100,7 @@
             'buttonText':'选择文件',
             'fileObjName':'file',
             'swf'      : '__UPLOADIFY__/uploadify.swf',
-            'uploader' : '{:U("Uploads/upload")}',
+            'uploader' : '{:U("Uploads/upload",array("file"=>"goodsPic"))}',
             'onUploadSuccess':function(file_node,data){
                 //将返回的字符串转为json对象
                 data = $.parseJSON(data);

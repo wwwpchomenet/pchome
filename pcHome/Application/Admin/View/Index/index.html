@@ -228,13 +228,13 @@
     	<div class="four_1100">
         	<div class="four_head_tu"><img src="__IMG__/cpzs.png" width="216" height="109" /></div>
             <div class="four_head_zi">
-            	<a href="" class="fourxz">全部</a>
-                <a href="" class="">蔬菜</a>
-                <a href="" class="">肉类</a>
-                <a href="" class="">水产</a>
-                <a href="" class="">海鲜</a>
-                <a href="" class="">饮料</a>
-                <a href="" class="">啤酒</a>
+            	<a href="javascript:void(0);" class="fourxz">全部</a>
+                <a href="javascript:void(0);" class="">蔬菜</a>
+                <a href="javascript:void(0);" class="">肉类</a>
+                <a href="javascript:void(0);" class="">水产</a>
+                <a href="javascript:void(0);" class="">海鲜</a>
+                <a href="javascript:void(0);" class="">饮料</a>
+                <a href="javascript:void(0);" class="">啤酒</a>
             </div>
         </div>
         <div class="four_cpzs">
@@ -414,5 +414,10 @@
     function ddd(){
         document.form1.submit();
     }
+    $(function(){
+        $('.four_head_zi').children().on('click',function(){
+            $(this).attr('class','fourxz fl').siblings().removeClass('fourxz');
+        });
+    });
 </script>
 </html>

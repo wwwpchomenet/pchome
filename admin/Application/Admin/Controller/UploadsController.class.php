@@ -11,7 +11,7 @@ class UploadsController extends \Think\Controller {
     /**
      * 用于上传文件.
      */
-    public function upload() {
+    public function upload($file) {
         //1.创建upload对象
         $config  = array(
        
@@ -20,7 +20,7 @@ class UploadsController extends \Think\Controller {
         'autoSub'  => true, //自动子目录保存文件
         'subName'  => array('date', 'Ymd'), //子目录创建方式，[0]-函数名，[1]-参数，多个参数使用数组
         'rootPath' => '../Uploads/', //保存根路径
-        'savePath' => 'Gallery/', //保存路径
+        'savePath' =>$file. '/', //保存路径
         'saveName' => array('uniqid', '') //上传文件命名规则，[0]-函数名，[1]-参数，多个参数使用数组
     );
         $upload    = new \Think\Upload($config);
@@ -37,5 +37,4 @@ class UploadsController extends \Think\Controller {
         );
         $this->ajaxReturn($return);
     }
-
 }

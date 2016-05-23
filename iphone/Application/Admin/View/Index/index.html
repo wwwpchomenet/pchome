@@ -12,7 +12,7 @@
 <link rel="stylesheet" type="text/css" href="__IMG__/main.css">
 <link rel="stylesheet" type="text/css" href="__IMG__/endpic.css">
 <link rel="stylesheet" type="text/css" href="__CSS__/styles.css">
-<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="__JS__/jquery-1.8.3.min.js"></script>
 <script type="text/javascript" src="__IMG__/offline.js"></script><!--移动端版本兼容 -->
 <script type="text/javascript">
     var mengvalue = -1;
@@ -138,24 +138,15 @@
             	<div class="wap_san">
                    分公司的拓展
                 </div>
-                <div class="wap_san_he300 wap_san_texiao1"><!--wap_san_bjs-->
-                	<p class="wap_san_tubiao"></p>
-                    <p class="wap_san_head">成都分公司</p>
-                    <p class="wap_san_text">成都高新区天华二路81号天府软件园C区4号楼</p>
-                    <p class="wap_san_text">(028)85225111</p>
+
+                <foreach name="details" item="details" >
+                    <div class="wap_san_he300 wap_san_texiao1"><!--wap_san_bjs-->
+                    <p class="wap_san_tubiao"></p>
+                    <p class="wap_san_head">{$details.name}</p>
+                    <p class="wap_san_text">地址:{$details.address}</p>
+                    <p class="wap_san_text">电话:{$details.tel}</p>
                 </div>
-                <div class="wap_san_he300 wap_san_texiao2">
-                	<p class="wap_san_tubiao"></p>
-                    <p class="wap_san_head">成都分公司</p>
-                    <p class="wap_san_text">成都高新区天华二路81号天府软件园C区4号楼</p>
-                    <p class="wap_san_text">(028)85225111</p>
-                </div>
-                <div class="wap_san_he300 wap_san_texiao3">
-                	<p class="wap_san_tubiao"></p>
-                    <p class="wap_san_head">成都分公司</p>
-                    <p class="wap_san_text">成都高新区天华二路81号天府软件园C区4号楼</p>
-                    <p class="wap_san_text">(028)85225111</p>
-                </div>
+                </foreach>
             </div>
          </div>
         <!--第四页-->
@@ -164,40 +155,17 @@
             	<div class="wap_four_head"> 主营产品展示</div>
                 <div class="wap_four_head_tu"><img src="__IMG__/007.png"/></div>
                 <div class="wap_four_head_fenlei">
-                	<a href="" class="fl wap_four_on">全部</a>
-                    <a href="" class="fl">蔬菜</a>
-                    <a href="" class="fl">肉类</a>
-                    <a href="" class="fl">水产</a>
-                    <a href="" class="fl">海鲜</a>
-                    <a href="" class="fl">饮料</a>
-                    <a href="" class="fl">啤酒</a>
+
+                    <?php foreach($rows['goodscategory'] as $key=>$val){ ?>
+                        <if condition="($key eq 0)">
+                            <a href="javascript:void(0);" class="fl wap_four_on" id="goods0">全部</a>
+                                 <else />
+                            <a href="javascript:void(0);" class="fl" id="goods{:$key}">{:$val}</a>
+                        </if>
+                    <?php } ?>
                 </div>
                 <div class="wap_four_con">
-                	<ul>
-                    	<li class="wap_san_texiao1">
-                        	<a href="" class="wap_four_con_tu"><img src="__IMG__/4.jpg" /></a>
-                            <div class="wap_four_con_wrapss">青海绿色无公害豆皮</div>	
-                        </li>
-                        <li class="wap_san_texiao2">
-                        	<a href="" class="wap_four_con_tu"><img src="__IMG__/5.jpg" /></a>
-                            <div class="wap_four_con_wrapss">青海绿色无公害豆皮</div>	
-                        </li>
-                        <li class="wap_san_texiao1">
-                        	<a href="" class="wap_four_con_tu"><img src="__IMG__/5.jpg" /></a>
-                            <div class="wap_four_con_wrapss">青海绿色无公害豆皮</div>	
-                        </li>
-                        <li class="wap_san_texiao2">
-                        	<a href="" class="wap_four_con_tu"><img src="__IMG__/4.jpg" /></a>
-                            <div class="wap_four_con_wrapss">青海绿色无公害豆皮</div>	
-                        </li>
-                        <li class="wap_san_texiao1">
-                        	<a href="" class="wap_four_con_tu"><img src="__IMG__/5.jpg" /></a>
-                            <div class="wap_four_con_wrapss">青海绿色无公害豆皮</div>	
-                        </li>
-                        <li class="wap_san_texiao2">
-                        	<a href="" class="wap_four_con_tu"><img src="__IMG__/4.jpg" /></a>
-                            <div class="wap_four_con_wrapss">青海绿色无公害豆皮</div>	
-                        </li>
+                	<ul id="goodsCategory">
                     </ul>
                 </div>
             </div>
@@ -221,14 +189,9 @@
                 <div class="wap_four_head_tu"><img src="__IMG__/011.png"/></div>
                 <div class="wap_liu_lish">
                 	<ul>
-                    	<li class="fl"><img src="__IMG__/hz001.png" /></li>
-                        <li class="fr"><img src="__IMG__/hz002.png" /></li>
-                        <li class="fl"><img src="__IMG__/hz003.png" /></li>
-                        <li class="fr"><img src="__IMG__/hz004.png" /></li>
-                        <li class="fl"><img src="__IMG__/hz003.png" /></li>
-                        <li class="fr"><img src="__IMG__/hz002.png" /></li>
-                        <li class="fl"><img src="__IMG__/hz004.png" /></li>
-                        <li class="fr"><img src="__IMG__/hz001.png" /></li>
+                        <foreach  name="rows.pics" item="pics" >
+                            <li class="fl"><img src="__UPLOADS__/{:$pics}" /></li>
+                        </foreach>
                     </ul>
                 </div>
             </div>
@@ -247,28 +210,29 @@
         <!--第八页-->
         <div class="m-page m-bigTxt z-animate f-hide" data-page-type="bigTxt" data-statics="info_list" data-translate="">
              <div class="page-con lazy-finish" data-src="__IMG__/n_5417dc9238d0d.jpg" data-position="50% 50%" data-size="cover" style="height: 1141px; background-image: url(&quot;__IMG__/6.jpg&quot;); background-size: cover; background-position: 50% 50%;">
-                <div class="wap_four_head wap_color_fff">联系我们</div>
-                <div class="wap_four_head_tu"><img src="__IMG__/013.png"/></div>
-                <div class="wap_ba_input wap_ba_texiao1">
-                	<p class="wap_ba_input_name fl">名字</p>
-                    <p class="wap_ba_input_input fl"><input type="text" /></p>
-                </div>
-                <div class="wap_ba_input wap_ba_texiao2">
-                	<p class="wap_ba_input_name fl">邮箱</p>
-                    <p class="wap_ba_input_input fl"><input type="text" /></p>
-                </div>
-                <div class="wap_ba_input wap_ba_texiao3">
-                	<p class="wap_ba_input_name fl">电话</p>
-                    <p class="wap_ba_input_input fl"><input type="text" /></p>
-                </div>
-                <div class="wap_ba_textarea_kk wap_ba_texiao4">
-                    <p class="wap_ba_textarea_kk_text">留言板</p>
-                    <div class="wap_ba_textarea">
-                        <p class="wap_ba_input_textarea"><textarea></textarea></p>
+                 <form action="{:U('index.php/Admin/Agent/add')}" method="post" name="form1">
+                    <div class="wap_four_head wap_color_fff">联系我们</div>
+                    <div class="wap_four_head_tu"><img src="__IMG__/013.png"/></div>
+                    <div class="wap_ba_input wap_ba_texiao1">
+                        <p class="wap_ba_input_name fl">名字</p>
+                        <p class="wap_ba_input_input fl"><input type="text" name="name" /></p>
                     </div>
-                </div>
-                <a href="" class="wap_ba_anniu"><img src="__IMG__/014.png" /></a>
-                
+                    <div class="wap_ba_input wap_ba_texiao2">
+                        <p class="wap_ba_input_name fl">邮箱</p>
+                        <p class="wap_ba_input_input fl"><input type="text" name="email" /></p>
+                    </div>
+                    <div class="wap_ba_input wap_ba_texiao3">
+                        <p class="wap_ba_input_name fl">电话</p>
+                        <p class="wap_ba_input_input fl"><input type="text" name="tel" /></p>
+                    </div>
+                    <div class="wap_ba_textarea_kk wap_ba_texiao4">
+                        <p class="wap_ba_textarea_kk_text">留言板</p>
+                        <div class="wap_ba_textarea">
+                            <p class="wap_ba_input_textarea"><textarea name="intro"></textarea></p>
+                        </div>
+                    </div>
+                    <a href="javascript:void(0);" class="wap_ba_anniu" onclick="sub()"><img src="__IMG__/014.png" /></a>
+                 </form>
              </div>
         </div>
          
@@ -277,6 +241,35 @@
     <section class="u-pageLoading"><img src="__IMG__/load.gif" alt="loading"></section>
     <script src="__IMG__/init.mix.js" type="text/javascript" charset="utf-8"></script> 
     <script src="__IMG__/coffee.js" type="text/javascript" charset="utf-8"></script> 
-    <script src="__IMG__/99_main.js" type="text/javascript" charset="utf-8" defer＝'defer'=""></script> 
+    <script src="__IMG__/99_main.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+        var id=0;
+        function sub(){
+            document.form1.submit();
+        }
+        $.getJSON("{:U('index.php/Admin/Index/goodsCateGoryShow')}",{ 'id': 0},function(data){
+            $('#goodsCategory').children().remove();
+            for(var i=0;i<data.length;i++){
+                var labels='<li class="wap_san_texiao1">'+'<a href="javascript:void(0);" class="wap_four_con_tu"><img src=__UPLOAD_URL_PREFIX__/'+data[i]['logo']+' />'+'<div class="wap_four_con_wrapss">'+data[i]['name']+'</div> </a> </li>';
+                $('#goodsCategory').append(labels);
+            }
+        },'json');
+       $(function(){
+           //改变当前点击标签的背景色
+           $('.wap_four_head_fenlei').children().on('click',function(){
+             $(this).attr('class','wap_four_on fl').siblings().removeClass('wap_four_on');
+               //进入首页默认展示商品信息
+              var goodsid=$(this).attr('id').substr(5);
+                console.debug(id);
+               $.getJSON("{:U('index.php/Admin/Index/goodsCateGoryShow')}",{ 'id': goodsid},function(data){
+                   $('#goodsCategory').children().remove();
+                   for(var i=0;i<data.length;i++){
+                       var labels='<li class="wap_san_texiao1">'+'<a href="javascript:void(0);" class="wap_four_con_tu"><img src=__UPLOAD_URL_PREFIX__/'+data[i]['logo']+' />'+'<div class="wap_four_con_wrapss">'+data[i]['name']+'</div> </a> </li>';
+                       $('#goodsCategory').append(labels);
+                   }
+               },'json');
+           });
+       });
+    </script>
 </body>
 </html>
