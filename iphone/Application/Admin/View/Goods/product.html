@@ -133,38 +133,40 @@
   <!-- end --> 
 </section>
      <script type="text/javascript">
-     
-       $(function(){
+        
+        $(function(){
            //------------一级菜单点击事件-----------------
-           $('.category').on('click',function(){
-                //给点击增加class属性,然后移除
-                  $(this).attr('class','se_cpname_on').siblings().removeClass('se_cpname_on');
-                  //定义(获取到)id值
-                      var id = $('.se_cpname_on').attr('id');
-                  //通过ajax获取数据
-            $.getJSON("{:U('index.php/Admin/Goods/second')}",{ 'id': id},function(data){
+            $('.category').on('click',show);
+              //-----------------二级菜单获取数据--------------
+            $('div').on('click','.pro_left_lish',function(){
+                //alert($(this).prop('id'));
+                var ids=$(this).prop('id');
+            });
+           id=$('ul').find('li')[0].id;
+           first_menu();
+           function show(){
+            //给点击增加class属性,然后移除
+            $(this).attr('class','se_cpname_on').siblings().removeClass('se_cpname_on');
+            //定义(获取到)id值
+            id = $('.se_cpname_on').attr('id');
+           //通过ajax获取数据
+            first_menu();
+         }
+         function first_menu(){
+             $.getJSON("{:U('index.php/Admin/Goods/second')}",{ 'id': id},function(data){
                 //移除数据
-             $('.pro_left').children().remove();
-             //循环数据,拼凑字符串,并增加到元素中
-            for(var i = 0;i<data.length;i++){
-                var zhi = "<div class='pro_left_lish' id = "+ "'"+data[i]['id']+"'"+">"+"<a href='javascript:void(0);'>"+data[i]['name']+"</a></div>";
-               $('.pro_left').append(zhi);
-            }
-            //点击二级菜单,增加和删除元素
-             $('.pro_left_lish').on('click',function(){
-              $(this).children().attr('class','pro_on').parent().siblings().children().removeClass('pro_on');
-          });
-          
-           },'json');
-         });
-         
-         
-          //-----------------二级菜单获取数据--------------
-          $('.pro_left_lish').on('click',function(){
-             alert('sss');
+                $('.pro_left').children().remove();
+                //循环数据,拼凑字符串,并增加到元素中
+                for(var i = 0;i<data.length;i++){
+                    var zhi = "<div class='pro_left_lish' id = "+ "'"+data[i]['id']+"'"+">"+"<a href='javascript:void(0);'>"+data[i]['name']+"</a></div>";
+                    $('.pro_left').append(zhi);
+                };
+                //点击二级菜单,增加和删除元素
+                $('.pro_left_lish').on('click',function(){
+                    $(this).children().attr('class','pro_on').parent().siblings().children().removeClass('pro_on');
+                });
            });
-         
-         
+         }
         });
     </script>
 </body>
