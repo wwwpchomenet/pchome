@@ -44,10 +44,17 @@ class GoodsController extends \Think\Controller {
             'parent_id' => $id,
             'status' => 1, 
         );
-       $row = $this->_model->getsecond($cont);
-      
-       // $this->assign('results', $results = $this->_model->getsecond($cont));
-            echo json_encode($results = $this->_model->getsecond($cont));
+      // $row = $this->_model->getSecond($cont);
+            echo json_encode($results = $this->_model->getSecond($cont));
         exit;
+    }
+    
+    public function  three($id){
+         $cont = array(
+            'goods_category_id' => $id,
+            'status' => 1, 
+        );
+            echo json_encode($results = $this->_model->getThree($cont));
+              exit;
     }
 }

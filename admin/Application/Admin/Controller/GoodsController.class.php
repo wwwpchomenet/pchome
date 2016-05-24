@@ -51,15 +51,15 @@ class GoodsController extends \Think\Controller {
         //准备数据
         $rows       = $this->_model->getPageResult($cond);
         $this->assign($rows);
-        //准备供货商关联数组,使用id作为键名
-        $suppliers  = M('Supplier')->where(array('status' => 1))->getField('id,name');
-        //准备品牌关联数组,使用id作为键名
-        $brands     = M('Brand')->where(array('status' => 1))->getField('id,name');
-        //准备分类关联数组,使用id作为键名
-        $categories = M('GoodsCategory')->where(array('status' => 1))->getField('id,name');
-        $this->assign('suppliers', $suppliers);
-        $this->assign('brands', $brands);
-        $this->assign('categories', $categories);
+//        //准备供货商关联数组,使用id作为键名
+//        $suppliers  = M('Supplier')->where(array('status' => 1))->getField('id,name');
+//        //准备品牌关联数组,使用id作为键名
+//        $brands     = M('Brand')->where(array('status' => 1))->getField('id,name');
+//        //准备分类关联数组,使用id作为键名
+  $categories = M('GoodsCategory')->where(array('status' => 1))->getField('id,name');
+//        $this->assign('suppliers', $suppliers);
+//        $this->assign('brands', $brands);
+   $this->assign('categories', $categories);
 
         //商品的状态
         $this->assign('is_on_sales', $this->_model->is_on_sales);
