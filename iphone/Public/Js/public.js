@@ -1,9 +1,11 @@
 $(document).ready (function ()
     {
         var pl = $(".js_heji:last");
-		
+        ($ (".sy_minus")).on('click',function(){
+            alert('ddd');
+        });
         var reg = /(.*[\￥]\s*)([\+\d\.]+)(\s*元)/g;
-        $ (".sy_minus").click (function ()
+        $ (".sy_minus").live ('click',function ()
         {
             var me = $ (this), txt = me.next (":text"), pc = me.closest(".js_num");
             var val = parseFloat (txt.val ());
@@ -19,8 +21,8 @@ $(document).ready (function ()
             pl.text(pl.text().replace(reg, "$1" + sum + "$3"));
         });
          
-        $(".sy_plus").click (function ()
-        {	
+        $(".sy_plus").live ('click',function ()
+        {
             var me = $ (this), txt = me.prev (":text"), pc = me.closest(".js_num");
             var val = parseFloat (txt.val ());
             txt.val (val + 1);

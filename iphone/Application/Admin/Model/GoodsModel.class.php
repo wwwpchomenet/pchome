@@ -23,4 +23,8 @@ class GoodsModel extends Model{
         }
       return  $this->where(array('goods_category_id'=>$id))->limit(6)->order("inputtime desc")->select();
     }
+    public function getList($id){
+        return $this->where(array('goods_category_id'=>$id))->order("inputtime desc")->select();
+
+    }
 }

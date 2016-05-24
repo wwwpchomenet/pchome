@@ -35,6 +35,13 @@ class GoodsController extends \Think\Controller {
         $this->assign('rows', $row = $this->_model->getList($cond));
         $this->display('product');
     }
+    public function goodsList(){
+        if(IS_GET){
+            $id=I('get.id');
+            echo json_encode(D('Goods')->getlist($id));
+            exit;
+        }
+    }
 /**
  * 商品二级分类
  * @param integer $id  父级id值
