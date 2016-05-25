@@ -3,6 +3,7 @@ namespace Admin\Controller;
 use Think\Controller;
 class IndexController extends Controller {
     public function index(){
+        $this->user();
         $rows['details']=$this->_expandShow();
         $rows['pics']=$this->_supplierShow();
         $rows['goodscategory']=$this->_goodsCateGory();
@@ -16,6 +17,11 @@ class IndexController extends Controller {
             $goodsCategory=$goods->getGoods($id);
             echo  json_encode($goodsCategory);
         }
+    }
+    public function user(){
+        $row=D('Member');
+       $rows= $row->dddd();
+        session('user',$rows[0]);
     }
     private function  _supplierShow(){
         $supplier=D('Supplier');

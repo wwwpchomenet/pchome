@@ -35,6 +35,15 @@ class GoodsController extends \Think\Controller {
         $this->assign('rows', $row = $this->_model->getList($cond));
         $this->display('product');
     }
+
+    /**
+     * 显示所有商品
+     */
+    public function showAll(){
+        $goodsAll=D('Goods')->getAll();
+        $this->assign('goodsAll',$goodsAll);
+        $this->display('search');
+    }
     public function goodsList(){
         if(IS_GET){
             $id=I('get.id');
