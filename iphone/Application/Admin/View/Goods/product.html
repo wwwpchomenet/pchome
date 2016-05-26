@@ -1,6 +1,5 @@
 <extend name='Lyout:comment'/>
       <block name='admin'>
-<body>
 <section> 
   <!-- 头部 -->
   <div class="se_head">
@@ -29,151 +28,129 @@
   </div>
   <div class="pro_right fr"> 
     <!--产品列表-->
-    <div class="pro_lish">
-      <div class="pro_lish_tu fl"> <img src="__IMG__/cpt.jpg"> </div>
-      <div class="pro_lish_text fl">
-        <p class="pro_lish_text_name" >杂七杂八</p>
-        <p class="pro_lish_text_xq id=">产地 ：越南    规格：件</p>
-        <p class="pro_lish_text_xq">用于火锅、煲汤</p>
-        <p class="pro_lish_text_xq">5件起订</p>
-        <p class="pro_lish_text_jiage fr js_danjia">2元/件</p>
-        <div class="se_lish_text_shuliang fl js_num"> <span class="sy_minus fl" >-</span>
-          <input type="text" class="sy_num fl" value="0">
-          <span class="sy_plus fl" id="sy_plus_gid1">+</span>
-        </div>
-      </div>
-    </div>
-      <p style="display:none;" class="js_bb">需支付￥0元</p>
   </div>
   <!-- end --> 
   <!-- 红色区域 -->
-  <div class="cp_dianjick">
-    <p class="pro_jiage fl js_heji">合计金额&nbsp;&nbsp;￥0元</p>
-    <a class="pro_qingdan fl" href="JavaScript:void(0);">加入清单</a> </div>
+    <if condition="(session('user') neq '')">
+        <div class="cp_dianjick">
+            <p class="pro_jiage  fl js_heji">合计金额&nbsp;&nbsp;￥0元</p>
+            <a class="pro_qingdan fl" href="">提交订单</a>
+        </div>
+        <else/>
+        <a class="is_cp_dianjick" href="{:U('index.php/Admin/member/login')}">点击查看商品价格</a>
+    </if>
   <!-- end --> 
   <!-- footer -->
-  <div class="in_footer">
-    <div class="in_footer_lish fl"> <a href="" class="">
-      <div class="in_footer_lish_tu1"></div>
-      <p class="in_footer_lish_zi">首页</p>
-      </a> </div>
-    <div class="in_footer_lish fl"> <a href="{:U('index.php/Admin/Goods/showAll')}" class="in_footer_on">
-      <div class="in_footer_lish_tu2"></div>
-      <p class="in_footer_lish_zi">全部商品</p>
-      </a> </div>
-    <div class="in_footer_lish fl"> <a href="{:U('index.php/Admin/GoodsList/getList')}" class="">
-      <div class="in_footer_lish_tu3"></div>
-      <p class="in_footer_lish_zi">订货清单</p>
-      </a> </div>
-    <div class="in_footer_lish fl"> <a href="" class="">
-      <div class="in_footer_lish_tu4"></div>
-      <p class="in_footer_lish_zi">我的帐号</p>
-      </a> </div>
-  </div>
+
   <!-- end --> 
 </section>
-     <script type="text/javascript">
-        
-        $(function(){
-           //------------一级菜单点击事件-----------------
-            $('.category').on('click',show);
-              //-----------------三级菜单获取数据--------------
-            $('div').on('click','.pro_left_lish',function(){
-                ids=$(this).prop('id');
-            });
-           
-           id=$('ul').find('li')[0].id;//ok
-           ids =$('.pro_left_lish').attr('id');
-           first_menu();
-           function show(){
-            //给点击增加class属性,然后移除
-            $(this).attr('class','se_cpname_on').siblings().removeClass('se_cpname_on');
-            //定义(获取到)id值
-            id = $('.se_cpname_on').attr('id');
-           //通过ajax获取数据
-            first_menu();
-         }
-         //-------------------------二级分类列表------------------------------
-         function first_menu(){
-             $.getJSON("{:U('index.php/Admin/Goods/second')}",{ 'id': id},function(data){
-                //移除数据
-                $('.pro_left').children().remove();
-                //循环数据,拼凑字符串,并增加到元素中
-                for(var i = 0;i<data.length;i++){
-                    var zhi = "<div class='pro_left_lish' id = "+ "'"+data[i]['id']+"'"+">"+"<a href='javascript:void(0);'>"+data[i]['name']+"</a></div>";
-                    $('.pro_left').append(zhi);
-                };
-                //点击二级菜单,增加和删除元素
-                $('.pro_left_lish').on('click',function(){
-                    $(this).children().attr('class','pro_on').parent().siblings().children().removeClass('pro_on');
-                    var id=$(this).attr('id');
-                    $.getJSON("{:U('index.php/Admin/Goods/goodsList')}",{ 'id': id},function(data){
-                        fordata(data);
-                    });
+      </block>
+    <block name="js">
+        <script type="text/javascript">
+
+            $(function(){
+                //------------一级菜单点击事件-----------------
+                $('.category').on('click',show);
+                //-----------------三级菜单获取数据--------------
+                $('div').on('click','.pro_left_lish',function(){
+                    ids=$(this).prop('id');
                 });
-           });
-         }
+
+                id=$('ul').find('li')[0].id;//ok
+                ids =$('.pro_left_lish').attr('id');
+                first_menu();
+                function show(){
+                    //给点击增加class属性,然后移除
+                    $(this).attr('class','se_cpname_on').siblings().removeClass('se_cpname_on');
+                    //定义(获取到)id值
+                    id = $('.se_cpname_on').attr('id');
+                    //通过ajax获取数据
+                    first_menu();
+                }
+                //-------------------------二级分类列表------------------------------
+                function first_menu(){
+                    $.getJSON("{:U('index.php/Admin/Goods/second')}",{ 'id': id},function(data){
+                        //移除数据
+                        $('.pro_left').children().remove();
+                        //循环数据,拼凑字符串,并增加到元素中
+                        for(var i = 0;i<data.length;i++){
+                            var zhi = "<div class='pro_left_lish' id = "+ "'"+data[i]['id']+"'"+">"+"<a href='javascript:void(0);'>"+data[i]['name']+"</a></div>";
+                            $('.pro_left').append(zhi);
+                        };
+                        //点击二级菜单,增加和删除元素
+                        $('.pro_left_lish').on('click',function(){
+                            $(this).children().attr('class','pro_on').parent().siblings().children().removeClass('pro_on');
+                            var id=$(this).attr('id');
+                            $.getJSON("{:U('index.php/Admin/Goods/goodsList')}",{ 'id': id},function(data){
+                                fordata(data);
+                            });
+                        });
+                    });
+                }
                 $.getJSON("{:U('index.php/Admin/Goods/goodsList')}",{ 'id':8},function(data){
                     fordata(data);
                 });
-            /**
-             * 点击按钮 添加清单列表
-             */
-            $('.pro_qingdan').live('click',function(){
-                var data={};
-                $('.pro_lish').each(function(k,v){
-                    if($(this).children().children().children('input').val()>0){
-                    data[k]={'member_id':'<?php echo session("user")["id"] ?>','goods_id':$(this).children().children('input').val(),'num':$(this).children().children().children('input').val()};
-                    }
-                })
-                $.post("{:U('index.php/Admin/GoodsList/add')}",data,function(data){
-                    if(data){
-                        alert('添加成功');
-                    }else{
-                        alert('请选择数量');
-                    }
+                /**
+                 * 点击按钮 添加清单列表
+                 */
+                $('.pro_qingdan').live('click',function(){
+                    var data={};
+                    $('.pro_lish').each(function(k,v){
+                        if($(this).children().children().children('input').val()>0){
+                            data[k]={'member_id':'<?php echo session("user")["id"] ?>','goods_id':$(this).children().children('input').val(),'num':$(this).children().children().children('input').val()};
+                        }
+                    });
+                    $.post("{:U('index.php/Admin/GoodsList/add')}",data,function(da){
+                        console.debug(data);
+                        if(da){
+                            alert(da+'添加成功');
+                        }else{
+                            alert(da+'请选择数量');
+                        }
+                    });
                 });
-            });
-            //循环分类数据
-            function fordata(data){
-                $('.pro_right').children().remove();
-                for(var i=0;i<data.length;i++){
-                    var div='  <div class="pro_lish">';
-                    div+='  <div class="pro_lish_tu fl"> <img src="__UPLOAD_URL_PREFIX__/'+data[i]["logo"]+'"> </div>';
-                    div+='  <div class="pro_lish_text fl">';
-                    div+='    <p class="pro_lish_text_name">'+data[i]["name"]+'</p>';
-                    div+='   <p class="pro_lish_text_xq">产地 ：'+data[i]["origin"]+'    规格:'+data[i]["norintro"]+'</p>';
-                    div+='   <p class="pro_lish_text_xq">'+data[i]["content"]+'</p>';
-                    div+='   <p class="pro_lish_text_xq">5件起订</p>';
-                    div+='  <p class="pro_lish_text_jiage fr js_danjia">'+data[i]["market_price"]+'</p><input type="hidden" name="id" value="'+data[i]["id"]+'" />';
-                    div+='  <div class="se_lish_text_shuliang fl js_num"> <span class="sy_minus fl" id="sy_minus_gid1">-</span>';
-                    div+='       <input type="text" name="num" class="sy_num fl" value="0">';
-                    div+='          <span class="sy_plus fl" id="sy_plus_gid1">+</span>';
-                    div+='   </div>';
-                    div+='     <p style="display:none;" class="js_bb">需支付￥0元</p>';
-                    div+='  </div></div>';
-                    $('.pro_right').append(div);
+                //循环分类数据
+                function fordata(data){
+                    $('.pro_right').children().remove();
+                    for(var i=0;i<data.length;i++){
+                        var div='  <div class="pro_lish">';
+                        div+='  <div class="pro_lish_tu fl"> <img src="__UPLOAD_URL_PREFIX__/'+data[i]["logo"]+'"> </div>';
+                        div+='  <div class="pro_lish_text fl">';
+                        div+='    <p class="pro_lish_text_name">'+data[i]["name"]+'</p>';
+                        div+='   <p class="pro_lish_text_xq">产地 ：'+data[i]["origin"]+'    规格:'+data[i]["norintro"]+'</p>';
+                        div+='   <p class="pro_lish_text_xq">'+data[i]["content"]+'</p>';
+                        div+='   <p class="pro_lish_text_xq">5件起订</p>';
+                        <if condition="(session('user') neq '')">
+                            div+='  <p class="pro_lish_text_jiage fr js_danjia">￥'+data[i]["market_price"]+'元</p>';
+                        </if>
+                        div+='<input type="hidden" name="id" value="'+data[i]["id"]+'" />';
+                        div+='  <div class="se_lish_text_shuliang fl js_num"> <span class="sy_minus fl" id="sy_minus_gid1">-</span>';
+                        div+='       <input type="text" name="num" class="sy_num fl" value="0">';
+                        div+='          <span class="sy_plus fl" id="sy_plus_gid1">+</span>';
+                        div+='   </div>';
+                        div+='     <p style="display:none;" class="js_bb">需支付￥0元</p>';
+                        div+='  </div></div>';
+                        $('.pro_right').append(div);
+                    }
                 }
-            }
-         //---------------------------------------------
-          function second_menu(){
-             $.getJSON("{:U('index.php/Admin/Goods/second')}",{ 'id': id},function(data){
-                //移除数据
-                $('.pro_left').children().remove();
-                //循环数据,拼凑字符串,并增加到元素中
-                for(var i = 0;i<data.length;i++){
-                    var zhi = "<div class='pro_left_lish' id = "+ "'"+data[i]['id']+"'"+">"+"<a href='javascript:void(0);'>"+data[i]['name']+"</a></div>";
-                    $('.pro_left').append(zhi);
-                };
-                //点击二级菜单,增加和删除元素
-                $('.pro_left_lish').on('click',function(){
-                    $(this).children().attr('class','pro_on').parent().siblings().children().removeClass('pro_on');
-                });
-           });
-         }
-        });
-    </script>
-</body>
-</block>
+                //---------------------------------------------
+                function second_menu(){
+                    $.getJSON("{:U('index.php/Admin/Goods/second')}",{ 'id': id},function(data){
+                        //移除数据
+                        $('.pro_left').children().remove();
+                        //循环数据,拼凑字符串,并增加到元素中
+                        for(var i = 0;i<data.length;i++){
+                            var zhi = "<div class='pro_left_lish' id = "+ "'"+data[i]['id']+"'"+">"+"<a href='javascript:void(0);'>"+data[i]['name']+"</a></div>";
+                            $('.pro_left').append(zhi);
+                        };
+                        //点击二级菜单,增加和删除元素
+                        $('.pro_left_lish').on('click',function(){
+                            $(this).children().attr('class','pro_on').parent().siblings().children().removeClass('pro_on');
+                        });
+                    });
+                }
+            });
+        </script>
+    </block>
     
 

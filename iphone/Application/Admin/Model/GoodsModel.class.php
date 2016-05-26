@@ -26,8 +26,20 @@ class GoodsModel extends Model{
     public function getList($id){
         return $this->where(array('goods_category_id'=>$id))->order("inputtime desc")->select();
     }
+
+    /**
+     * 根据 条件模糊查询   或者查询所有商品
+     * @return 商品的所有查询结果
+     */
     public function getAll(){
-        dump($this->order('desc')->limit(1000)->select());exit;
-        return $this->order('desc')->limit(1000)->select();
+        if(IS_GET){
+            $name=I('get.name');
+            $where['name']=array('like',"%$name%");
+            $search=$this->order('inputtime desc')->limit(1000)->where($where)->select();
+            if($search){
+                return $search;
+            }
+        }
+        return $this->order('inputtime desc')->limit(1000)->select();
     }
 }

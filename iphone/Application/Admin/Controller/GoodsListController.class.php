@@ -35,10 +35,14 @@ class GoodsListController extends Controller{
         //dump($goodslistModel->getGoodsList(session('user')['id']));echo $goodslistModel->getLastSql();exit;
        return $goodslistModel->getGoodsList(session('user')['id']);
     }
+
+    /**
+     * 点击X时删除清单
+     * @return mixed
+     */
     public function delete(){
         if(IS_GET){
             $goodslistModel=D('GoodsList');
-            dump($goodslistModel->goodsListDelete());
            return $goodslistModel->goodsListDelete();
         }
     }
@@ -47,10 +51,9 @@ class GoodsListController extends Controller{
      * 商品清单入库
      */
     public function add(){
-        if(IS_POST){
-            $data=I('post.');
-            $goodslistModel=D('GoodsList');
-            if($goodslistModel->setGoodsList()) {
+        $data=I('post.');
+        if(shuffle($data)===true){
+            if(M('GoodsList')->addAll($data)) {
                 echo 1;
             }
         }

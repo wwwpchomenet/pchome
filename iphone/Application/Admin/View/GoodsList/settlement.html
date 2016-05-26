@@ -1,18 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8">
-<meta content="width=device-width,user-scalable=no,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" name="viewport">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<title></title>
-<meta name="keywords" content="">
-<meta name="description" content="">
-<link rel="stylesheet" href="__CSS__/index.css" />
-<script src="__JS__/jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
-<script src="__JS__/TouchSlide.1.1.js" type="text/javascript" charset="utf-8"></script>
-<script src="__JS__/public.js" type="text/javascript" charset="utf-8"></script>
-</head>
-<body>
+<extend name='Lyout:comment'/>
+<block>
+    <css href="__CSS__/index.css" />
+</block>
+<block name='admin'>
 <section>
   <div class="set_con">
       <div class="set_head">
@@ -61,58 +51,43 @@
       </div>
   </div>
   <div class="cp_dianjick">
-    <p class="pro_jiage fl">合计金额：<span style="color:red;">￥1800</span></p>
+    <p class="pro_jiage fl">总金额为:<span style="color:red;"></span></p>
     <a class="pro_qingdan fl" href="">提交订单</a> 
   </div>
-  <!-- footer -->
-  <div class="in_footer">
-  	<div class="in_footer_lish fl">
-    	<a href="" class="">
-        	<div class="in_footer_lish_tu1"></div>
-            <p class="in_footer_lish_zi">首页</p>
-        </a>
-    </div>
-    <div class="in_footer_lish fl">
-    	<a href="" class="">
-        	<div class="in_footer_lish_tu2"></div>
-            <p class="in_footer_lish_zi">全部商品</p>
-        </a>
-    </div>
-    <div class="in_footer_lish fl">
-    	<a href="" class="in_footer_on">
-        	<div class="in_footer_lish_tu3"></div>
-            <p class="in_footer_lish_zi">订货清单</p>
-        </a>
-    </div>
-    <div class="in_footer_lish fl">
-    	<a href="" class="">
-        	<div class="in_footer_lish_tu4"></div>
-            <p class="in_footer_lish_zi">我的帐号</p>
-        </a>
-    </div>
-  </div>
-  <!-- end -->
 </section>
-</body>
-<script type="text/javascript" charset="utf-8">
-    //事件绑定,当点击×的时候将div整个移除
-    $('.set_cplish').children('a').on('click',function(){
-        var node = $(this);
-        var gallery_id = node.attr('data');
-        var flag = true;//是否要删除div
-        if(gallery_id){
-            var url = '{:U("index.php/admin/GoodsList/delete")}';
-            var data = {id:gallery_id};
-            $.get(url,data,function(response){
+</block>
+<block name="js">
+    <script type="text/javascript" charset="utf-8">
+        var sum=0;
+        //事件绑定,当点击×的时候将div整个移除
+        $('.set_cplish').children('a').on('click',function(){
+            var node = $(this);
+            var gallery_id = node.attr('data');
+            var flag = true;//是否要删除div
+            if(gallery_id){
+                var url = '{:U("index.php/admin/GoodsList/delete")}';
+                var data = {id:gallery_id};
+                $.get(url,data,function(response){
+                    node.parent().remove();
+
+                    $('.set_cplish_text_title_2').each(function(){
+                        var s=parseInt($(this).text().substring(1));
+                        sum=s+sum;
+                    });
+                    $('.pro_jiage').children().text(sum);
+                });
+            }else{
                 node.parent().remove();
-                console.debug(response);
-                if(response==1){
-                 node.parent().remove();
-                }
+            }
+        });
+        $(function(){
+            $('.set_cplish_text_title_2').each(function(){
+                var s=parseInt($(this).text().substring(1));
+                sum=s+sum;
             });
-        }else{
-            node.parent().remove();
-        }
-    });
-</script>
-</html>
+            $('.pro_jiage').children().text(sum);
+        });
+
+    </script>
+</block>
+
