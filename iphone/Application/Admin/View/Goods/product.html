@@ -31,7 +31,7 @@
   </div>
   <!-- end --> 
   <!-- 红色区域 -->
-    <if condition="(session('user') neq '')">
+    <if condition="(session('MEMBER_INFO') neq '')">
         <div class="cp_dianjick">
             <p class="pro_jiage  fl js_heji">合计金额&nbsp;&nbsp;￥0元</p>
             <a class="pro_qingdan fl" href="">提交订单</a>
@@ -120,7 +120,7 @@
                         div+='   <p class="pro_lish_text_xq">产地 ：'+data[i]["origin"]+'    规格:'+data[i]["norintro"]+'</p>';
                         div+='   <p class="pro_lish_text_xq">'+data[i]["content"]+'</p>';
                         div+='   <p class="pro_lish_text_xq">5件起订</p>';
-                        <if condition="(session('user') neq '')">
+                        <if condition="(session('MEMBER_INFO') neq '')">
                             div+='  <p class="pro_lish_text_jiage fr js_danjia">￥'+data[i]["market_price"]+'元</p>';
                         </if>
                         div+='<input type="hidden" name="id" value="'+data[i]["id"]+'" />';

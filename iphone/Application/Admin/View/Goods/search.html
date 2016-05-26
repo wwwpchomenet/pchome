@@ -31,7 +31,7 @@
                     <input type="text" class="sy_num fl" type="text" value="0"/>
                     <span class="sy_plus fl" id="sy_plus_gid1">+</span>
                 </div>
-                <if condition="(session('user') neq '')">
+                <if condition="(session('MEMBER_INFO') neq '')">
                 <p class="se_lish_text_jiage fl">{:$goodsAll['market_price']}元<span>/件</span> </p>
                     </if>
             </div>
@@ -41,7 +41,7 @@
    </div>
   <!-- end -->
   <!-- 红色区域 -->
-    <if condition="(session('user') neq '')">
+    <if condition="(session('MEMBER_INFO') neq '')">
         <div class="cp_dianjick">
             <p class="pro_jiage  fl js_heji">合计金额&nbsp;&nbsp;￥0元</p>
             <a class="pro_qingdan fl" href="">提交订单</a>
