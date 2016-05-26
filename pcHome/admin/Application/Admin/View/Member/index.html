@@ -1,0 +1,62 @@
+<extend name="Lyout:comment"/>
+<block name="admin">
+<h1>
+    <span class="action-span"><a href="{:U('add')}">增加代理商</a></span>
+    <span class="action-span1"><a href="{:U('index/index')}">重庆火锅国际供应链股份有限公司   管理中心</a></span>
+    <span id="search_id" class="action-span1"> - <a href="{:U('index')}">{$meta_titles}</a> </span>
+    <div style="clear:both"></div>
+</h1>
+<div class="form-div">
+    <form action="" method="get" name="searchForm">
+    <img src="__IMG__/icon_search.gif" width="26" height="22" border="0" alt="search" />
+    <input type="text" name="search" size="15" />
+    <input type="submit" value=" 搜索 " class="button" />
+    </form>
+</div>
+<form method="post" action="" name="listForm">
+    <div class="list-div" id="listDiv">
+        <table cellpadding="3" cellspacing="1">
+            <tr>
+                <th>代理商名称</th>
+                <th>手机</th>
+                <th>地址</th>
+                <th>加入时间</th>
+             
+                <th>审核</th>
+                <th>操作</th>
+            </tr>
+            <foreach name='rows' item='row'>
+                <tr>
+                    <td class="first-cell">{$row.name}</td>
+                    <td align="center">{$row.tel}</td>
+                    <td align="center">{$row.province_id}{$row.city_id}{$row.area_id}</td>
+                    <td align="center">{$row.add_time}</td>
+                   
+                    <td align="center">
+              
+                <if condition="$row['status'] eq 1 ">
+                   审核通过
+                    <elseif condition="$row['status'] eq -1"/>
+                    待审核
+                    <else /> 
+                   审核未通过(编辑审核)
+                </if>
+               </td>
+                    <td align="center">
+                        <a href="{:U('edit',array('id'=>$row['id']))}" title="编辑">编辑</a> |
+                        <a href="{:U('remove',array('id'=>$row['id']))}" title="移除">移除</a>
+                    </td>
+                </tr>
+            </foreach>
+            <tr>
+                <td align="right" nowrap="true" colspan="6">
+                    <div class='page'>
+                        {$show_page}
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</form>
+</block>
+<block name="footer"></block>

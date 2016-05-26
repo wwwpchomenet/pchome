@@ -1,0 +1,191 @@
+<extend name="Lyout:comment"/>
+<block name='js'>
+    <js href='__UEDITOR__/ueditor.config.js'/>
+    <js href='__UEDITOR__/ueditor.all.min.js'/>
+    <js href='__UEDITOR__/lang/zh-cn/zh-cn.js'/>
+    <js href='__JS__/jquery-1.11.2.js'/>
+     <script type='text/javascript'>
+       var ue = UE.getEditor('editor');
+ </script>
+ <script type='text/javascript'>
+      $(function(){
+            //三级联动
+            //切换省份的时候
+            var province_node = $('.province_id');
+            var city_node = $('.city_id');
+            var area_node = $('.area_id');
+            var url = '{:U("getListByParentId")}';//获取下级的地址
+            province_node.change(function(){
+                //发送ajax请求,获取市级菜单.
+                city_node.get(0).length=1;
+                area_node.get(0).length=1;
+                show_sub_location($(this).val(),city_node);
+            });
+            //切换市的时候
+            city_node.change(function(){
+                //发送ajax请求,获取市级菜单.
+                area_node.get(0).length=1;
+                show_sub_location($(this).val(),area_node);
+            });
+            
+            /**
+             * 展示下级城市
+             * @param integer       parent_id
+             * @param jquery-object show_node
+             * @returns null
+             */
+            function show_sub_location(parent_id,show_node){
+                var data = {parent_id:parent_id};
+                //发送请求
+                $.getJSON(url,data,function(response){
+                    //将json解析添加到控件中去
+                    $(response).each(function(){
+                        var html = '<option value="'+this.id+'">'+this.name+'</option>';
+                        $(html).appendTo(show_node);
+                    });
+                });
+            }
+            
+            //事件委托
+            $('#location').on('change','select',save_address_name);
+            
+            function save_address_name(){
+                var province_name = $('.province_id').find('option:checked').text();
+                $('#province_name').val(province_name);
+                var city_name = $('.city_id').find('option:checked').text();
+                $('#city_name').val(city_name);
+                var area_name = $('.area_id').find('option:checked').text();
+                $('#area_name').val(area_name);
+            }
+            
+            
+            //-------------------------------
+          <notempty name="row">
+            //1.回显省份
+            
+            var data = { 
+                parent_id:{$row.province_id}
+            };
+            console.debug(data);
+            $.getJSON(url,data,function(city_list){
+                //发送ajax请求,获取市级菜单.
+                city_node.get(0).length=1;
+                area_node.get(0).length=1;
+                //取得市级菜单
+                //将json解析添加到控件中去
+                $(city_list).each(function(){
+                    var html = '<option value="'+this.id+'">'+this.name+'</option>';
+                    $(html).appendTo(city_node);
+                });
+                
+                var data = {
+                    parent_id:{$row.city_id}
+                };
+                $.getJSON(url,data,function(area_list){
+                    $(area_list).each(function(){
+                        var html = '<option value="'+this.id+'">'+this.name+'</option>';
+                        $(html).appendTo(area_node);
+                    });
+                    
+                    //回显数据
+                    province_node.val([{$row.province_id}]);
+                    city_node.val([{$row.city_id}]);
+                    area_node.val([{$row.area_id}]);
+                    $('#is_default').val([{$row.is_default}]);
+                    save_address_name();
+                });
+            });
+        </notempty>
+         });
+ </script>
+</block>
+
+<block name="admin">
+   
+<h1>
+    <span class="action-span"><a href="index.html">代理商管理</a></span>
+    <span class="action-span1"><a href="{:U('index/index')}">火锅国际供应链股份有限公司</a></span>
+    <span id="search_id" class="action-span1"> - {$meta_titles} </span>
+    <div style="clear:both"></div>
+</h1>
+<div class="main-div">
+    <form method="post" action="{:U()}"enctype="multipart/form-data" >
+        <table cellspacing="1" cellpadding="3" width="100%">
+            <tr>
+                <td class="label">代理商名称</td>
+                <td>
+                    <input type="text" name="name" maxlength="60" value="{$row.name}" />
+                    <span class="require-field">*</span>
+                </td>
+            </tr>
+             <tr>
+                <td class="label">门店名（招牌）</td>
+                <td>
+                    <input type="text" name="brand" maxlength="60" value="{$row.brand}" />
+                    <span class="require-field">*</span>
+                </td>
+            </tr>
+             <tr>
+                <td class="label">手机号码</td>
+                <td>
+                    <input type="text" name="tel" maxlength="60" value="{$row.tel}" />
+                    <span class="require-field">*</span>
+                </td>
+            </tr>
+             <tr>
+                <td class="label">地址{$cond['city_id']}</td>
+                <td>
+<!--                    <input type="text" name="name" maxlength="60" value="{$row.tel}" />-->
+                      {:arr2select($provinces,'province_id','id','name')}
+                      {:arr2select([],'city_id','id','name')}
+                      {:arr2select([],'area_id','id','name')}
+                    <span class="require-field">*</span>
+                    <a href="index.html"></a>
+                </td>
+            </tr>
+             <tr>
+                <td class="label">详细地址</td>
+                <td>
+                    <input type="text" name="address"  size="60"   value="{$row.address}" />
+                </td>
+            </tr>
+            <tr>
+                <td class="label">详细描述</td>
+                <td>
+                    <textarea  name="information" id="editor" cols="60" rows="4"  >{$row.information}</textarea>
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="label">审核</td>
+            <a href="../Agent/add.html"></a>
+                <td>
+                    <input type="radio" name="status" <if condition="$row.status eq 1">checked</if> value="1"/>   通过 
+                    <a href="../Agent/add.html"></a>
+                    <input type="radio" name="status" <if condition="$row.status eq 0">checked</if> value="0"  /> 未通过
+                     <input type="radio" name="status" <if condition="$row.status eq -1">checked</if> value="-1"/> 待审核
+                </td>
+            </tr>
+            <a href="index.html"></a>
+            
+            <tr>
+                <td class="label">会员等级</td>
+                <td>
+                    <input type="radio" name="rank" <if condition="$row.rank eq 1">checked</if> value="1"/>   普通会员 
+                    <input type="radio" name="rank" <if condition="$row.rank eq 2">checked</if> value="2"  /> 中级会员
+                     <input type="radio" name="rank" <if condition="$row.rank eq 3">checked</if> value="3"/> 高级会员
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center"><br />
+                    <input type="hidden" name='id' value="{$row.id}" />
+                    <input type="submit" class="button" value=" 确定 " />
+                    <input type="reset" class="button" value=" 重置 " />
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+</block>
+<block name='footer'></block>
+

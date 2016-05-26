@@ -3,7 +3,7 @@ define('DOMAIN', 'http://www.wap.com/iphone');
 return array(
     //'配置项'=>'配置值'
     'DB_TYPE' => 'mysqli', // 数据库类型
-    'DB_HOST' => '192.168.1.100', // 服务器地址
+    'DB_HOST' => 'localhost', // 服务器地址
     'DB_NAME' => 'wap', // 数据库名
     'DB_USER' => 'root', // 用户名
     'DB_PWD' => '123456', // 密码
@@ -32,6 +32,7 @@ return array(
         '__UPLOAD_URL_PREFIX__'=>"http://www.wap.com/Uploads",
         '__EXT__'=>DOMAIN."/Public/ext",
         '__UPLOADS__'=>"http://www.wap.com/Uploads",
+        
     ),
     'CAPTCHA_SETTING'   =>array(   //验证码长度
         'length' => 4,

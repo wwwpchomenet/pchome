@@ -27,12 +27,10 @@ class UploadsController extends \Think\Controller {
         //2.执行上传
         $file_info = $upload->upload($_FILES);
         $file_url = $file_info['file']['savepath'].$file_info['file']['savename'];
-
         //3.返回上传的结果
         $return = array(
             'status'     => $file_info ? 1 : 0,//判断是否成功
             'file_url'   => $file_url,//路径
-//            'url_prefix' => $config['URL_PREFIX'],
             'file_info'  => $file_info
         );
         $this->ajaxReturn($return);

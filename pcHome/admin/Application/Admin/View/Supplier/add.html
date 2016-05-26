@@ -1,0 +1,129 @@
+<extend name='Lyout:comment'/>
+<block name="css">
+    <css href="__ZTREE__/css/zTreeStyle/zTreeStyle.css"/>
+    <css href="__UPLOADIFY__/uploadify.css"/>
+   
+    <style type="text/css">
+        .upload-pre-item img{
+            width:150px;
+        }
+
+        .upload-pre-item{
+            display:inline-block;
+        }
+
+        .upload-pre-item a{
+            position:relative;
+            top:5px;
+            right:15px;
+            float:right;
+            color:red;
+            font-size:16px;
+            text-decoration:none;
+        }
+        
+        ul.ztree{
+            margin-top: 10px;
+            border: 1px solid #617775;
+            background: #f0f6e4;
+            width: 220px;
+            overflow-y: scroll;
+            overflow-x: auto;
+        }
+    </style>
+
+</block>
+<block name='js'>
+    <js href='__JS__/jquery.min.js'/>
+     <js href='__UPLOADIFY__/jquery.uploadify.min.js'/>
+    <js href='__LAYER__/layer.js'/>
+     <script type='text/javascript'>
+        //---------------商品相册-------------------
+        $('#gallery-upload').uploadify({
+            'buttonText':'选择文件',
+            'fileObjName':'file',
+            'swf'      : '__UPLOADIFY__/uploadify.swf',
+            'uploader' : '{:U("Uploads/upload",array("file"=>"BrandDisplay"))}',
+            'onUploadSuccess':function(file_node,data){
+                //将返回的字符串转为json对象
+                data = $.parseJSON(data);
+                if(data.status){
+                    //成功了,将文件地址存到隐藏域中
+                    var upload_img_box = $('.upload-img-box');
+                    var html = '';
+                    html += '<div class="upload-pre-item">';
+                    html += '<input type="hidden" name="path[]" value="'+data.file_url+'"/>';
+                    html += '<img src="__UPLOAD_URL_PREFIX__/'+data.file_url+'"/>';
+                    html += '<a href="javascript:void(0);">×</a>';
+                    html += '</div>';
+                    $(html).appendTo(upload_img_box);
+                    layer.msg('上传成功',{icon:6});
+                }else{
+                    layer.msg(data.msg,{icon:5});
+                }
+            },
+            
+        });
+        
+        //事件绑定,当点击×的时候将div整个移除
+        $('.upload-img-box').on('click','.upload-pre-item a',function(){
+            var node = $(this);
+            var gallery_id = node.attr('data');
+            var flag = true;//是否要删除div
+            if(gallery_id){
+                var url = '{:U("GoodsGallery/delete")}';
+                var data = {id:gallery_id};
+                $.getJSON(url,data,function(response){
+                    if(response.status){
+                        node.parent().remove();
+                    }
+                });
+            }else{
+                node.parent().remove();
+            }
+
+        });
+    </script>
+</block>
+<block name='admin'>
+    <h1>
+        <span class="action-span"><a href="{:U('index')}">商品列表</a>
+        </span>
+        <span class="action-span1"><a href="{:U('Goods/index')}">重庆火锅国际供应链股份有限公司   管理中心</a></span>
+        <span id="search_id" class="action-span1"> - {$meta_title} </span>
+        <div style="clear:both"></div>
+    </h1>
+
+    <div class="tab-div">
+        <div id="tabbody-div">
+            <form enctype="multipart/form-data" action="{:U('add')}" method="post" class="form1">
+                <table width="90%" id="general-table" align="center">
+                    <tr>
+
+                        <td align="center">
+                             <div class="upload-img-box">
+                                <foreach name='row.paths' item='path'>
+                                    <div class="upload-pre-item">
+                                        <img src="__UPLOAD_URL_PREFIX__/{$path.path}"/>
+                                        <a href="javascript:;" data='{$path.id}'>×</a>
+                                    </div>
+                                </foreach>
+                            </div>
+                            <div>
+                                <input type="file" id='gallery-upload'/>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center">
+                            <div class="button-div">
+                                <input type="submit" value=" 确定 " class="button"/>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+
+            </form>
+        </div>
+    </div>
+</block>
