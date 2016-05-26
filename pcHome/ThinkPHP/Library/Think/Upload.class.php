@@ -127,6 +127,7 @@ class Upload {
 
         /* 检测上传根目录 */
         if(!$this->uploader->checkRootPath($this->rootPath)){
+
             $this->error = $this->uploader->getError();
             return false;
         }

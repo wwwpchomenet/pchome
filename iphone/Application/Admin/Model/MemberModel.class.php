@@ -1,5 +1,4 @@
 <?php
-<<<<<<< HEAD
 
 /**
  * Description:
@@ -18,17 +17,17 @@ class MemberModel extends \Think\Model{
      */
     protected $_validate = [
         ['name', 'require', '用户名必填', self::EXISTS_VALIDATE, '', self::MODEL_INSERT],
-        ['name', '2,16', '用户名长度应该在2-16位', self::EXISTS_VALIDATE, 'length', self::MODEL_INSERT],
+       ['name', '2,16', '用户名长度应该在2-16位', self::EXISTS_VALIDATE, 'length', self::MODEL_INSERT],
          ['tel', 'require', '手机号码必填', self::EXISTS_VALIDATE, '', self::MODEL_INSERT],
-         ['peimit', 'require', '营业执照必填', self::EXISTS_VALIDATE, '', self::MODEL_INSERT],
-        ['tel', '', '手机号码已存在,请直接登录', self::EXISTS_VALIDATE, 'unique', self::MODEL_INSERT],
+        ['peimit', 'require', '营业执照必填', self::EXISTS_VALIDATE, '', self::MODEL_INSERT],
+       ['tel', '', '手机号码已存在,请直接登录', self::EXISTS_VALIDATE, 'unique', self::MODEL_INSERT],
         ['tel', '/^(13|14|15|17|18)\d{9}$/', '手机号码不合法', self::EXISTS_VALIDATE, 'regex', self::MODEL_INSERT],
-        ['captcha', 'checkPhoneCode', '手机验证码不正确', self::EXISTS_VALIDATE, 'callback', self::MODEL_INSERT],
+       ['captcha', 'checkPhoneCode', '手机验证码不正确', self::EXISTS_VALIDATE, 'callback', self::MODEL_INSERT],
         ['password', 'require', '密码必填', self::EXISTS_VALIDATE, '', self::MODEL_INSERT],
         ['password', '6,16', '密码长度应该在6-16位', self::EXISTS_VALIDATE, 'length', self::MODEL_INSERT],
-        ['repassword', 'password', '两次密码不一致', self::EXISTS_VALIDATE, 'confirm', self::MODEL_INSERT],
+       ['repassword', 'password', '两次密码不一致', self::EXISTS_VALIDATE, 'confirm', self::MODEL_INSERT],
         ['tel', 'require', '手机号码必填', self::MUST_VALIDATE, '', 'login'],
-//        ['password', 'require', '密码错误', self::MUST_VALIDATE, '', 'login'],
+       ['password', 'require', '密码错误', self::MUST_VALIDATE, '', 'login'],
     ];
    
     /**
@@ -36,8 +35,8 @@ class MemberModel extends \Think\Model{
      * 
      */
     protected $_auto = [
-        ['salt', 'Org\Util\String::randString', self::MODEL_INSERT, 'function'],
-        ['add_time', NOW_TIME, self::MODEL_INSERT],
+//        ['salt', 'Org\Util\String::randString', self::MODEL_INSERT, 'function'],
+          ['add_time', NOW_TIME, self::MODEL_INSERT],
     ];
     /**
      * 验证手机验证码.
@@ -54,12 +53,17 @@ class MemberModel extends \Think\Model{
         $request_data = $this->data;
         $tel = $request_data['tel'];
         cookie('TEL',$tel);
-        $this->data['password'] = salt_password($this->data['password'], $this->data['salt']);
+//        dump($this->data['password']);
+//        dump($this->data['salt']);
+       // $this->data['password'] = salt_password($this->data['password'], $this->data['salt']);
+//        dump( $this->data['password']);
+        $this->data['password']=  md5($this->data['password']);
           if (($member_id = $this->add()) === false) {
             return false;
         }
         return true;
     }
+       
     /**
      * 1.验证验证码[自动验证]
      * 2.用户名和密码必填[自动验证]
@@ -70,30 +74,41 @@ class MemberModel extends \Think\Model{
         //为了安全我们将用户信息都删除
         session('MEMBER_INFO',null);
         $request_data = $this->data;
+//        dump($request_data);
         //1.验证用户名是否存在
-        $userinfo = $this->getField($this->data['tel']);
-        dump($userinfo);
-        exit;
+        $userinfo = $this->getByTel($this->data['tel']);
+//        dump($userinfo);
+//        exit;
         if(empty($userinfo)){
             $this->error = '用户不存在';
             return false;
         }
         //2.进行密码匹配验证
-        $password = salt_password($request_data['password'], $userinfo['salt']);
+//        $password = salt_password($request_data['password'], $userinfo['salt']);
+        $password =  md5($request_data['password']);
         if($password != $userinfo['password']){
+
             $this->error = '密码不正确';
             return false;
         }
+        if($request_data['status'] !== 1){
+//              $this->error = '管理员还没验证';
+           
+            header('./index.php/Admin/Member/registeredOk');
+//            $this->success('/index.php/Admin/Member/registeredOk');
+              return false;
+        }
+        
         //为了后续会话获取用户信息,我们存下来
         session('MEMBER_INFO',$userinfo);
         
-        //保存自动登陆信息
-        $this->_saveToken($userinfo['id']);
-        if($this->_cookie2db() === false){
-            $this->error = '购物车同步失败';
-            return false;
-        }
-        return true;
+//        //保存自动登陆信息
+//        $this->_saveToken($userinfo['id']);
+//        if($this->_cookie2db() === false){
+//            $this->error = '购物车同步失败';
+//            return false;
+//        }
+       return true;
     }
     
     /**
@@ -120,22 +135,3 @@ class MemberModel extends \Think\Model{
         return $token_model->add($data);
     }
 }
-=======
-/**
- * Created by PhpStorm.
- * User: ww
- * Date: 2016/5/25
- * Time: 13:51
- */
-
-namespace Admin\Model;
-
-
-use Think\Model;
-
-class MemberModel extends Model{
-    public function dddd(){
-        return $this->where(array('id'=>12))->select();
-    }
-}
->>>>>>> c8ed767c66dc696ebfd0b38dbf734feeb76beab7

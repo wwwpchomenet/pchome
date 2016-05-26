@@ -3,7 +3,11 @@ define('DOMAIN', 'http://www.wap.com/admin');
 return array(
     //'配置项'=>'配置值'
     'DB_TYPE' => 'mysqli', // 数据库类型
+<<<<<<< HEAD
     'DB_HOST' => 'localhost', // 服务器地址
+=======
+    'DB_HOST' => '192.168.1.103', // 服务器地址
+>>>>>>> c8ed767c66dc696ebfd0b38dbf734feeb76beab7
     'DB_NAME' => 'wap', // 数据库名
     'DB_USER' => 'root', // 用户名
     'DB_PWD' => '123456', // 密码

@@ -1,86 +1,4 @@
  <extend name='Lyout:comment'/>
-<block name="css">
-    <css href="__ZTREE__/css/zTreeStyle/zTreeStyle.css"/>
-    <css href="__UPLOADIFY__/uploadify.css"/>
-   
-    <style type="text/css">
-        .upload-pre-item img{
-            width:150px;
-        }
-
-        .upload-pre-item{
-            display:inline-block;
-        }
-
-        .upload-pre-item a{
-            position:relative;
-            top:5px;
-            right:15px;
-            float:right;
-            color:red;
-            font-size:16px;
-            text-decoration:none;
-        }
-        
-        ul.ztree{
-            margin-top: 10px;
-            border: 1px solid #617775;
-            background: #f0f6e4;
-            width: 220px;
-            overflow-y: scroll;
-            overflow-x: auto;
-        }
-    </style>
-
-</block>
-<block name='js'>
-    <js href='__JS__/jquery.min.js'/>
-     <js href='__UPLOADIFY__/jquery.uploadify.min.js'/>
-  
-     <script type='text/javascript'>
-         //---------------LOGO图片上传------------------
-         $('#logo-upload').uploadify({
-             'buttonText':'上传图片',
-             'fileObjName':'file',
-             'swf'      : '__UPLOADIFY__/uploadify.swf',
-             'uploader' : '{:U("index.php/Admin/Uploads/upload?file=banner")}',
-            'onUploadSuccess':function(file_node,data){
-                //将返回的字符串转为json对象
-                data = $.parseJSON(data);
-                if(data.status){
-                    //成功了,将文件地址存到隐藏域中
-                    var upload_img_box = $('.upload-img-box');
-                    var html = '';
-                    html += '<div class="upload-pre-item">';
-                    html += '<input type="hidden" name="path" value="'+data.file_url+'"/>';
-                    html += '<img src="__UPLOAD_URL_PREFIX__/'+data.file_url+'"/>';
-                    html += '<a href="javascript:void(0);">×</a>';
-                    html += '</div>';
-                    $(html).appendTo(upload_img_box);
-                }
-            }
-         });
-            //------------------------------------------
-            //事件绑定,当点击×的时候将div整个移除
-        $('.upload-img-box').on('click','.upload-pre-item a',function(){
-            var node = $(this);
-            var gallery_id = node.attr('data');
-            var flag = true;//是否要删除div
-            if(gallery_id){
-                var url = '{:U("GoodsGallery/delete")}';
-                var data = {id:gallery_id};
-                $.getJSON(url,data,function(response){
-                    if(response.status){
-                        node.parent().remove();
-                    }
-                });
-            }else{
-                node.parent().remove();
-            }
-        });
-    </script>
-</block>
- 
   <block name="admin">
 <body style="background:#fff;">
 <section> 
@@ -97,26 +15,19 @@
   	<a href="login.html" class="fl">登录</a>
     <a href="registered.html" class="lo_bottom fl">注册</a>
   </div>
- <form action="{:U('index.php/Admin/Member/registeredNext')}" method="post" id='signup'>
-  <div class="reg_registered">
-    <div class="reg_registered_kk"><input type="text" name='name' placeholder="真实姓名" /></div>
-    <div class="reg_registered_kk"><input type="text" name='brand' placeholder="品牌名" /></div>
-    <div class="reg_registered_kk"><input type="text" name='peimit' placeholder="营业执照名" /></div> 
-       <div class="reg_registered_file fl">
-<!--    	<a href="javascript:void(0);" class="link" id='logo-upload'>点击上传营业执照</a>-->
-<!--    	<input type="file" class="uploadFiless" name="upload" onchange="getFile(this,'copyFile')" />-->
- <input type="file" id="logo-upload" />
-<!--<input type="hidden" name="url" id="logo" value="{$row.url}"/>
--->
-<div class="upload-img-box"> </div>
-                            
-                            
+ <form action="{:U('index.php/Admin/Member/registeredNext')}" enctype="multipart/form-data"  method="post" id='signup' >
+    <div class="reg_registered">
+    <div class="reg_registered_kk"><input type="text" placeholder="真实姓名" name='name' /></div>
+    <div class="reg_registered_kk"><input type="text" placeholder="品牌名" name='brand'/></div>
+    <div class="reg_registered_kk"><input type="text" placeholder="营业执照名" name='peimit'/></div> 
+    <div class="reg_registered_file fl">
+<!--    	<a href="javascript:void(0);" class="link">点击上传营业执照</a>-->
+    	<input type="file" class='link'  name='picture' value='上传营业执照' />
     </div>
-    <div class="reg_registered_tu fl"><img src="__IMG__/cpt.jpg" /></div>
+<!--    <div class="reg_registered_tu fl"><img src="images/cpt.jpg" /></div>-->
   </div>
-  <input type='submit' class='lo_anniu' value='确认注册'>
+     <input type='submit' class='lo_anniu' value='确认注册'>
  </form>
- 
 </section>
 </body>
   </block>
