@@ -1,12 +1,12 @@
-<extend name='Lyout:comment'/>
+<extend name='Lyout:menu'/>
       <block name='admin'>
-<section> 
+<section>
   <!-- 头部 -->
   <div class="se_head">
     <div class="se_head_input">
       <div class="se_head_input_tu fl"></div>
       <div class="se_head_input_input fl">
-        <input type="text" />
+        <input type="text" id="search"/>
       </div>
     </div>
   </div>
@@ -34,7 +34,7 @@
     <if condition="(session('MEMBER_INFO') neq '')">
         <div class="cp_dianjick">
             <p class="pro_jiage  fl js_heji">合计金额&nbsp;&nbsp;￥0元</p>
-            <a class="pro_qingdan fl" href="">提交订单</a>
+            <a class="pro_qingdan fl" href="javascript:;">加入清单</a>
         </div>
         <else/>
         <a class="is_cp_dianjick" href="{:U('index.php/Admin/member/login')}">点击查看商品价格</a>
@@ -97,7 +97,7 @@
                     var data={};
                     $('.pro_lish').each(function(k,v){
                         if($(this).children().children().children('input').val()>0){
-                            data[k]={'member_id':'<?php echo session("user")["id"] ?>','goods_id':$(this).children().children('input').val(),'num':$(this).children().children().children('input').val()};
+                            data[k]={'member_id':'<?php echo session("MEMBER_INFO")["id"] ?>','goods_id':$(this).children().children('input').val(),'num':$(this).children().children().children('input').val()};
                         }
                     });
                     $.post("{:U('index.php/Admin/GoodsList/add')}",data,function(da){
@@ -148,6 +148,12 @@
                             $(this).children().attr('class','pro_on').parent().siblings().children().removeClass('pro_on');
                         });
                     });
+                }
+            });
+            $(document).keydown(function(event){
+                var search=$('#search').val();
+                if(event.keyCode==13){
+                    window.location.href='<?php echo U("index.php/admin/Goods/showAll") ?>'+'?name='+search;
                 }
             });
         </script>

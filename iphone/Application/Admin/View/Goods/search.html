@@ -1,4 +1,4 @@
-<extend name='Lyout:comment'/>
+<extend name='Lyout:menu'/>
 <block>
     <css href="__CSS__/index.css" />
 </block>
@@ -8,7 +8,7 @@
   <div class="se_head">
     <div class="se_head_input">
     	<div class="se_head_input_tu fl"></div>
-    	<div class="se_head_input_input fl"><input type="text" name="name" id="search"/>
+    	<div class="se_head_input_input fl"><input type="text" name="name" id="search" value="{:$_GET['name']}"/>
 
         </div>
     </div>
@@ -44,7 +44,7 @@
     <if condition="(session('MEMBER_INFO') neq '')">
         <div class="cp_dianjick">
             <p class="pro_jiage  fl js_heji">合计金额&nbsp;&nbsp;￥0元</p>
-            <a class="pro_qingdan fl" href="">提交订单</a>
+            <a class="pro_qingdan fl" href="">加入清单</a>
         </div>
         <else/>
         <a class="is_cp_dianjick" href="{:U('index.php/Admin/member/login')}">点击查看商品价格</a>
@@ -57,8 +57,27 @@
         $(document).keydown(function(event){
             var search=$('#search').val();
             if(event.keyCode==13){
-                window.location.href='{:U("index.php/admin/Goods/showAll",array("name"=>"+search+"))}';
+                window.location.href='<?php echo U("index.php/admin/Goods/showAll") ?>'+'?name='+search;
             }
+        });
+        /**
+         * 点击按钮 添加清单列表
+         */
+        $('.pro_qingdan').live('click',function(){
+            var data={};
+            $('.pro_lish').each(function(k,v){
+                if($(this).children().children().children('input').val()>0){
+                    data[k]={'member_id':'<?php echo session("MEMBER_INFO")["id"] ?>','goods_id':$(this).children().children('input').val(),'num':$(this).children().children().children('input').val()};
+                }
+            });
+            $.post("{:U('index.php/Admin/GoodsList/add')}",data,function(da){
+                console.debug(data);
+                if(da){
+                    alert(da+'添加成功');
+                }else{
+                    alert(da+'请选择数量');
+                }
+            });
         });
     </script>
 </block>

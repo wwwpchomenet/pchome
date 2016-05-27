@@ -134,7 +134,10 @@ class MemberController extends \Think\Controller {
             if (!$url) {
                 $url = U('Index/index');
             }
-            $this->success('登陆成功', $url);
+            $url=get_url();
+           $url= substr($url,18);
+            $url=explode(".html",$url);
+            $this->success('登陆成功',U($url[0]));
         } else {
             $this->display();
         }

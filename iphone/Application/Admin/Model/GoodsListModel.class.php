@@ -21,7 +21,7 @@ class GoodsListModel extends Model{
      * 添加用户所有清单
      * @return bool|string
      */
-    public function setGoodsList(){
+    public function setGoodsList($data){
         return $this->addAll(I('post.'));
     }
     public function getGoodsList($member_id){

@@ -35,11 +35,11 @@ class GoodsModel extends Model{
         if(IS_GET){
             $name=I('get.name');
             $where['name']=array('like',"%$name%");
-            $search=$this->order('inputtime desc')->limit(1000)->where($where)->select();
+            $search=$this->where($where)->select();
             if($search){
                 return $search;
             }
         }
-        return $this->order('inputtime desc')->limit(1000)->select();
+        return $this->order('inputtime asc')->limit(1000)->select();
     }
 }

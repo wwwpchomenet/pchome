@@ -1,4 +1,4 @@
-<extend name='Lyout:comment'/>
+<extend name='Lyout:menu'/>
 <block>
     <css href="__CSS__/index.css" />
 </block>
@@ -69,23 +69,23 @@
                 var data = {id:gallery_id};
                 $.get(url,data,function(response){
                     node.parent().remove();
-
-                    $('.set_cplish_text_title_2').each(function(){
-                        var s=parseInt($(this).text().substring(1));
+                    $('.set_cplish_text_title_2').each(function(k,v){
+                        var s=parseInt($(v).text().substring(1));
                         sum=s+sum;
                     });
                     $('.pro_jiage').children().text(sum);
                 });
-            }else{
-                node.parent().remove();
+
             }
         });
         $(function(){
+            if($('.pro_jiage').children().text()==''||$('.pro_jiage').children().text()==0){
             $('.set_cplish_text_title_2').each(function(){
                 var s=parseInt($(this).text().substring(1));
                 sum=s+sum;
             });
-            $('.pro_jiage').children().text(sum);
+                $('.pro_jiage').children().text(sum);
+            }
         });
 
     </script>

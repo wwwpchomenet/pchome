@@ -91,13 +91,13 @@ class MemberModel extends \Think\Model{
             $this->error = '密码不正确';
             return false;
         }
-        if($request_data['status'] !== 1){
-//              $this->error = '管理员还没验证';
+        /*if($request_data['status'] !== 1){
+         $this->error = '管理员还没验证';
            
-            header('./index.php/Admin/Member/registeredOk');
+            //header('./index.php/Admin/Member/registeredOk');
 //            $this->success('/index.php/Admin/Member/registeredOk');
               return false;
-        }
+        }*/
         
         //为了后续会话获取用户信息,我们存下来
         session('MEMBER_INFO',$userinfo);

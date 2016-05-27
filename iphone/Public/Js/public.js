@@ -9,8 +9,8 @@ $(document).ready (function ()
             var val = parseFloat (txt.val ());
             val = val < 1 ? 1 : val;
             txt.val (val - 1);
-            var price = parseFloat ($(".js_danjia").text().replace(reg,'$2')) * txt.val ();
-            pc.next(".js_bb").text (pc.next(".js_bb").text().replace(reg, "$1" + price + "$3"));
+            var price = parseFloat (pc.prev(".js_danjia").text().replace(reg,'$2')) * txt.val ();
+			pc.next(".js_bb").text (pc.next(".js_bb").text().replace(reg, "$1" + price + "$3"));
             var sum = 0;
             $(".js_num").next(".js_bb").each(function (i, dom)
             {
@@ -24,7 +24,7 @@ $(document).ready (function ()
             var me = $ (this), txt = me.prev (":text"), pc = me.closest(".js_num");
             var val = parseFloat (txt.val ());
             txt.val (val + 1);
-            var price = parseFloat ($(".js_danjia").text().replace(reg,'$2')) * txt.val ();
+            var price = parseFloat (pc.prev(".js_danjia").text().replace(reg,'$2')) * txt.val ();
 			pc.next(".js_bb").text (pc.next(".js_bb").text().replace(reg, "$1" + price + "$3"));
             var sum = 0;
             $(".js_num").next(".js_bb").each(function (i, dom)
