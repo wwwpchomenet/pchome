@@ -23,9 +23,10 @@
         </div>
             <div class="se_lish_text fl">
                 <p class="se_lish_text_name">{:$goodsAll['name']}</p>
-                <p class="se_lish_text_xq">产地 ：<if condition="($goodsAll['origin'] neq '')"> {:$goodsAll['origin']}</if> 未知 规格：{:$goodsAll['norms']}件</p>
-                <p class="se_lish_text_xq">用于火锅、煲汤</p>
+                <p class="se_lish_text_xq">产地 ：<if condition="($goodsAll['origin'] neq '')" >{:$goodsAll['origin']}<else />  未知 </if> 规格：{:$goodsAll['norms']}件</p>
+                <p class="se_lish_text_xq">{:$goodsAll['intro']}</p>
                 <p class="se_lish_text_xq">{:$goodsAll['norintro']}起订</p>
+                <input type="hidden" name="id" value="{:$goodsAll['id']}" />
                 <div class="se_lish_text_shuliang fl">
                     <span class="sy_minus fl" id="sy_minus_gid1">-</span>
                     <input type="text" class="sy_num fl" type="text" value="0"/>
@@ -44,7 +45,7 @@
     <if condition="(session('MEMBER_INFO') neq '')">
         <div class="cp_dianjick">
             <p class="pro_jiage  fl js_heji">合计金额&nbsp;&nbsp;￥0元</p>
-            <a class="pro_qingdan fl" href="">加入清单</a>
+            <a class="pro_qingdan fl" href="javascirpt:;">加入清单</a>
         </div>
         <else/>
         <a class="is_cp_dianjick" href="{:U('index.php/Admin/member/login')}">点击查看商品价格</a>
@@ -65,13 +66,14 @@
          */
         $('.pro_qingdan').live('click',function(){
             var data={};
-            $('.pro_lish').each(function(k,v){
+            $('.se_lish').each(function(k,v){
                 if($(this).children().children().children('input').val()>0){
                     data[k]={'member_id':'<?php echo session("MEMBER_INFO")["id"] ?>','goods_id':$(this).children().children('input').val(),'num':$(this).children().children().children('input').val()};
                 }
             });
+            console.debug(data);
             $.post("{:U('index.php/Admin/GoodsList/add')}",data,function(da){
-                console.debug(data);
+
                 if(da){
                     alert(da+'添加成功');
                 }else{

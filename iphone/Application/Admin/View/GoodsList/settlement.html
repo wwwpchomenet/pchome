@@ -10,7 +10,7 @@
       </div>
       <foreach name="goodsList" item="goodsList">
       <div class="set_cplish">
-          <a href="javascript:;" data='{:$goodsList['id']}'>×</a>
+          <a href="javascript:;" data="{:$goodsList['id']}">×</a>
         <div class="set_cplish_tu fl"><img src="__UPLOAD_URL_PREFIX__/{:$goodsList['logo']}" /></div>
         <div class="set_cplish_text fl">
             <div class="set_cplish_text_title">
@@ -58,7 +58,6 @@
 </block>
 <block name="js">
     <script type="text/javascript" charset="utf-8">
-        var sum=0;
         //事件绑定,当点击×的时候将div整个移除
         $('.set_cplish').children('a').on('click',function(){
             var node = $(this);
@@ -69,6 +68,7 @@
                 var data = {id:gallery_id};
                 $.get(url,data,function(response){
                     node.parent().remove();
+                    var sum=0;
                     $('.set_cplish_text_title_2').each(function(k,v){
                         var s=parseInt($(v).text().substring(1));
                         sum=s+sum;
@@ -79,6 +79,7 @@
             }
         });
         $(function(){
+            var sum=0;
             if($('.pro_jiage').children().text()==''||$('.pro_jiage').children().text()==0){
             $('.set_cplish_text_title_2').each(function(){
                 var s=parseInt($(this).text().substring(1));

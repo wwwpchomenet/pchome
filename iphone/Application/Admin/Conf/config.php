@@ -32,7 +32,6 @@ return array(
         '__UPLOAD_URL_PREFIX__'=>"http://www.wap.com/Uploads",
         '__EXT__'=>DOMAIN."/Public/ext",
         '__UPLOADS__'=>"http://www.wap.com/Uploads",
-        
     ),
     'CAPTCHA_SETTING'   =>array(   //验证码长度
         'length' => 4,
@@ -58,4 +57,13 @@ return array(
         'savePath' => 'logo/', //保存路径
         'saveName' => array('uniqid', ''), //上传文件命名规则，[0]-函数名，[1]-参数，多个参数使用数组
     ),
+    'LICENSE'      =>array(
+        'maxSize'  => 1024000, //上传的文件大小限制 (0-不做限制)
+        'exts'     => array('jpg', 'jpeg', 'png'), //允许上传的文件后缀
+        'autoSub'  => true, //自动子目录保存文件
+        'subName'  => array('date', 'Ymd'), //子目录创建方式，[0]-函数名，[1]-参数，多个参数使用数组
+        'rootPath' => '../Uploads/', //保存根路径
+        'savePath' => 'license/', //保存路径
+        'saveName' => array('license', ''), //上传文件命名规则，[0]-函数名，[1]-参数，多个参数使用数组
+    )
 );

@@ -21,13 +21,9 @@ class GoodsListController extends Controller{
      * 显示所有商品清单
      */
     public function getList(){
-        if(session('MEMBER_INFO')!='') {
             $goodsList = $this->userGoodsList();
             $this->assign('goodsList', $goodsList);
             $this->display('settlement');
-        }else{
-            $this->success(U('index.php/Admin/member/login'));
-        }
     }
 
     /**
@@ -36,7 +32,6 @@ class GoodsListController extends Controller{
      */
     public function userGoodsList(){
         $goodslistModel=D('GoodsList');
-        //dump($goodslistModel->getGoodsList(session('user')['id']));echo $goodslistModel->getLastSql();exit;
        return $goodslistModel->getGoodsList(session('MEMBER_INFO')['id']);
     }
 
@@ -58,6 +53,8 @@ class GoodsListController extends Controller{
         $data=I('post.');
         if(shuffle($data)===true){
             if(M('GoodsList')->addAll($data)) {
+                var_dump($data);
+               echo  M('GoodsList')->getLastSql();
                 echo 1;
             }
         }

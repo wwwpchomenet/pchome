@@ -15,43 +15,30 @@
 <body>
 <section>
   <div class="set_con">
-      
-      <div class="set_head">
-        <p class="add_dizhi fl">地址1</p>
-        <a class="add_moren fr" href="">默认</a>
-      </div>
-      <div class="set_dizhi mabott2">
-        <a href="">
-            <p class="set_dizhi_head">重庆市 渝北区 紫园路268号 龙城天都X-X-X</p>
-            <p class="set_dizhi_xinxi fl">谭钦云 18183045XXX</p>
-            <p class="set_dizhi_xinxi fl">千里马头很铁店</p>
-			<p class="set_dizhi_jiantou fr"></p>
-            <p class="set_dizhi_fapiao">
-                发票抬头：XXXXXX
-                <span>税号：XXXXXX</span>
-            </p>
-        </a>
-      </div>
-      
-      <div class="set_head">
-        <p class="add_dizhi fl">地址1</p>
-        <a class="add_shezhi fr" href="">设为默认</a>
-      </div>
-      <div class="set_dizhi mabott2">
-        <a href="">
-            <p class="set_dizhi_head">重庆市 渝北区 紫园路268号 龙城天都X-X-X</p>
-            <p class="set_dizhi_xinxi fl">谭钦云 18183045XXX</p>
-            <p class="set_dizhi_xinxi fl">千里马头很铁店</p>
-			<p class="set_dizhi_jiantou fr"></p>
-            <p class="set_dizhi_fapiao">
-                发票抬头：XXXXXX
-                <span>税号：XXXXXX</span>
-            </p>
-        </a>
-      </div>
+      <foreach name="address" item="address" key="k">
+          <div class="set_head">
+            <p class="add_dizhi fl">地址{:$k+1}</p>
+              <if condition="($address['is_default'] eq 1)">
+                  <b style="color: #009f95;float: right">默认</b>
+              </if>
+              <a class="add_shezhi fr" href="{:U('index.php/admin/OrderInfo/isDefault',array('isDefault'=>$address['id']))}">设为默认</a>
+          </div>
+          <div class="set_dizhi mabott2">
+            <a href="{:U('index.php/admin/OrderInfo/edit',array('isDefault'=>$address['id']))}">
+                <p class="set_dizhi_head">{:$address['detail_address']}</p>
+                <p class="set_dizhi_xinxi fl">{:$address['name']} {:$address['tel']}</p>
+                <p class="set_dizhi_xinxi fl">{:$address['delivery_name']}</p>
+                <p class="set_dizhi_jiantou fr"></p>
+                <p class="set_dizhi_fapiao">
+                    发票抬头：XXXXXX
+                    <span>税号：XXXXXX</span>
+                </p>
+            </a>
+          </div>
+      </foreach>
   </div>
   
-  <a class="cp_adddizhi" href="">
+  <a class="cp_adddizhi" href="{:U('index.php/admin/OrderInfo/add')}">
   	<p class="cp_adddizhi_tu fl">+</p>
   	<p class="cp_adddizhi_zi fl">新增地址</p>
    </a>

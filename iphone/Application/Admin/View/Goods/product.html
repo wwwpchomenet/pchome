@@ -118,10 +118,10 @@
                         div+='  <div class="pro_lish_text fl">';
                         div+='    <p class="pro_lish_text_name">'+data[i]["name"]+'</p>';
                         div+='   <p class="pro_lish_text_xq">产地 ：'+data[i]["origin"]+'    规格:'+data[i]["norintro"]+'</p>';
-                        div+='   <p class="pro_lish_text_xq">'+data[i]["content"]+'</p>';
+                        div+='   <p class="pro_lish_text_xq">'+data[i]["intro"]+'</p>';
                         div+='   <p class="pro_lish_text_xq">5件起订</p>';
                         <if condition="(session('MEMBER_INFO') neq '')">
-                            div+='  <p class="pro_lish_text_jiage fr js_danjia">￥'+data[i]["market_price"]+'元</p>';
+                            div+='  <p class="pro_lish_text_jiage fr js_danjia">'+data[i]["market_price"]+'元/件</p>';
                         </if>
                         div+='<input type="hidden" name="id" value="'+data[i]["id"]+'" />';
                         div+='  <div class="se_lish_text_shuliang fl js_num"> <span class="sy_minus fl" id="sy_minus_gid1">-</span>';
