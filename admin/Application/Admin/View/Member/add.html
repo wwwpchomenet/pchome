@@ -103,7 +103,7 @@
 <block name="admin">
    
 <h1>
-    <span class="action-span"><a href="index.html">代理商管理</a></span>
+    <span class="action-span"><a href="index.html">会员管理</a></span>
     <span class="action-span1"><a href="{:U('index/index')}">火锅国际供应链股份有限公司</a></span>
     <span id="search_id" class="action-span1"> - {$meta_titles} </span>
     <div style="clear:both"></div>
@@ -112,7 +112,7 @@
     <form method="post" action="{:U()}"enctype="multipart/form-data" >
         <table cellspacing="1" cellpadding="3" width="100%">
             <tr>
-                <td class="label">代理商名称</td>
+                <td class="label">会员名称</td>
                 <td>
                     <input type="text" name="name" maxlength="60" value="{$row.name}" />
                     <span class="require-field">*</span>
@@ -126,23 +126,37 @@
                 </td>
             </tr>
              <tr>
+                <td class="label">营业执照</td>
+                <td>
+                    <input type="text" name="peimit" maxlength="60" value="{$row.peimit}" />
+                    <span class="require-field">*</span>
+                </td>
+            </tr>
+             <tr>
+                <td class="label">邀请码</td>
+                <td>
+                    <input type="text" name="invitation" maxlength="60" value="{$row.invitation}" />
+                    <span class="require-field">*</span>
+                </td>
+            </tr>
+             <tr>
                 <td class="label">手机号码</td>
                 <td>
                     <input type="text" name="tel" maxlength="60" value="{$row.tel}" />
                     <span class="require-field">*</span>
                 </td>
             </tr>
-             <tr>
+<!--             <tr>
                 <td class="label">地址{$cond['city_id']}</td>
                 <td>
-<!--                    <input type="text" name="name" maxlength="60" value="{$row.tel}" />-->
+                    <input type="text" name="name" maxlength="60" value="{$row.tel}" />
                       {:arr2select($provinces,'province_id','id','name')}
                       {:arr2select([],'city_id','id','name')}
                       {:arr2select([],'area_id','id','name')}
                     <span class="require-field">*</span>
                     <a href="index.html"></a>
                 </td>
-            </tr>
+            </tr>-->
              <tr>
                 <td class="label">详细地址</td>
                 <td>
@@ -174,6 +188,12 @@
                     <input type="radio" name="rank" <if condition="$row.rank eq 1">checked</if> value="1"/>   普通会员 
                     <input type="radio" name="rank" <if condition="$row.rank eq 2">checked</if> value="2"  /> 中级会员
                      <input type="radio" name="rank" <if condition="$row.rank eq 3">checked</if> value="3"/> 高级会员
+                </td>
+            </tr>
+            <tr>
+                <td class="label">营业执照</td>
+                <td>
+                    <img src="../Uploads/license/"/>
                 </td>
             </tr>
             <tr>

@@ -17,21 +17,24 @@
     <div class="list-div" id="listDiv">
         <table cellpadding="3" cellspacing="1">
             <tr>
-                <th>代理商名称</th>
+                <th>会员名称</th>
                 <th>手机</th>
-                <th>地址</th>
+                <th>招牌</th>
+                <th>营业执照</th>
+                <th>邀请码</th>
                 <th>加入时间</th>
-             
                 <th>审核</th>
+                <th>账户余额</th>
                 <th>操作</th>
             </tr>
             <foreach name='rows' item='row'>
                 <tr>
                     <td class="first-cell">{$row.name}</td>
                     <td align="center">{$row.tel}</td>
-                    <td align="center">{$row.province_id}{$row.city_id}{$row.area_id}</td>
+                     <td align="center">{$row.brand}</td>
+                    <td align="center">{$row.peimit}</td>
+                    <td align="center">{$row.invitation}</td>
                     <td align="center">{$row.add_time}</td>
-                   
                     <td align="center">
               
                 <if condition="$row['status'] eq 1 ">
@@ -41,6 +44,7 @@
                     <else /> 
                    审核未通过(编辑审核)
                 </if>
+                <td align="center">{$row.balance}</td>
                </td>
                     <td align="center">
                         <a href="{:U('edit',array('id'=>$row['id']))}" title="编辑">编辑</a> |
