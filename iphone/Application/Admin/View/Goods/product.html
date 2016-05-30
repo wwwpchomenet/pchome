@@ -13,19 +13,45 @@
 <!--  一级分类-->
   <div class="se_cpname">
     <ul >
-         <foreach name="rows" item="row">
-           <li class="category" id="{$row.id}"><a href="javascript:void(0)">{$row.name}</a></li>
+         <foreach name="goodscategory" item="val">
+             <if condition="($goodscategory['parent_id'] eq 0)">
+           <li class="category <if condition="($val['id'] eq 1)">se_cpname_on</if>" id="{$row.id}"><a href="javascript:void(0)">{$val.name}</a></li>
+             </if>
            </foreach>
     </ul>
   </div>
        
   <!--产品中部-->
-  <div class="pro_left fl" id="pro_left">
-       <div class="pro_left_lish"> <a href=""></a> </div>
-    <div class="pro_left_lish pro_on"> <a href=""> 鱼 </a> </div>
-    <div class="pro_left_lish"> <a href=""> 虾 </a> </div>
-    <div class="pro_left_lish"> <a href=""> 蟹 </a> </div>
-  </div>
+<div id="pro_left">
+    <div class="pro_left fl pro_left_lish1" >
+    <foreach name="goodscategory" item="v" key="k">
+        <if condition="($v['parent_id'] eq 1)">
+          <div class="pro_left_lish <if condition="($k eq 1)">pro_on</if>"> <a href="javascript:;" id="{:$v['id']}">{:$v['name']} </a> </div>
+        </if>
+    </foreach>
+</div>
+    <div class="pro_left fl">
+        <foreach name="goodscategory" item="v" key="k">
+            <if condition="($v['parent_id'] eq 2)">
+                <div class="pro_left_lish "> <a href="javascript:;" id="{:$v['id']}">{:$v['name']} </a> </div>
+            </if>
+        </foreach>
+    </div>
+    <div class="pro_left fl">
+        <foreach name="goodscategory" item="v" key="k">
+            <if condition="($v['parent_id'] eq 3)">
+                <div class="pro_left_lish "> <a href="javascript:;" id="{:$v['id']}">{:$v['name']} </a> </div>
+            </if>
+        </foreach>
+    </div>
+    <div class="pro_left fl">
+        <foreach name="goodscategory" item="v" key="k">
+            <if condition="($v['parent_id'] eq 4)">
+                <div class="pro_left_lish "> <a href="javascript:;" id="{:$v['id']}">{:$v['name']} </a> </div>
+            </if>
+        </foreach>
+    </div>
+</div>
   <div class="pro_right fr"> 
     <!--产品列表-->
   </div>
@@ -39,134 +65,61 @@
         <else/>
         <a class="is_cp_dianjick" href="{:U('index.php/Admin/member/login')}">点击查看商品价格</a>
     </if>
-  <!-- end --> 
-  <!-- footer -->
-
-  <!-- end --> 
 </section>
       </block>
-    <block name="js">
+    <block name="js">last
         <script type="text/javascript">
-            $('.in_footer_lish_tu1').css({
-                'background-position':'0px 0px',
-            });
-            $('.in_footer_lish_tu3').css({
-                'background-position':'-72px 0px',
-            });
-            $('.in_footer_lish_tu4').css({
-                'background-position':'-105px 0px',
-            });
             $(function(){
-
-                $('.in_footer_lish_tu2').css({
-                    width:26+'px',
-                    height:26+'px',
-                    background:'url(__IMG__/icon.png)',
-                    'background-position':'-40px 30px',
-                    margin:0 +'auto',
-                    'margin-top': 8+'px',
-                });
-                //------------一级菜单点击事件-----------------
-                $('.category').on('click',show);
-                //-----------------三级菜单获取数据--------------
-                $('div').on('click','.pro_left_lish',function(){
-                    ids=$(this).prop('id');
-                });
-
-                id=$('ul').find('li')[0].id;//ok
-                ids =$('.pro_left_lish').attr('id');
-                first_menu();
-                function show(){
-                    //给点击增加class属性,然后移除
-                    $(this).attr('class','se_cpname_on').siblings().removeClass('se_cpname_on');
-                    //定义(获取到)id值
-                    id = $('.se_cpname_on').attr('id');
-                    //通过ajax获取数据
-                    first_menu();
-                }
-                //-------------------------二级分类列表------------------------------
-                function first_menu(){
-                    $.getJSON("{:U('index.php/Admin/Goods/second')}",{ 'id': id},function(data){
-                        //移除数据
-                        $('.pro_left').children().remove();
-                        //循环数据,拼凑字符串,并增加到元素中
-                        for(var i = 0;i<data.length;i++){
-                            var zhi = "<div class='pro_left_lish' id = "+ "'"+data[i]['id']+"'"+">"+"<a href='javascript:void(0);'>"+data[i]['name']+"</a></div>";
-                            $('.pro_left').append(zhi);
-                        };
-                        //点击二级菜单,增加和删除元素
-                        $('.pro_left_lish').on('click',function(){
-                            $(this).children().attr('class','pro_on').parent().siblings().children().removeClass('pro_on');
-                            var id=$(this).attr('id');
-                            $.getJSON("{:U('index.php/Admin/Goods/goodsList')}",{ 'id': id},function(data){
-                                fordata(data);
-                            });
-                        });
-                    });
-                }
-                $.getJSON("{:U('index.php/Admin/Goods/goodsList')}",{ 'id':8},function(data){
-                    fordata(data);
-                });
-                /**
-                 * 点击按钮 添加清单列表
-                 */
-                $('.pro_qingdan').live('click',function(){
-                    var data={};
-                    $('.pro_lish').each(function(k,v){
-                        if($(this).children().children().children('input').val()>0){
-                            data[k]={'member_id':'<?php echo session("MEMBER_INFO")["id"] ?>','goods_id':$(this).children().children('input').val(),'num':$(this).children().children().children('input').val()};
-                        }
-                    });
-                    $.post("{:U('index.php/Admin/GoodsList/add')}",data,function(da){
-                        console.debug(data);
-                        if(da){
-                            alert(da+'添加成功');
-                        }else{
-                            alert(da+'请选择数量');
-                        }
+                $('.pro_left_lish1').css('display', 'block').siblings().css('display', 'none');
+                $('.pro_left_lish').children().first().addClass('pro_on').siblings().removeClass('pro_on')
+               $('.se_cpname').children().children().on('click',function(){
+                   $(this).first().attr('class','se_cpname_on').siblings().removeClass('se_cpname_on');
+                   var index=$(this).index();
+                   $('#pro_left').children().each(function(k,v){
+                       if(index==$(this).index()){
+                           var id=$(this).children().children().attr('id');
+                           $(this).children().addClass('pro_on').siblings().removeClass('pro_on')
+                           $.getJSON("{:U('index.php/Admin/Goods/goodsList')}",{id:id},function(data){
+                               fordata(data);
+                           });
+                           $(this).css( 'display', 'block').siblings().css('display', 'none')
+                       }
+                   });
+               });
+                $('.pro_left_lish').on('click',function(){
+                    $(this).addClass('pro_on').siblings().removeClass('pro_on')
+                   var id=$(this).children().attr('id');
+                    $.getJSON("{:U('index.php/Admin/Goods/goodsList')}",{id:id},function(data){
+                        fordata(data);
                     });
                 });
-                //循环分类数据
-                function fordata(data){
-                    $('.pro_right').children().remove();
-                    for(var i=0;i<data.length;i++){
-                        var div='  <div class="pro_lish">';
-                        div+='  <div class="pro_lish_tu fl"> <img src="__UPLOAD_URL_PREFIX__/'+data[i]["logo"]+'"> </div>';
-                        div+='  <div class="pro_lish_text fl">';
-                        div+='    <p class="pro_lish_text_name">'+data[i]["name"]+'</p>';
-                        div+='   <p class="pro_lish_text_xq">产地 ：'+data[i]["origin"]+'    规格:'+data[i]["norintro"]+'</p>';
-                        div+='   <p class="pro_lish_text_xq">'+data[i]["intro"]+'</p>';
-                        div+='   <p class="pro_lish_text_xq">5件起订</p>';
-                        <if condition="(session('MEMBER_INFO') neq '')">
-                            div+='  <p class="pro_lish_text_jiage fr js_danjia">'+data[i]["market_price"]+'元/件</p>';
-                        </if>
-                        div+='<input type="hidden" name="id" value="'+data[i]["id"]+'" />';
-                        div+='  <div class="se_lish_text_shuliang fl js_num"> <span class="sy_minus fl" id="sy_minus_gid1">-</span>';
-                        div+='       <input type="text" name="num" class="sy_num fl" value="0">';
-                        div+='          <span class="sy_plus fl" id="sy_plus_gid1">+</span>';
-                        div+='   </div>';
-                        div+='     <p style="display:none;" class="js_bb">需支付￥0元</p>';
-                        div+='  </div></div>';
-                        $('.pro_right').append(div);
-                    }
-                }
-                //---------------------------------------------
-                function second_menu(){
-                    $.getJSON("{:U('index.php/Admin/Goods/second')}",{ 'id': id},function(data){
-                        //移除数据
-                        $('.pro_left').children().remove();
-                        //循环数据,拼凑字符串,并增加到元素中
-                        for(var i = 0;i<data.length;i++){
-                            var zhi = "<div class='pro_left_lish' id = "+ "'"+data[i]['id']+"'"+">"+"<a href='javascript:void(0);'>"+data[i]['name']+"</a></div>";
-                            $('.pro_left').append(zhi);
-                        };
-                        //点击二级菜单,增加和删除元素
-                        $('.pro_left_lish').on('click',function(){
-                            $(this).children().attr('class','pro_on').parent().siblings().children().removeClass('pro_on');
-                        });
-                    });
-                }
             });
+            $.getJSON("{:U('index.php/Admin/Goods/goodsList')}",{id:8},function(data){
+                fordata(data);
+            });
+            function fordata(data){
+                $('.pro_right').children().remove();
+                for(var i=0;i<data.length;i++){
+                    var div='  <div class="pro_lish">';
+                    div+='  <div class="pro_lish_tu fl"> <img src="__UPLOAD_URL_PREFIX__/'+data[i]["logo"]+'"> </div>';
+                    div+='  <div class="pro_lish_text fl">';
+                    div+='    <p class="pro_lish_text_name">'+data[i]["name"]+'</p>';
+                    div+='   <p class="pro_lish_text_xq">产地 ：'+data[i]["origin"]+'    规格:'+data[i]["norintro"]+'</p>';
+                    div+='   <p class="pro_lish_text_xq">'+data[i]["intro"]+'</p>';
+                    div+='   <p class="pro_lish_text_xq">5件起订</p>';
+                    <if condition="(session('MEMBER_INFO') neq '')">
+                        div+='  <p class="pro_lish_text_jiage fr js_danjia">'+data[i]["market_price"]+'元/件</p>';
+                    </if>
+                    div+='<input type="hidden" name="id" value="'+data[i]["id"]+'" />';
+                    div+='  <div class="se_lish_text_shuliang fl js_num"> <span class="sy_minus fl" id="sy_minus_gid1">-</span>';
+                    div+='       <input type="text" name="num" class="sy_num fl" value="0">';
+                    div+='          <span class="sy_plus fl" id="sy_plus_gid1">+</span>';
+                    div+='   </div>';
+                    div+='     <p style="display:none;" class="js_bb">需支付￥0元</p>';
+                    div+='  </div></div>';
+                    $('.pro_right').append(div);
+                }
+            }
             $(document).keydown(function(event){
                 var search=$('#search').val();
                 if(event.keyCode==13){
