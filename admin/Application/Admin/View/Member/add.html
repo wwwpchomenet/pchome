@@ -193,7 +193,10 @@
             <tr>
                 <td class="label">营业执照</td>
                 <td>
-                    <img src="../Uploads/license/"/>
+                    <if condition="$row.picture eq ''">没有上传营业执照
+                    <else/>
+                    <img src="http://www.wap.com/Uploads/{$row.picture}" height="180" width="300"/>
+                    </if>
                 </td>
             </tr>
             <tr>

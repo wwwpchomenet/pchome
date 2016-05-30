@@ -24,7 +24,7 @@ function get_error($errors) {
  * @param string $template_code  阿里大鱼的模板  SMS_7945052 用户注册验证码
  * @return boolean
  */
-function sendSMS($telphone, $params, $sign_name = '注册验证', $template_code = 'SMS_7945052') {
+function sendSMS($telphone, $params, $sign_name = '注册验证', $template_code = 'SMS_10235022') {
     $config       = C('ALIDAYU_SETTING');
     vendor('Alidayu.Autoloader');
     $c            = new \TopClient;

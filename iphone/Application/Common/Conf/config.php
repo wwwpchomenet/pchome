@@ -21,7 +21,7 @@ return array(
     ),
     //短信验证码
     'ALIDAYU_SETTING'=>[
-        'ak'=>'23349792',
-        'sk'=>'513e7d21d17972e3001b8177c998ccab',
+        'ak'=>'23378468',
+        'sk'=>'fc0b781f3269bde45b78f6298e9de50d',
     ],
 );

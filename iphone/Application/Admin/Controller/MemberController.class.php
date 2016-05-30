@@ -54,19 +54,6 @@ class MemberController extends \Think\Controller {
             if ($this->_model->create() === false) {
                 $this->error(get_error($this->_model->getError()));
             }
-
-//              $config = C('UPLOAD_SETTING');
-//
-//            $upload = new \Think\Upload($config); // 实例化上传类
-//            $info = $upload->upload();
-//            if(!$info) {
-//                // 上传错误提示错误信息 
-//                $this->error($upload->getError());
-//            }else{
-//                // 上传成功      
-//                $this->success('上传成功！');
-//            }
-
             if ($this->_model->where(array('tel' => $tel))->save() === false) {
                 $this->error(get_error($this->_model->getError()));
             } else {

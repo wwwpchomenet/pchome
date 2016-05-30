@@ -8,7 +8,7 @@
         <p class="in_head_diqu fl">重庆</p>
         <div class="in_head_input fr">
             <div class="in_head_input_tu fl"></div>
-            <div class="in_head_input_input fl"><input type="text" name="" /></div>
+            <div class="in_head_input_input fl"><input type="text" name="" id='search'/></div>
         </div>
     </div>
   </div>
@@ -123,5 +123,13 @@
                 'margin-top': 8+'px',
             });
         });
+    </script>
+    <script>
+         $(document).keydown(function(event){
+                var search=$('#search').val();
+                if(event.keyCode==13){
+                    window.location.href='<?php echo U("index.php/admin/Goods/showAll") ?>'+'?name='+search;
+                }
+            });
     </script>
 </block>
