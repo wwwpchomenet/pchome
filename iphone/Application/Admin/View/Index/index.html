@@ -254,7 +254,24 @@
                 $('#goodsCategory').append(labels);
             }
         },'json');
-       $(function(){
+        $('.in_footer_lish_tu2').css({
+            'background-position':'40px 0px',
+        });
+        $('.in_footer_lish_tu3').css({
+            'background-position':'-72px 0px',
+        });
+        $('.in_footer_lish_tu4').css({
+            'background-position':'-105px 0px',
+        });
+        $(function(){
+            $('.in_footer_lish_tu1').css({
+                width:26+'px',
+                height:26+'px',
+                background:'url(__IMG__/icon.png)',
+                'background-position':'-0px 30px',
+                margin:0 +'auto',
+                'margin-top': 8+'px',
+            });
            //改变当前点击标签的背景色
            $('.wap_four_head_fenlei').children().on('click',function(){
              $(this).attr('class','wap_four_on fl').siblings().removeClass('wap_four_on');
