@@ -1,0 +1,62 @@
+<extend name='Lyout:menu'/>
+    <block name="admin">
+<body>
+<section>
+  <div class="na_con">
+      <div class="mp_lish">
+
+      	<div class="mp_lish_con">
+        	<p class="mp_lish_name fl">会员等级</p>
+                <p class="mp_lish_text fr">
+                    <if condition="$members['rank'] eq 3 ">
+                        高级会员
+                        <elseif condition="$members['rank'] eq 2"/>
+                        中级会员
+                        <else />
+                       普通会员
+                    </if>
+                </p>
+        </div>
+
+      </div>
+     <div class="mp_lish">
+        <a class="mp_lish_con" href="{:U('index.php/Admin/Myprofile/MyProfilePhone')}">
+            <p class="mp_lish_name fl">手机号码</p>
+            <p class="mp_lish_jiantou fr"></p>
+            <p class="mp_lish_text fr">{$members['tel']}</p>
+        </a>
+      </div>
+      <div class="mp_lish">
+        <a class="mp_lish_con" href="{:U('index.php/Admin/Myprofile/MyprofilePassword')}">
+            <p class="mp_lish_name fl">登录密码</p>
+            <p class="mp_lish_jiantou fr"></p>
+        </a>
+      </div>
+      <div class="mp_lish">
+        <div class="mp_lish_con">
+            <p class="mp_lish_name fl">真实姓名</p>
+            <p class="mp_lish_text fr">{$members['name']}</p>
+        </div>
+      </div>
+      <div class="mp_lish">
+        <div class="mp_lish_con">
+            <p class="mp_lish_name fl">营业执照号码</p>
+            <p class="mp_lish_text fr">{$members['peimit']}</p>
+        </div>
+      </div>
+      <div class="mp_lish">
+        <div class="mp_lish_con">
+            <p class="mp_lish_name fl">上传营业执照</p>
+            <p class="mp_lish_text fr">已上传</p>
+        </div>
+      </div>
+      
+  </div>
+  
+</section>
+</body>
+</html>
+  </block>
+    <block name="in_footer">
+        
+    </block>

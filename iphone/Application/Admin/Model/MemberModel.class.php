@@ -28,6 +28,10 @@ class MemberModel extends \Think\Model{
        ['repassword', 'password', '两次密码不一致', self::EXISTS_VALIDATE, 'confirm', self::MODEL_INSERT],
         ['tel', 'require', '手机号码必填', self::MUST_VALIDATE, '', 'login'],
        ['password', 'require', '密码错误', self::MUST_VALIDATE, '', 'login'],
+         ['tel', 'require', '手机号码必填', self::MUST_VALIDATE, '', 'tell'],
+        ['captcha', 'require', '手机验证码必填', self::MUST_VALIDATE, '', 'tell'],
+        ['tel', '/^(13|14|15|17|18)\d{9}$/', '手机号码不合法', self::EXISTS_VALIDATE,'','tell'],
+         ['captcha', 'checkPhoneCode', '手机验证码不正确', self::EXISTS_VALIDATE, 'callback','tell'],
     ];
    
     /**
@@ -49,14 +53,11 @@ class MemberModel extends \Think\Model{
         session('TEL_CAPTCHA', null);
         return $code == $session_code;
     }
+    
      public function  addMember(){
         $request_data = $this->data;
         $tel = $request_data['tel'];
         cookie('TEL',$tel);
-//        dump($this->data['password']);
-//        dump($this->data['salt']);
-       // $this->data['password'] = salt_password($this->data['password'], $this->data['salt']);
-//        dump( $this->data['password']);
         $this->data['password']=  md5($this->data['password']);
           if (($member_id = $this->add()) === false) {
             return false;

@@ -108,7 +108,8 @@ class MemberController extends \Think\Controller {
             'code' => $code,
             'product' => '国际火锅供应链',
         ];
-        if (sendSMS($telphone, $data)) {
+        if (sendSMS($telphone, $data)){
+            
             $this->success('发送成功');
         } else {
             $this->error('发送失败');
@@ -128,16 +129,7 @@ class MemberController extends \Think\Controller {
             if (($password = $this->_model->login()) === false) {
                 $this->error(get_error($this->_model->getError()));
             }
-
-            //跳转
-            $url = cookie('forward');
-            if (!$url) {
-                $url = U('Index/index');
-            }
-            $url=get_url();
-           $url= substr($url,18);
-            $url=explode(".html",$url);
-            $this->success('登陆成功',U($url[0]));
+            $this->success('登陆成功',U('index.php/Admin/Banner/index'));
         } else {
             $this->display();
         }

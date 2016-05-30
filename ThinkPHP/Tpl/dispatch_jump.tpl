@@ -10,7 +10,7 @@
 <title>跳转提示</title>
 <style type="text/css">
 *{ padding: 0; margin: 0; }
-body{ background: #fff; font-family: '微软雅黑'; color: #333; font-size: 16px; }
+body{ background: #87CEEB;background-image:url('../Public/Images/1.jpg'); font-family: '微软雅黑'; color: #333; font-size: 16px; }
 .system-message{ padding: 24px 48px; }
 .system-message h1{ font-size: 100px; font-weight: normal; line-height: 120px; margin-bottom: 12px; }
 .system-message .jump{ padding-top: 10px}
