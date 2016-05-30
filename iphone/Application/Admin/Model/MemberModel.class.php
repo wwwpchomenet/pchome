@@ -41,6 +41,7 @@ class MemberModel extends \Think\Model{
     protected $_auto = [
 //        ['salt', 'Org\Util\String::randString', self::MODEL_INSERT, 'function'],
           ['add_time', NOW_TIME, self::MODEL_INSERT],
+          ['picture', 'uploadsPic', self::MODEL_INSERT,'callback'],
     ];
     /**
      * 验证手机验证码.
@@ -134,5 +135,28 @@ class MemberModel extends \Think\Model{
         //存到cookie和数据表中
         cookie('AUTO_LOGIN_TOKEN',$data,604800);
         return $token_model->add($data);
+    }
+
+    /**自动完成图片上传功能
+     * @return string
+     */
+    public function uploadsPic() {
+        //1.创建upload对象
+        $config  = array(
+            'maxSize'  => 1024000, //上传的文件大小限制 (0-不做限制)
+            'exts'     => array('jpg', 'jpeg', 'png', 'gif'), //允许上传的文件后缀
+            'autoSub'  => true, //自动子目录保存文件
+            'subName'  => array('date', 'Ymd'), //子目录创建方式，[0]-函数名，[1]-参数，多个参数使用数组
+            'rootPath' => '../Uploads/', //保存根路径
+            'savePath' => 'license/', //保存路径
+        );
+        $upload    = new \Think\Upload($config);
+        //2.执行上传
+        $file_info = $upload->upload();
+        $picname=array();
+        foreach($file_info as $key=>$val){
+            $picname[]=$val['savename'];
+        }
+        return implode(',',$picname);
     }
 }
