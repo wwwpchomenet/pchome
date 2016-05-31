@@ -69,7 +69,7 @@
     	<a href=""><img src="__IMG__/1p.png" /></a>
     </div>
   </div>
-  <!--end-->  
+  <!--end-->
   <!-- footer -->
   <div class="in_footer">
   	<div class="in_footer_lish fl">
@@ -122,14 +122,12 @@
                 margin:0 +'auto',
                 'margin-top': 8+'px',
             });
-        });
-    </script>
-    <script>
-         $(document).keydown(function(event){
+            $(document).keydown(function(event){
                 var search=$('#search').val();
                 if(event.keyCode==13){
                     window.location.href='<?php echo U("index.php/admin/Goods/showAll") ?>'+'?name='+search;
                 }
             });
+        });
     </script>
 </block>
