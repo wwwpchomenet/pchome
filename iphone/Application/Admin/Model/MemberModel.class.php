@@ -86,19 +86,20 @@ class MemberModel extends \Think\Model{
             return false;
         }
         //2.进行密码匹配验证
+//        $password = salt_password($request_data['password'], $userinfo['salt']);
         $password =  md5($request_data['password']);
         if($password != $userinfo['password']){
+
             $this->error = '密码不正确';
             return false;
         }
-       $status = $this->where(array('id'=>$userinfo['id']))->getField('status');
-//       dump($userinfo);
-//       dump($status);
-//       exit;
-       if($status != 1){
+       /*if($request_data['status'] !== 1){
           $this->error = '管理员还没验证,请验证后在登陆';
-            return false;
-        }
+           
+            //header('./index.php/Admin/Member/registeredOk');
+          // $this->success('/index.php/Admin/Member/registeredOk');
+              return false;
+        }*/
         
         //为了后续会话获取用户信息,我们存下来
         session('MEMBER_INFO',$userinfo);

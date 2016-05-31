@@ -1,7 +1,4 @@
 <extend name='Lyout:menu'/>
-<block>
-    <css href="__CSS__/index.css" />
-</block>
 <block name='admin'>
 <section>
 	<!-- 头部 -->
@@ -16,27 +13,28 @@
   <!--搜索结果-->
   <div class="se_con">
  	<!-- 产品列表 -->
+      <if condition="($goodsAll eq '')">
+          <h1 style="color: #c2ccd1" align="center">没有找到您要查找的商品</h1>
+      </if>
       <foreach name="goodsAll" item="goodsAll">
-    <div class="se_lish">
-        <div class="se_lish_tu fl">
-            <img src="__UPLOAD_URL_PREFIX__/{:$goodsAll['logo']}" />
-        </div>
-            <div class="se_lish_text fl">
-                <p class="se_lish_text_name">{:$goodsAll['name']}</p>
-                <p class="se_lish_text_xq">产地 ：<if condition="($goodsAll['origin'] neq '')" >{:$goodsAll['origin']}<else />  未知 </if> 规格：{:$goodsAll['norms']}件</p>
-                <p class="se_lish_text_xq">{:$goodsAll['intro']}</p>
-                <p class="se_lish_text_xq">{:$goodsAll['norintro']}起订</p>
-                <input type="hidden" name="id" value="{:$goodsAll['id']}" />
-                <div class="se_lish_text_shuliang fl">
-                    <span class="sy_minus fl" id="sy_minus_gid1">-</span>
-                    <input type="text" class="sy_num fl" type="text" value="0"/>
-                    <span class="sy_plus fl" id="sy_plus_gid1">+</span>
-                </div>
-                <if condition="(session('MEMBER_INFO') neq '')">
-                <p class="se_lish_text_jiage fl">{:$goodsAll['market_price']}元<span>/件</span> </p>
-                    </if>
-            </div>
-    </div>
+          <div class="pro_lish">
+              <div class="pro_lish_tu fl">  <img src="__UPLOAD_URL_PREFIX__/{:$goodsAll['logo']}" /></div>
+              <div class="pro_lish_text fl">
+                  <input type="hidden" name="id" value="{:$goodsAll['id']}" />
+                  <p class="pro_lish_text_name">{:$goodsAll['name']}</p>
+                  <p class="pro_lish_text_xq">产地 ：{:$goodsAll['origin']?$goodsAll['origin']:'未知'}    规格：{:$goodsAll['norms']}件</p>
+                  <p class="pro_lish_text_xq">{:$goodsAll['intro']}</p>
+                  <p class="pro_lish_text_xq">{:$goodsAll['norintro']}起订</p>
+                  <if condition="(session('MEMBER_INFO') neq '')">
+                  <p class="pro_lish_text_jiage fr js_danjia">{:$goodsAll['market_price']}元<span>/件</span> </p>
+                  </if>
+                  <div class="se_lish_text_shuliang fl js_num"> <span class="sy_minus fl" id="sy_minus_gid1">-</span>
+                      <input type="text" class="sy_num fl" value="0">
+                      <span class="sy_plus fl" id="sy_plus_gid1">+</span>
+                  </div>
+                  <p style="display:none;" class="js_bb">需支付￥0元</p>
+              </div>
+          </div>
       </foreach>
     <!-- end -->
    </div>
@@ -66,18 +64,16 @@
          */
         $('.pro_qingdan').live('click',function(){
             var data={};
-            $('.se_lish').each(function(k,v){
+            $('.pro_lish').each(function(k,v){
                 if($(this).children().children().children('input').val()>0){
                     data[k]={'member_id':'<?php echo session("MEMBER_INFO")["id"] ?>','goods_id':$(this).children().children('input').val(),'num':$(this).children().children().children('input').val()};
                 }
             });
-            console.debug(data);
             $.post("{:U('index.php/Admin/GoodsList/add')}",data,function(da){
-
                 if(da){
-                    alert(da+'添加成功');
-                }else{
-                    alert(da+'请选择数量');
+                    alert('添加成功');
+                }else {
+                    alert('请选择数量');
                 }
             });
         });

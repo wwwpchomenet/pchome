@@ -1,7 +1,6 @@
 $(document).ready (function ()
     {
         var pl = $(".js_heji:last");
-		
         var reg = /(.*[\￥]\s*)([\+\d\.]+)(\s*元)/g;
         $ (".sy_minus").live('click',function ()
         {

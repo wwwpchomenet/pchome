@@ -36,9 +36,7 @@ class GoodsModel extends Model{
             $name=I('get.name');
             $where['name']=array('like',"%$name%");
             $search=$this->where($where)->select();
-            if($search){
-                return $search;
-            }
+            return $search;
         }
         return $this->order('inputtime asc')->limit(1000)->select();
     }

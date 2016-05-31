@@ -1,0 +1,104 @@
+<extend name='Lyout:menu'/>
+<block name="admin">
+    <section>
+        <!-- 头部 -->
+        <div class="se_head">
+            <div class="se_head_input">
+                <div class="se_head_input_tu fl"></div>
+                <div class="se_head_input_input fl"><input type="text" /></div>
+            </div>
+        </div>
+        <!--清单-->
+        <div class="ord_top">
+            <!--清单列表-->
+            <foreach name="goodsList" item="goodsList">
+                <div class="ord_qingdan">
+                    <div class="ord_con">
+                        <div class="ord_qingdan_tu fl"><img src="__UPLOAD_URL_PREFIX__/{:$goodsAll['logo']}" /> </div>
+                        <div class="ord_qingdan_text fl">
+                            <input type="hidden" class="goodId" value="{:$goodsList['id']}">
+                            <p class="ord_qingdan_name_name fl">{:$goodsList['name']}</p>
+                            <p class="ord_qingdan_name_jiage js_danjia fr">{:$goodsList['market_price']}<span>元/件</span></p>
+                            <div class="se_lish_text_shuliang ma_matop30 fl js_num">
+                                <span class="sy_minus fl" data="{:$goodsList['id']}" id="sy_minus_gid1">-</span>
+                                <input type="text" class="sy_num fl" value="{:$goodsList['num']}">
+                                <span class="sy_plus fl" data="{:$goodsList['id']}" id="sy_plus_gid1">+</span>
+                            </div>
+                            <p style="display:none;" class="js_bb">需支付￥{:$goodsList['market_price']*$goodsList['num']}元</p>
+                            <a class="ord_qingdan_sc fr" href="javascript:;" data="{:$goodsList['id']}">删除</a>
+                        </div>
+                    </div>
+                </div>
+            </foreach>
+            <!-- 结账-->
+            <div class="ord_zongji">
+                <div class="ord_zongji_con">
+                    <p class="ord_zongji_con_float fl">订单总计</p>
+                    <p class="ord_zongji_con_right js_heji fl">￥0元</p>
+                </div>
+            </div>
+        </div>
+        <!-- end -->
+        <!-- 红色区域 -->
+        <a class="cp_dianjick" href="{:U('index.php/admin/GoodsList/getListing')}">立即结算</a>
+        <!-- end -->
+    </section>
+</block>
+<block name="js">
+    <script type="text/javascript">
+
+        $('.in_footer_lish_tu2').css({
+            'background-position':'-40px 0px',
+        });
+        $('.in_footer_lish_tu1').css({
+            'background-position':'0px 0px',
+        });
+        $('.in_footer_lish_tu4').css({
+            'background-position':'-105px 0px',
+        });
+        $(function(){
+                $('.in_footer_lish_tu3').css({
+                    width:26+'px',
+                    height:26+'px',
+                    background:'url(__IMG__/icon.png)',
+                    'background-position':'-72px 30px',
+                    margin:0 +'auto',
+                    'margin-top': 8+'px',
+                });
+            $('.ord_qingdan_sc').on('click',function(){
+                var node = $(this);
+                var gallery_id = node.attr('data');
+                var flag = true;//是否要删除div
+                if(gallery_id){
+                    var url = '{:U("index.php/admin/GoodsList/delete")}';
+                    var data = {id:gallery_id};
+                    $.get(url,data,function(response){
+                        node.parent().parent().parent().remove();
+                        heji();
+                    });
+                }
+            });
+            heji();
+            function heji(){
+                var pl = $(".js_heji:last");
+                var reg = /(.*[\￥]\s*)([\+\d\.]+)(\s*元)/g;
+                var sum = 0;
+                $(".js_num").next(".js_bb").each(function (i, dom)
+                {
+                    sum += parseFloat ($(this).text().replace(reg, "$2"));
+                });
+                pl.text(pl.text().replace(reg, "$1" + sum + "$3"));
+            }
+            $('.sy_plus').on('click',function(){
+                var num=parseInt($(this).prev('.sy_num').val())+1;
+                var goodId=$(this).attr('data');
+                $.post('{:U("index.php/admin/GoodsList/save")}',{'num':num,'goods_id':goodId});
+            });
+            $('.sy_minus').on('click',function(){
+                var num=parseInt($(this).next('.sy_num').val())-1;
+                var goodId=$(this).attr('data');
+                $.post('{:U("index.php/admin/GoodsList/save")}',{'num':num,'goods_id':goodId});
+            });
+        });
+    </script>
+</block>

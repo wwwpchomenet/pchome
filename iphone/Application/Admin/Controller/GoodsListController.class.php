@@ -21,7 +21,20 @@ class GoodsListController extends Controller{
      * 显示所有商品清单
      */
     public function getList(){
-            $goodsList = $this->userGoodsList();
+            $goodsList = $this->_userGoodsList();
+        if($goodsList){
+            $this->assign('goodsList', $goodsList);
+            $this->display('order');
+        }else{
+            $this->display('order_kong');
+        }
+    }
+
+    /**
+     * 显示清单列表
+     */
+    public function getListing(){
+        $goodsList = $this->_userGoodsList();
             $this->assign('goodsList', $goodsList);
             $this->display('settlement');
     }
@@ -30,7 +43,7 @@ class GoodsListController extends Controller{
      * 获取用户的清单列表
      * @return mixed
      */
-    public function userGoodsList(){
+    private function _userGoodsList(){
         $goodslistModel=D('GoodsList');
        return $goodslistModel->getGoodsList(session('MEMBER_INFO')['id']);
     }
@@ -53,10 +66,19 @@ class GoodsListController extends Controller{
         $data=I('post.');
         if(shuffle($data)===true){
             if(M('GoodsList')->addAll($data)) {
-                var_dump($data);
-               echo  M('GoodsList')->getLastSql();
                 echo 1;
             }
         }
+    }
+
+    /**
+     * 修改订单列表的数量
+     */
+    public function save(){
+        $goodslistModel=D('GoodsList');
+        $data['num'] =I('post.num');
+
+       $goodslistModel->where(array('id'=>I('post.goods_id')))->save($data);
+
     }
 }

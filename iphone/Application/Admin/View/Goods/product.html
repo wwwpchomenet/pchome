@@ -26,28 +26,28 @@
     <div class="pro_left fl pro_left_lish1" >
     <foreach name="goodscategory" item="v" key="k">
         <if condition="($v['parent_id'] eq 1)">
-          <div class="pro_left_lish <if condition="($k eq 1)">pro_on</if>"> <a href="javascript:;" id="{:$v['id']}">{:$v['name']} </a> </div>
+          <div class="pro_left_lish <if condition="($k eq 1)">pro_on</if>"> <a href="javascript:;" data="{:$v['id']}">{:$v['name']} </a> </div>
         </if>
     </foreach>
 </div>
     <div class="pro_left fl">
         <foreach name="goodscategory" item="v" key="k">
             <if condition="($v['parent_id'] eq 2)">
-                <div class="pro_left_lish "> <a href="javascript:;" id="{:$v['id']}">{:$v['name']} </a> </div>
+                <div class="pro_left_lish "> <a href="javascript:;" data="{:$v['id']}">{:$v['name']} </a> </div>
             </if>
         </foreach>
     </div>
     <div class="pro_left fl">
         <foreach name="goodscategory" item="v" key="k">
             <if condition="($v['parent_id'] eq 3)">
-                <div class="pro_left_lish "> <a href="javascript:;" id="{:$v['id']}">{:$v['name']} </a> </div>
+                <div class="pro_left_lish "> <a href="javascript:;" data="{:$v['id']}">{:$v['name']} </a> </div>
             </if>
         </foreach>
     </div>
     <div class="pro_left fl">
         <foreach name="goodscategory" item="v" key="k">
             <if condition="($v['parent_id'] eq 4)">
-                <div class="pro_left_lish "> <a href="javascript:;" id="{:$v['id']}">{:$v['name']} </a> </div>
+                <div class="pro_left_lish "> <a href="javascript:;" data="{:$v['id']}">{:$v['name']} </a> </div>
             </if>
         </foreach>
     </div>
@@ -77,7 +77,7 @@
                    var index=$(this).index();
                    $('#pro_left').children().each(function(k,v){
                        if(index==$(this).index()){
-                           var id=$(this).children().children().attr('id');
+                           var id=$(this).children().children().attr('data');
                            $(this).children().addClass('pro_on').siblings().removeClass('pro_on')
                            $.getJSON("{:U('index.php/Admin/Goods/goodsList')}",{id:id},function(data){
                                fordata(data);
@@ -101,16 +101,16 @@
                 $('.pro_right').children().remove();
                 for(var i=0;i<data.length;i++){
                     var div='  <div class="pro_lish">';
+                    div+='<input type="hidden" name="id" value="'+data[i]["id"]+'" />';
                     div+='  <div class="pro_lish_tu fl"> <img src="__UPLOAD_URL_PREFIX__/'+data[i]["logo"]+'"> </div>';
                     div+='  <div class="pro_lish_text fl">';
                     div+='    <p class="pro_lish_text_name">'+data[i]["name"]+'</p>';
-                    div+='   <p class="pro_lish_text_xq">产地 ：'+data[i]["origin"]+'    规格:'+data[i]["norintro"]+'</p>';
+                    div+='   <p class="pro_lish_text_xq">产地 ：'+(data[i]["origin"]?data[i]["origin"]:'未知 ')+'    规格:'+data[i]["norintro"]+'</p>';
                     div+='   <p class="pro_lish_text_xq">'+data[i]["intro"]+'</p>';
                     div+='   <p class="pro_lish_text_xq">5件起订</p>';
                     <if condition="(session('MEMBER_INFO') neq '')">
                         div+='  <p class="pro_lish_text_jiage fr js_danjia">'+data[i]["market_price"]+'元/件</p>';
                     </if>
-                    div+='<input type="hidden" name="id" value="'+data[i]["id"]+'" />';
                     div+='  <div class="se_lish_text_shuliang fl js_num"> <span class="sy_minus fl" id="sy_minus_gid1">-</span>';
                     div+='       <input type="text" name="num" class="sy_num fl" value="0">';
                     div+='          <span class="sy_plus fl" id="sy_plus_gid1">+</span>';
@@ -120,6 +120,24 @@
                     $('.pro_right').append(div);
                 }
             }
+            /**
+             * 点击按钮 添加清单列表
+             */
+            $('.pro_qingdan').live('click',function(){
+                var data={};
+                $('.pro_lish').each(function(k,v){
+                    if($(this).children().children().children('input').val()>0){
+                        data[k]={'member_id':'<?php echo session("MEMBER_INFO")["id"] ?>','goods_id':$(this).children('input').val(),'num':$(this).children().children().children('input').val()};
+                    }
+                });
+                $.post("{:U('index.php/Admin/GoodsList/add')}",data,function(da){
+                    if(da){
+                        alert('添加成功');
+                    }else {
+                        alert('请选择数量');
+                    }
+                });
+            });
             $(document).keydown(function(event){
                 var search=$('#search').val();
                 if(event.keyCode==13){
