@@ -32,6 +32,8 @@ class GoodsController extends \Think\Controller {
             'parent_id' => 0,
             'status' => 1, 
         );
+        $goodscategory=D('GoodsCategory')->where(array( 'status' => 1))->getField('id,name,parent_id',true);
+        $this->assign('goodscategory', $goodscategory);
         $this->assign('rows', $row = $this->_model->getList($cond));
         $this->display('product');
     }
@@ -50,27 +52,5 @@ class GoodsController extends \Think\Controller {
             echo json_encode(D('Goods')->getlist($id));
             exit;
         }
-    }
-/**
- * 商品二级分类
- * @param integer $id  父级id值
- */
-    public function second($id){
-       $cont = array(
-            'parent_id' => $id,
-            'status' => 1, 
-        );
-      // $row = $this->_model->getSecond($cont);
-            echo json_encode($results = $this->_model->getSecond($cont));
-        exit;
-    }
-    
-    public function  three($id){
-         $cont = array(
-            'goods_category_id' => $id,
-            'status' => 1, 
-        );
-            echo json_encode($results = $this->_model->getThree($cont));
-              exit;
     }
 }
