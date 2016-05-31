@@ -22,10 +22,11 @@ body{background:url(__IMG__/tp.jpg);font-family: '微软雅黑'; color: #333; fo
 <body>
 <div class="system-message">
 <?php if(isset($message)) {?>
-<img src=__IMG__."/tp1.png">
+<img src="__IMG__/tp1.png">
 
 <p class="success"><?php echo($message); ?></p>
 <?php }else{?>
+
 <img src="__IMG__/tp2.jpeg">
 <br/>
 <br/>
