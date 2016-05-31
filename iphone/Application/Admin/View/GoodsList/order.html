@@ -89,6 +89,13 @@
                 });
                 pl.text(pl.text().replace(reg, "$1" + sum + "$3"));
             }
+            $('.sy_num').on('change',function(){
+                if(!isNaN($(this).val())){
+                var goodId=$(this).next().attr('data');
+                $.post('{:U("index.php/admin/GoodsList/save")}',{'num':$(this).val(),'goods_id':goodId});
+                heji();
+                }
+            });
             $('.sy_plus').on('click',function(){
                 var num=parseInt($(this).prev('.sy_num').val())+1;
                 var goodId=$(this).attr('data');

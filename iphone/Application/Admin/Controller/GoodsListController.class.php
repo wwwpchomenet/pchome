@@ -77,8 +77,6 @@ class GoodsListController extends Controller{
     public function save(){
         $goodslistModel=D('GoodsList');
         $data['num'] =I('post.num');
-
        $goodslistModel->where(array('id'=>I('post.goods_id')))->save($data);
-
     }
 }
