@@ -1,6 +1,5 @@
 <extend name="Lyout:comment"/>
 <block name="admin">
-   
     <script type="text/javascript">
         var i = 1;
        $(function(){
@@ -19,24 +18,30 @@
         });
           //----------------------------------------------------------------  
           var data={};
+          var mid={$mid};
+          console.debug(mid);
         $('#tijiao').click(function(){
             //大的div
             $('#ma_main').children().each(function(key,val){
-                console.debug($(this).children().index());
-                if($(this).index()!=0){
-                var a =$($(this).children('p')[0]).text().toString();
-                var b =$($(this).children('p')[1]).text().toString();
-                var c =$($(this).children('p')[2]).text().toString();
-                data[key]+=[a,b,c];   
-                }
-                  
+//                console.debug($(this).children().index());
+                var a =$($(this).children('p')[0]).text();
+                var b =$($(this).children('p')[1]).text();
+                var c =$($(this).children('p')[2]).text();
+              data[key]={
+                  'name':a,
+                  'num':b,
+                  'info':c,
+                  'member_id':mid
+              };
     });
-           
-         console.debug(data);
+         $.post("{:U('index.php/Admin/MyNeed/index')}",data,function(sion){
+             console.debug(sion);
+             
+         });
+     console.debug(data);
            });
   });
     </script>
-
 <body>
 <section>
   <div class="sdxq_con">

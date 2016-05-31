@@ -7,5 +7,5 @@
  */
 namespace Admin\Model;
 class MyNeedModel extends \Think\Model{
-    
+
 }
