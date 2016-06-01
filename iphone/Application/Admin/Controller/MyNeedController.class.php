@@ -22,9 +22,32 @@ class MyNeedController extends \Think\Controller{
 
     public function  index(){
         if(IS_POST){
-            dump($this->_model->create());
-        }else{ 
-        $this->display('Singledemand');
+            /**
+             * 1.循环二维数组
+             * 2.查询会员id值
+             * 3.
+             */
+         $data = I("post.");
+         var_dump($data);
+        dump($this->_model->addAll($data));
+     
+         
+//         $xuqiou = array();
+//         foreach($data as $val){
+//            $xuqiou[]=$val();
+//            
+//         }
+//          dump($xuqiou);
+//          exit;
+         
+         
+        }else{
+            $mid = session('MEMBER_INFO')['id'];
+            if(empty($mid)){
+                 $this->redirect('index.php/Admin/Member/login');
+            }
+            $this->assign('mid',$mid);
+            $this->display('Singledemand');
         }
     }
 }
