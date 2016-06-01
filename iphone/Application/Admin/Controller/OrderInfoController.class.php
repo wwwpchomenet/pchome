@@ -26,7 +26,13 @@ class OrderInfoController extends Controller{
      * 添加收货地址
      */
     public function  add(){
-        $this->display('NewAddress');
+        if(IS_POST){
+            dump(I('post.'));
+            $orderModel=D('OrderInfo');
+            dump($orderModel->create());
+        }else{
+            $this->display('NewAddress');
+        }
     }
 
     /**
