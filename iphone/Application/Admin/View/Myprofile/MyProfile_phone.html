@@ -1,5 +1,7 @@
 <extend name='Lyout:comment'/> 
+
 <block name='admin'>
+    <script src="__LAYER__/layer.js"></script>
     <script type="text/javascript">
           function bindPhoneNum() {
             //发送ajax请求到后台
@@ -8,6 +10,11 @@
                 'telphone':$('#tel').val()
             };
             $.getJSON(url,data,function(response){
+                if(response['status']===1){
+                    layer.msg('验证码发送成功');
+                }else{
+                     layer.msg('稍等一下,再点击吧');
+                }
                 console.debug(response);
             });
             }

@@ -3,10 +3,10 @@
 <section> 
 	<div class="pc_bjtu">
     	<div class="pc_bjtu_toux"><img src="__IMG__/touxiang.jpg" /></div>
-        <p class="pc_bjtu_title">重庆哈哈集团</p>
+        <p class="pc_bjtu_title">{$member.name}</p>
     </div>  
     <div class="pc_user">
-    	<a href="">
+    	<a href="{:U('index.php/Admin/Myprofile/MyProfile')}">
         	<p class="pc_user_tu1 fl"></p>
             <p class="pc_user_zi fl">账户管理</p>
             <p class="set_dizhi_jiantou pc_top_10 fr"></p>
@@ -34,7 +34,7 @@
         </a>
     </div>
     <div class="pc_user">
-    	<a href="">
+    	<a href="{:U('index.php/Admin/MyNeed/index')}">
         	<p class="pc_user_tu5 fl"></p>
             <p class="pc_user_zi fl">采购需求</p>
             <p class="set_dizhi_jiantou pc_top_10 fr"></p>

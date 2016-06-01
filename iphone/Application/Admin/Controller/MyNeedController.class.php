@@ -20,27 +20,22 @@ class MyNeedController extends \Think\Controller{
          $this->_model = D('MyNeed');
     }
 
+    /**
+     * 需求单提交到数据库
+     */
     public function  index(){
         if(IS_POST){
             /**
              * 1.循环二维数组
              * 2.查询会员id值
-             * 3.
+             * 
              */
          $data = I("post.");
-         var_dump($data);
-        dump($this->_model->addAll($data));
-     
-         
-//         $xuqiou = array();
-//         foreach($data as $val){
-//            $xuqiou[]=$val();
-//            
-//         }
-//          dump($xuqiou);
-//          exit;
-         
-         
+        if($this->_model->addAll($data)===fasle){
+            $this->error(get_error($this->_model->getError()));
+              }else{
+             //跳转到我的历史需求单
+              }
         }else{
             $mid = session('MEMBER_INFO')['id'];
             if(empty($mid)){
@@ -49,5 +44,21 @@ class MyNeedController extends \Think\Controller{
             $this->assign('mid',$mid);
             $this->display('Singledemand');
         }
+    }
+    
+    /**
+     * 历史清单
+     * 1.获取session保存的id查询会员的需求
+     * 
+     */
+    public function singledemand(){
+
+        if(($rows = $this->_model->getList())===false){
+             $this->error(get_error($this->_model->getError()));
+        }
+//        dump($rows);
+//        exit;
+         $this->assign('rows',$rows);
+         $this->display('Singledemand_2');
     }
 }

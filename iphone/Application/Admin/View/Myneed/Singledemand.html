@@ -1,53 +1,11 @@
-<extend name="Lyout:comment"/>
+<extend name="Lyout:menu"/>
 <block name="admin">
-    <script type="text/javascript">
-        var i = 1;
-       $(function(){
-        $('#need').click(function(){
-           //获取内容
-           var name =$('#name').val();
-           var num =$('#num').val();
-           var info =$('#info').val();
-        var html = '<div class="sd_sppx_lish">';
-            html+='<a class="sd_sppx_head_1 fl">'+(i++) +'</a>';
-            html+='<p class="sd_sppx_head_2 fl">'+name+'</p>';
-            html+='<p class="sd_sppx_head_3 fl" >'+num+'</p>';
-            html+='<p class="sd_sppx_head_4 fl" >'+info+'</p>';
-            html+='</div>';
-           $('#ma_main').append(html); 
-        });
-          //----------------------------------------------------------------  
-          var data={};
-          var mid={$mid};
-          console.debug(mid);
-        $('#tijiao').click(function(){
-            //大的div
-            $('#ma_main').children().each(function(key,val){
-//                console.debug($(this).children().index());
-                var a =$($(this).children('p')[0]).text();
-                var b =$($(this).children('p')[1]).text();
-                var c =$($(this).children('p')[2]).text();
-              data[key]={
-                  'name':a,
-                  'num':b,
-                  'info':c,
-                  'member_id':mid
-              };
-    });
-         $.post("{:U('index.php/Admin/MyNeed/index')}",data,function(sion){
-             console.debug(sion);
-             
-         });
-     console.debug(data);
-           });
-  });
-    </script>
-<body>
+    <script src="__LAYER__/layer.js"></script>
 <section>
   <div class="sdxq_con">
     <div class="sdx_head">
-    	<a class="sdx_head_on fl">我的需求单</a>
-        <a class="fl">历史需求单</a>
+    	<a class="sdx_head_on fl" href="{:U('index.php/Admin/MyNeed/index')}">我的需求单</a>
+        <a class="fl" href="{:U('index.php/Admin/MyNeed/singledemand')}">历史需求单</a>
     </div> 
 <!--   <form action="{:U('index.php/Admin/MyNeed/index')}" method="post">-->
     <div class="na_shuru">
@@ -88,34 +46,71 @@
   <a class="cp_dianjick"  id='tijiao'>提交需求订单</a>
   <!-- end --> 
   <!-- footer -->
-  <div class="in_footer">
-  	<div class="in_footer_lish fl">
-    	<a href="" class="">
-        	<div class="in_footer_lish_tu1"></div>
-            <p class="in_footer_lish_zi">首页</p>
-        </a>
-    </div>
-    <div class="in_footer_lish fl">
-    	<a href="" class="">
-        	<div class="in_footer_lish_tu2"></div>
-            <p class="in_footer_lish_zi">全部商品</p>
-        </a>
-    </div>
-    <div class="in_footer_lish fl">
-    	<a href="" class="">
-        	<div class="in_footer_lish_tu3"></div>
-            <p class="in_footer_lish_zi">订货清单</p>
-        </a>
-    </div>
-    <div class="in_footer_lish fl">
-    	<a href="" class="in_footer_on">
-        	<div class="in_footer_lish_tu4"></div>
-            <p class="in_footer_lish_zi">我的帐号</p>
-        </a>
-    </div>
-  </div>
+  
+  <block name='footer'></block>
   <!-- end -->
 </section>
-</body>
-</html>
+</block>
+<block name='js'>
+    <script type="text/javascript">
+         $('.in_footer_lish_tu2').css({
+            'background-position':'-40px 0px'
+        });
+        $('.in_footer_lish_tu1').css({
+            'background-position':'0px 0px'
+        });
+        $('.in_footer_lish_tu3').css({
+            'background-position':'-70px 0px'
+        });
+        $(function(){
+                $('.in_footer_lish_tu4').css({
+                    width:26+'px',
+                    height:26+'px',
+                    background:'url(__IMG__/icon.png)',
+                    'background-position':'-105px 30px',
+                    margin:0 +'auto',
+                    'margin-top': 8+'px',
+                });
+            });
+        var i = 1;
+       $(function(){
+        $('#need').click(function(){
+           //获取内容
+           var name =$('#name').val();
+           var num =$('#num').val();
+           var info =$('#info').val();
+        var html = '<div class="sd_sppx_lish">';
+            html+='<a class="sd_sppx_head_1 fl">'+(i++) +'</a>';
+            html+='<p class="sd_sppx_head_2 fl">'+name+'</p>';
+            html+='<p class="sd_sppx_head_3 fl" >'+num+'</p>';
+            html+='<p class="sd_sppx_head_4 fl" >'+info+'</p>';
+            html+='</div>';
+           $('#ma_main').append(html); 
+        });
+          //----------------------------------------------------------------  
+          var data={};
+          var mid={$mid};
+          console.debug(mid);
+        $('#tijiao').click(function(){
+            //大的div
+            $('#ma_main').children().each(function(key,val){
+//                console.debug($(this).children().index());
+                var a =$($(this).children('p')[0]).text();
+                var b =$($(this).children('p')[1]).text();
+                var c =$($(this).children('p')[2]).text();
+              data[key]={
+                  'name':a,
+                  'num':b,
+                  'info':c,
+                  'member_id':mid
+              };
+    });
+         $.post("{:U('index.php/Admin/MyNeed/index')}",data,function(sion){
+             console.debug(sion);
+             layer.msg('成功加入需求清单');
+         });
+     console.debug(data);
+           });
+  });
+    </script>
 </block>
