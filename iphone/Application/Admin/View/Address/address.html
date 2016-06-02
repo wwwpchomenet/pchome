@@ -1,0 +1,48 @@
+<extend name='Lyout:personal'/>
+<block name="css">
+    <style type="text/css">
+        .bg{
+            background: pink;
+        }
+    </style>
+</block>
+<block name="admin">
+<section>
+  <div class="set_con">
+      <foreach name="address" item="address" key="k">
+          <div class="set_head">
+            <p class="add_dizhi fl">地址{:$k+1}</p>
+            <a class="add_shezhi fr {:$address['is_default']==1?'bg':''}" data="{:$address['id']}" href="javascript:;">设为默认</a>
+          </div>
+          <div class="set_dizhi mabott2">
+            <a href="{:U('index.php/admin/Address/edit',array('id'=>$address['id']))}">
+                <p class="set_dizhi_head">{:$address['detail_address']}</p>
+                <p class="set_dizhi_xinxi fl">姓名:{:$address['name']} 电话:{:$address['tel']}</p>
+                <p class="set_dizhi_xinxi fl">{:$address['delivery_name']}</p>
+                <p class="set_dizhi_jiantou fr"></p>
+                <p class="set_dizhi_fapiao">
+                    发票抬头：{:$address['invoice']}
+                    <span>税号：{:$address['ein']}</span>
+                </p>
+            </a>
+          </div>
+      </foreach>
+  </div>
+
+  <a class="cp_adddizhi" href="{:U('index.php/admin/Address/add')}">
+  	<p class="cp_adddizhi_tu fl">+</p>
+  	<p class="cp_adddizhi_zi fl">新增地址</p>
+   </a>
+</section>
+</block>
+<block name="js">
+    <script type="text/javascript">
+        $('.add_shezhi').on('click',function(){
+            $(this).addClass('bg').parent().siblings().children('a').removeClass('bg');
+            var id=$(this).attr('data');
+            $.get("{:U('index.php/admin/Address/isDefault')}",{'isDefault':id},function(){
+
+            });
+        });
+    </script>
+</block>

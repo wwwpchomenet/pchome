@@ -34,9 +34,11 @@ class GoodsListController extends Controller{
      * 显示清单列表
      */
     public function getListing(){
+        $AddressDefault=$this->_getAddressDefault();
         $goodsList = $this->_userGoodsList();
-            $this->assign('goodsList', $goodsList);
-            $this->display('settlement');
+        $this->assign('AddressDefault',$AddressDefault);
+        $this->assign('goodsList', $goodsList);
+        $this->display('settlement');
     }
 
     /**
@@ -47,7 +49,9 @@ class GoodsListController extends Controller{
         $goodslistModel=D('GoodsList');
        return $goodslistModel->getGoodsList(session('MEMBER_INFO')['id']);
     }
-
+    private function _getAddressDefault(){
+        return  D('Address')->where(array('is_default'=>1))->find();
+    }
     /**
      * 点击X时删除清单
      * @return mixed

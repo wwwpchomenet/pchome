@@ -29,13 +29,13 @@
         <p>您的收货地址</p>
       </div>
       <div class="set_dizhi">
-        <a href="{:U('index.php/Admin/OrderInfo/index')}">
-            <p class="set_dizhi_head">重庆市 渝北区 紫园路268号 龙城天都X-X-X</p>
-            <p class="set_dizhi_xinxi fl">谭钦云 18183045XXX</p>
+        <a href="{:U('index.php/Admin/Address/index')}">
+            <p class="set_dizhi_head">{:$AddressDefault['detail_address']}</p>
+            <p class="set_dizhi_xinxi fl">{:$AddressDefault['name']} {:$AddressDefault['tel']}</p>
             <p class="set_dizhi_jiantou fr"></p>
             <p class="set_dizhi_fapiao">
-                发票抬头：XXXXXX
-                <span>税号：XXXXXX</span>
+                发票抬头：{:$AddressDefault['invoice']}
+                <span>税号：{:$AddressDefault['ein']}</span>
             </p>
         </a>
       </div>
