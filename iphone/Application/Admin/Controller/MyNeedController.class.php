@@ -31,17 +31,22 @@ class MyNeedController extends \Think\Controller{
              * 
              */
          $data = I("post.");
+         dump($data);
         if($this->_model->addAll($data)===fasle){
             $this->error(get_error($this->_model->getError()));
               }else{
              //跳转到我的历史需求单
               }
         }else{
-            $mid = session('MEMBER_INFO')['id'];
-            if(empty($mid)){
+            $mname = session('MEMBER_INFO')['name'];
+            $mtel =session('MEMBER_INFO')['tel'];
+//            dump($mtel);
+//            exit;
+            if(empty($mname)){
                  $this->redirect('index.php/Admin/Member/login');
             }
-            $this->assign('mid',$mid);
+            $this->assign('mname',$mname);
+            $this->assign('mtel',$mtel);
             $this->display('Singledemand');
         }
     }

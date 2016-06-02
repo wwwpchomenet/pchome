@@ -33,7 +33,7 @@ class MyNeedController extends \Think\Controller {
         //模糊查询品牌的名字
         $keyword = I('get.keyword');
         if($keyword){
-            $cond['name'] = array('like','%'.$keyword.'%');
+            $cond['member'] = array('like','%'.$keyword.'%');
         }
         $this->assign($this->_model->getPageResult($cond));
         $this->display();
@@ -41,12 +41,47 @@ class MyNeedController extends \Think\Controller {
     }
     
     public function  add(){
-        
+        if(IS_POST){
+           if($this->_model->create()===false){
+               $this->error(get_error($this->_model->getError()));
+           }
+           if($this->_model->add()===false){
+                 $this->error(get_error($this->_model->getError()));
+           }else{
+               $this->success('增加用户需求成功',U('index.php/Admin/MyNeed/index'));
+           }
+        }else{ 
+          $this->display();
+        }
+       
     }
-    public function  save(){
-        
+    public function  edit($id){
+        if(IS_POST){
+            if ($this->_model->create() === false) {
+                $this->error(get_error($this->_model->getError()));
+            }
+            // 保存数据.
+            if ($this->_model->where(array('id'=>$id))->save() === false) {
+                echo "skdsakjd";
+                $this->error(get_error($this->_model->getError()));
+            } else {
+                 $this->success('修改成功',U('index.php/Admin/MyNeed/index'));
+            } 
+        }else{
+                $this->assign('row',$this->_model->where(array('id'=>$id))->find());
+                $this->display('add');   
+        }
     }
-    public function  remove(){
-        
+    public function  delete($id){
+        $data = array(
+            'status'=>-1
+        );
+        //删除的品牌名字后添加_del后缀标识
+        if($this->_model->where(array('id'=>$id))->setField($data)===false){
+            $this->error(get_error($this->_model->getError()));
+        }else{
+            $this->success('删除成功');
+        }
     }
+
 }

@@ -4,7 +4,7 @@
 </block>
 <block name='admin'>
     <h1>
-        <span class="action-span"><a href="{:U('add')}">添加管理员</a></span>
+        <span class="action-span"><a href="{:U('add')}">添加用户需求</a></span>
         <span class="action-span1"><a href="{:U('MyNeed/index')}">重庆火锅国际供应链股份有限公司   管理中心</a></span>
         <span id="search_id" class="action-span1"> - {$meta_title} </span>
     </h1>
@@ -31,16 +31,23 @@
                
                 <foreach name='rows' item='row'>
                     <tr>
-                        <td align="center">{$row.mtel}</td>
-                        <td class="first-cell">{$row.mname}</td>
+                        <td align="center">
+                               {$row.tel}
+                             
+                        </td>
+                        <td class="first-cell">
+                           
+                             {$row.member}
+                             
+                        </td>
                         <td class="first-cell">{$row.name}</td>
                         <td align="center">{$row.num}</td>
                         <td align="center">{$row.info}</td>
                         <td align="center">{$row.add_time}</td>
                         <td align="center">
                             <a href="{:U('edit',array('id'=>$row['id']))}" title="编辑">编辑</a> |
-                            <a href="{:U('delete',array('id'=>$row['id']))}" title="移除">移除</a> |
-                            <a href="{:U('Admin/resetPwd',array('id'=>$row['id']))}" title="重置密码">重置密码</a> 
+                            <a href="{:U('delete',array('id'=>$row['id']))}" title="移除">移除</a> 
+                 
                         </td>
                     </tr>
                 </foreach>

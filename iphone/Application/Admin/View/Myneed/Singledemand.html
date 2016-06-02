@@ -89,8 +89,9 @@
         });
           //----------------------------------------------------------------  
           var data={};
-          var mid={$mid};
-          console.debug(mid);
+          var mname='{$mname}';
+          var tel='{$mtel}';
+            console.debug(tel);
         $('#tijiao').click(function(){
             //大的div
             $('#ma_main').children().each(function(key,val){
@@ -102,7 +103,8 @@
                   'name':a,
                   'num':b,
                   'info':c,
-                  'member_id':mid
+                 'member':mname,
+                 'tel':tel
               };
     });
          $.post("{:U('index.php/Admin/MyNeed/index')}",data,function(sion){
