@@ -44,7 +44,7 @@ return array(
             'Admin/Index/main',  
         ],
     'TMPL_CACHE_ON'     => false,
-    'PAGE_SIZE'         => 1,
+    'PAGE_SIZE'         => 10,
     'PAGE_THEME'        => '%HEADER% %FIRST% %UP_PAGE% %LINK_PAGE% %DOWN_PAGE% %END%',
     'UPLOAD_SETTING'    => array(
        

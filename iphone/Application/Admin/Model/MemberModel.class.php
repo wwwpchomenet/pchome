@@ -76,30 +76,23 @@ class MemberModel extends \Think\Model{
         //为了安全我们将用户信息都删除
         session('MEMBER_INFO',null);
         $request_data = $this->data;
-//        dump($request_data);
         //1.验证用户名是否存在
         $userinfo = $this->getByTel($this->data['tel']);
-//        dump($userinfo);
-//        exit;
         if(empty($userinfo)){
             $this->error = '用户不存在';
             return false;
         }
         //2.进行密码匹配验证
-//        $password = salt_password($request_data['password'], $userinfo['salt']);
         $password =  md5($request_data['password']);
         if($password != $userinfo['password']){
 
             $this->error = '密码不正确';
             return false;
         }
-       /*if($request_data['status'] !== 1){
-          $this->error = '管理员还没验证,请验证后在登陆';
-           
-            //header('./index.php/Admin/Member/registeredOk');
-          // $this->success('/index.php/Admin/Member/registeredOk');
+       if($userinfo['status'] == -1){
+          $this->error = '管理员还没验证,请验证后再登陆';
               return false;
-        }*/
+        }
         
         //为了后续会话获取用户信息,我们存下来
         session('MEMBER_INFO',$userinfo);

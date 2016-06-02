@@ -20,7 +20,6 @@
         <div class="list-div" id="listDiv">
             <table cellpadding="3" cellspacing="1">
                 <tr>
-                    <th>会员电话</th>
                     <th>会员名</th>
                     <th>需求名称</th>
                     <th>数量</th>
@@ -28,11 +27,9 @@
                      <th>时间</th>
                     <th>操作</th>
                 </tr>
-               
                 <foreach name='rows' item='row'>
                     <tr>
-                        <td align="center">{$row.mtel}</td>
-                        <td class="first-cell">{$row.mname}</td>
+                        <td align="center">{$row.member_id}</td>
                         <td class="first-cell">{$row.name}</td>
                         <td align="center">{$row.num}</td>
                         <td align="center">{$row.info}</td>

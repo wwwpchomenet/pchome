@@ -7,7 +7,8 @@
  */
 namespace Admin\Model;
 class MyNeedModel extends \Think\Model{
-        public function getList(){
+    
+        public function getPageResult(){
         $member = session('MEMBER_INFO')['id'];
         $rows = $this->where(array('member_id'=>$member))->order('id desc')->select();
         return $rows;

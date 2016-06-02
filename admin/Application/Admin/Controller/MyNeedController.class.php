@@ -28,7 +28,16 @@ class MyNeedController extends \Think\Controller {
         $this->_model = D('MyNeed');
     }
     public function index() {
+         //获取搜索关键字的功能
+        $cond = array();
+        //模糊查询品牌的名字
+        $keyword = I('get.keyword');
+        if($keyword){
+            $cond['name'] = array('like','%'.$keyword.'%');
+        }
+        $this->assign($this->_model->getPageResult($cond));
         $this->display();
+      
     }
     
     public function  add(){
