@@ -116,7 +116,17 @@ class MemberController extends \Think\Controller {
             if (($password = $this->_model->login()) === false) {
                 $this->error(get_error($this->_model->getError()));
             }
-            $this->success('登陆成功',U('index.php/Admin/Banner/index'));
+            $member = session('MEMBER_INFO')['status'];
+//            dump($member);
+//            exit;
+            if($member == 1){
+                 $this->redirect('index.php/Admin/Banner/index');
+            }elseif($member == -1) {
+                $this->redirect('index.php/Admin/PersonalCenter/index');
+            }else{
+                $this->redirect('index.php/Admin/PersonalCenter/index');
+            }
+           
         } else {
             $this->display();
         }
@@ -130,7 +140,7 @@ class MemberController extends \Think\Controller {
         session('MEMBER_INFO',null);
         cookie('AUTO_LOGIN_TOKEN',null);
         cookie(null);
-        $this->success('退出成功', U('login'));
+        $this->redirect('index.php/Admin/Member/login');
     }
 
     /**

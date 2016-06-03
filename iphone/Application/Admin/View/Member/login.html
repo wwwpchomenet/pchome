@@ -1,7 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <link rel="stylesheet" href="__CSS__/index.css" />
+<extend name='Lyout:comment'/>
+<block name='admin'>
 <body style="background:#fff;">
 <section> 
   <!-- banner -->
@@ -21,7 +19,8 @@
   <div class="lo_login">
   		<div class="lo_login_kk"><input type="text" name='tel' placeholder="手机号/用户名" /></div>
         <div class="lo_login_kk"><input type="password" name='password' placeholder="请输入密码" /></div>
-        <p class="lo_login_reg">还没有帐号？<a href="registered.html">立即注册</a></p>
+        <p class="lo_login_reg">还没有帐号？<a href="{:U('index.php/Admin/Member/registered')}">立即注册</a></p>
+        <p class="lo_login_reg">忘记密码？<a href="{:U('index.php/Admin/Myprofile/findpwd')}">找回密码</a></p>
     <input type="submit" value="登录" class="lo_anniu" />
   </div>
 
@@ -31,3 +30,4 @@
 </section>
 </body>
 </html>
+</block>

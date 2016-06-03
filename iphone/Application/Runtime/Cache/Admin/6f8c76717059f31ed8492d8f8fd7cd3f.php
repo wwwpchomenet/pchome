@@ -27,23 +27,23 @@
   </div> 
   <!-- end --> 
   <div class="lo_bj">
-  	<a href="<?php echo U('index.php/Admin/Member/login');?>" class="lo_bottom fl">登录</a>
-    <a href="<?php echo U('index.php/Admin/Member/registered');?>" class="fl">注册</a>
+  	<a href="login.html" class="fl">登录</a>
+    <a href="registered.html" class="lo_bottom fl">注册</a>
   </div>
-  <form action="<?php echo U('index.php/Admin/Member/login');?>" method="post">
-  <div class="lo_login">
-  		<div class="lo_login_kk"><input type="text" name='tel' placeholder="手机号/用户名" /></div>
-        <div class="lo_login_kk"><input type="password" name='password' placeholder="请输入密码" /></div>
-        <p class="lo_login_reg">还没有帐号？<a href="<?php echo U('index.php/Admin/Member/registered');?>">立即注册</a></p>
-        <p class="lo_login_reg">忘记密码？<a href="<?php echo U('index.php/Admin/Myprofile/findpwd');?>">找回密码</a></p>
-    <input type="submit" value="登录" class="lo_anniu" />
+ <form action="<?php echo U('index.php/Admin/Member/registeredNext');?>" enctype="multipart/form-data"  method="post" id='signup' >
+    <div class="reg_registered">
+    <div class="reg_registered_kk"><input type="text" placeholder="真实姓名" name='name' /></div>
+    <div class="reg_registered_kk"><input type="text" placeholder="品牌名" name='brand'/></div>
+    <div class="reg_registered_kk"><input type="text" placeholder="营业执照名" name='peimit'/></div> 
+    <div class="reg_registered_file fl">
+<!--    	<a href="javascript:void(0);" class="link">点击上传营业执照</a>-->
+    	<input type="file" multiple="multiple" class='link'  name='picture[]' value='上传营业执照' />
+    </div>
+<!--    <div class="reg_registered_tu fl"><img src="images/cpt.jpg" /></div>-->
   </div>
-
-<!--  <a class="lo_anniu" href=""></a>-->
-  </form>
-
+     <input type='submit' class='lo_anniu' value='上传资料'>
+ </form>
 </section>
 </body>
-</html>
-
+  
 </body>

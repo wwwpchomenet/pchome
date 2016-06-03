@@ -34,21 +34,32 @@
         </a>
       </div>
       <div class="mp_lish">
-        <div class="mp_lish_con">
+        <a class="mp_lish_con" href="{:U('index.php/Admin/Member/registeredNext')}">
             <p class="mp_lish_name fl">真实姓名</p>
+              <p class="mp_lish_jiantou fr"></p>
             <p class="mp_lish_text fr">{$members['name']}</p>
-        </div>
+        </a>
       </div>
       <div class="mp_lish">
-        <div class="mp_lish_con">
+         <a class="mp_lish_con" href="{:U('index.php/Admin/Member/registeredNext')}">
             <p class="mp_lish_name fl">营业执照号码</p>
+              <p class="mp_lish_jiantou fr"></p>
             <p class="mp_lish_text fr">{$members['peimit']}</p>
-        </div>
+          
+        </a>
       </div>
       <div class="mp_lish">
         <div class="mp_lish_con">
             <p class="mp_lish_name fl">上传营业执照</p>
-            <p class="mp_lish_text fr">已上传</p>
+              <p class="mp_lish_jiantou fr"></p>
+            <p class="mp_lish_text fr">
+                <if condition="$members['picture'] eq '' "> 
+                    未上传,请上传
+                <else /> 已上传
+                </if>
+                
+            </p>
+          
         </div>
       </div>
       

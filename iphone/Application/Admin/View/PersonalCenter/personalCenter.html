@@ -3,7 +3,19 @@
 <section> 
 	<div class="pc_bjtu">
     	<div class="pc_bjtu_toux"><img src="__IMG__/touxiang.jpg" /></div>
-        <p class="pc_bjtu_title">{$member.name}</p>
+        <p class="pc_bjtu_title">{$member.name}( 
+            <if condition="$member.status eq 1">
+                审核通过
+                <elseif condition="$member.status eq -1"/>
+                待审核
+                <elseif condition="$member.status eq ''"/>
+                  请登录
+                <else />
+                审核未通过
+            </if>
+            
+            )</p>
+        
     </div>  
     <div class="pc_user">
     	<a href="{:U('index.php/Admin/Myprofile/MyProfile')}">
@@ -44,6 +56,13 @@
     	<a href="">
         	<p class="pc_user_tu6 fl"></p>
             <p class="pc_user_zi fl">售后规则</p>
+            <p class="set_dizhi_jiantou pc_top_10 fr"></p>
+        </a>
+    </div>
+    <div class="pc_user">
+    	<a href="{:U('index.php/Admin/Member/logout')}">
+        	<p class="pc_user_tu4 fl"></p>
+            <p class="pc_user_zi fl">退出</p>
             <p class="set_dizhi_jiantou pc_top_10 fr"></p>
         </a>
     </div>

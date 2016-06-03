@@ -89,10 +89,10 @@ class MemberModel extends \Think\Model{
             $this->error = '密码不正确';
             return false;
         }
-       if($userinfo['status'] == -1){
-          $this->error = '管理员还没验证,请验证后再登陆';
-              return false;
-        }
+//       if($userinfo['status'] == -1){
+//          $this->error = '管理员还没验证,请验证后再登陆';
+//              return false;
+//        }
         
         //为了后续会话获取用户信息,我们存下来
         session('MEMBER_INFO',$userinfo);

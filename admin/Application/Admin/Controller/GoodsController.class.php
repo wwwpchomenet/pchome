@@ -36,6 +36,7 @@ class GoodsController extends \Think\Controller {
         $keyword      = I('get.keyword');
         $category     = I('get.cat_id');
         $is_on_sale   = I('get.is_on_sale');
+        $website     = I('get.website');
         $cond         = array();
         if ($keyword) {
             $cond['name'] = array('like', '%' . $keyword . '%');
@@ -46,7 +47,9 @@ class GoodsController extends \Think\Controller {
         if (strlen($is_on_sale)) {
             $cond['is_on_sale'] = $is_on_sale;
         }
-
+        if (strlen($website)) {
+            $cond['website'] = $website;
+        }
 
         //准备数据
         $rows       = $this->_model->getPageResult($cond);
@@ -63,6 +66,7 @@ class GoodsController extends \Think\Controller {
 
         //商品的状态
         $this->assign('is_on_sales', $this->_model->is_on_sales);
+        $this->assign('website', $this->_model->website);
         $this->assign('goods_statuses', $this->_model->goods_statuses);
         //商品的上架状态
         $this->display();

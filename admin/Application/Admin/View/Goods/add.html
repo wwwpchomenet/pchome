@@ -93,6 +93,8 @@
         $(':input[name=is_on_sale]').val([{$row.is_on_sale|default=1}]);
         //2.回显商品状态
         $('.goods_status').val({$row.goods_status});
+        //3.选中是否在官网上显示
+         $(':input[name=website]').val([{$row.website|default=0}]);
         });
 
         //---------------商品相册-------------------
@@ -226,7 +228,7 @@
                     </tr>
                     
                     <tr>
-                        <td class="label">LOGO：</td>
+                        <td class="label">商品图片：</td>
                         
                         <td>
                             <input type="file" id="logo-upload" value="" size="20"/>
@@ -241,24 +243,43 @@
                     </tr>
                    
                     <tr>
-                        <td class="label">价格：</td>
+                        <td class="label">普通会员价格：</td>
                         <td>
-                            <input type="text" name="market_price" value="{$row.market_price}" size="20" />
+                            <input type="text" name="market_price1" size="6" value="{$row.market_price1}"  />&nbsp;元
                         </td>
                     </tr>
                     <tr>
-                        <td class="label">商品数量：</td>
+                        <td class="label">中级会员价格：</td>
+                        <td>
+                            <input type="text" name="market_price2" size="6" value="{$row.market_price2}"  />&nbsp;元
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">高级会员价格：</td>
+                        <td>
+                            <input type="text" name="market_price3" size="6" value="{$row.market_price3}" />&nbsp;元
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">库存：</td>
                         <td>
                             <input type="text" name="stock" size="8" value="{$row.stock|default=100}"/>
                         </td>
                     </tr>
+                    <tr>
                     <td class="label">是否上架：</td>
                     <td>
                         <input type="radio" name="is_on_sale" value="1" /> 是
                         <input type="radio" name="is_on_sale" value="0" /> 否
                     </td>
                     </tr>
-                    
+                    <tr>
+                    <td class="label">是否官网显示：</td>
+                    <td>
+                        <input type="radio" name="website" value="1" /> 是
+                        <input type="radio" name="website" value="0" /> 否
+                    </td>
+                    </tr>
                     <tr>
                         <td class="label">推荐排序：</td>
                         <td>

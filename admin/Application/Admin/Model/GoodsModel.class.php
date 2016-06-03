@@ -13,7 +13,11 @@ class GoodsModel extends \Think\Model {
         1 => '上架',
         0 => '下架',
     );
-
+    //官网显示
+   public $website = array(
+        1 => '官网显示',
+        0 => '官网未显示',
+    );
     /**
      * 1.商品名称不能为空
      * 2.商品分类不能为空

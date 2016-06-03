@@ -101,5 +101,10 @@ class MyprofileController extends \Think\Controller {
             $this->display('MyProfile_password');
         }
     }
-
+    
+    public function  findpwd(){
+         $this->display('MyProfile_password');
+    }
+    
+    
 }

@@ -18,7 +18,7 @@ class AgentController extends Controller{
            if(!$supplier->create()||!$supplier->message()){
                 $this->error(get_error($supplier->getError()));
             } else {
-                $this->success('谢谢你的留言', U('index.php/Admin/index/index'));
+                $this->redirect('index.php/Admin/index/index');
             }
         }
     }
