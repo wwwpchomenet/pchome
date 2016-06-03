@@ -67,7 +67,7 @@
     </if>
 </section>
       </block>
-    <block name="js">last
+    <block name="js">
         <script type="text/javascript">
             $(function(){
                 $('.pro_left_lish1').css('display', 'block').siblings().css('display', 'none');
@@ -107,9 +107,9 @@
                     div+='    <p class="pro_lish_text_name">'+data[i]["name"]+'</p>';
                     div+='   <p class="pro_lish_text_xq">产地 ：'+(data[i]["origin"]?data[i]["origin"]:'未知 ')+'    规格:'+data[i]["norintro"]+'</p>';
                     div+='   <p class="pro_lish_text_xq">'+data[i]["intro"]+'</p>';
-                    div+='   <p class="pro_lish_text_xq">5件起订</p>';
+                    div+='   <p class="pro_lish_text_xq">'+data[i]["norintro"]+'起订</p>';
                     <if condition="(session('MEMBER_INFO') neq '')">
-                        div+='  <p class="pro_lish_text_jiage fr js_danjia">'+data[i]["market_price"]+'元/件</p>';
+                        div+='  <p class="pro_lish_text_jiage fr js_danjia">'+data[i]["market_price{:session('MEMBER_INFO')['rank']}"]+'元/件</p>';
                     </if>
                     div+='  <div class="se_lish_text_shuliang fl js_num"> <span class="sy_minus fl" id="sy_minus_gid1">-</span>';
                     div+='       <input type="text" name="num" class="sy_num fl" value="0">';
@@ -125,19 +125,46 @@
              */
             $('.pro_qingdan').live('click',function(){
                 var data={};
+                var goods_name='';
+                var goods_name1='';
                 $('.pro_lish').each(function(k,v){
                     if($(this).children().children().children('input').val()>0){
+                    if($(this).children().children().children('input').val()>=parseInt($($(this).children().children('p')[3]).text())){
                         data[k]={'member_id':'<?php echo session("MEMBER_INFO")["id"] ?>','goods_id':$(this).children('input').val(),'num':$(this).children().children().children('input').val()};
+                        goods_name1+=$($(this).children().children('p')[0]).text()+',';
+                    }else{
+                            goods_name+=$($(this).children().children('p')[0]).text()+',';
+                        }
                     }
                 });
                 $.post("{:U('index.php/Admin/GoodsList/add')}",data,function(da){
+                    if(goods_name){
+                        alert(goods_name+'少于起订数量下单失败');
+                    }
                     if(da){
-                        alert('添加成功');
-                    }else {
-                        alert('请选择数量');
+                        alert(goods_name1+'添加成功');
                     }
                 });
             });
+            /**
+             * 获取用户输入的商品数量
+             */
+            $('body').on('change','.sy_num',function(){
+                var pl = $(".js_heji:last");
+                var reg = /(.*[\￥]\s*)([\+\d\.]+)(\s*元)/g;
+                pc = $(this).closest(".js_num");
+                var price = parseFloat (pc.prev(".js_danjia").text().replace(reg,'$2')) * $(this).val ();
+                pc.next(".js_bb").text (pc.next(".js_bb").text().replace(reg, "$1" + price + "$3"));
+                var sum = 0;
+                $(".js_num").next(".js_bb").each(function (i, dom)
+                {
+                    sum += parseFloat ($(this).text().replace(reg, "$2"));
+                });
+                pl.text(pl.text().replace(reg, "$1" + sum + "$3"));
+            });
+            /**
+             * 按回车键   搜索用户查询信息
+             */
             $(document).keydown(function(event){
                 var search=$('#search').val();
                 if(event.keyCode==13){

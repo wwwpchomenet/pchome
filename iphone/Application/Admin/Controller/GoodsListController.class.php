@@ -50,10 +50,10 @@ class GoodsListController extends Controller{
        return $goodslistModel->getGoodsList(session('MEMBER_INFO')['id']);
     }
     private function _getAddressDefault(){
-        return  D('Address')->where(array('is_default'=>1))->find();
+        return  D('Address')->where(array('is_default'=>1,'member_id'=>session('MEMBER_INFO')['id']))->find();
     }
     /**
-     * 点击X时删除清单
+     * 点击删除清单
      * @return mixed
      */
     public function delete(){
@@ -68,11 +68,9 @@ class GoodsListController extends Controller{
      */
     public function add(){
         $data=I('post.');
-        if(shuffle($data)===true){
-            if(M('GoodsList')->addAll($data)) {
+            if(D('GoodsList')->setGoodsList($data)) {
                 echo 1;
             }
-        }
     }
 
     /**

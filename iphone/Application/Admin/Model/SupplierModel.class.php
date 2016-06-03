@@ -13,6 +13,6 @@ use Think\Model;
 
 class SupplierModel extends Model{
     public function getPic(){
-        return $this->limit(8)->getField('path',true);
+        return $this->where(array('status'=>1))->limit(8)->getField('path',true);
     }
 }

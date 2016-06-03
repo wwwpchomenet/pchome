@@ -18,13 +18,13 @@
                         <div class="ord_qingdan_text fl">
                             <input type="hidden" class="goodId" value="{:$goodsList['id']}">
                             <p class="ord_qingdan_name_name fl">{:$goodsList['name']}</p>
-                            <p class="ord_qingdan_name_jiage js_danjia fr">{:$goodsList['market_price']}<span>元/件</span></p>
+                            <p class="ord_qingdan_name_jiage js_danjia fr">{:$goodsList['market_price'.session('MEMBER_INFO')['rank']]}<span>元/件</span></p>
                             <div class="se_lish_text_shuliang ma_matop30 fl js_num">
                                 <span class="sy_minus fl" data="{:$goodsList['id']}" id="sy_minus_gid1">-</span>
                                 <input type="text" class="sy_num fl" value="{:$goodsList['num']}">
                                 <span class="sy_plus fl" data="{:$goodsList['id']}" id="sy_plus_gid1">+</span>
                             </div>
-                            <p style="display:none;" class="js_bb">需支付￥{:$goodsList['market_price']*$goodsList['num']}元</p>
+                            <p style="display:none;" class="js_bb">需支付￥{:$goodsList['market_price'.session('MEMBER_INFO')['rank']]*$goodsList['num']}元</p>
                             <a class="ord_qingdan_sc fr" href="javascript:;" data="{:$goodsList['id']}">删除</a>
                         </div>
                     </div>
@@ -65,6 +65,9 @@
                     margin:0 +'auto',
                     'margin-top': 8+'px',
                 });
+            /**
+             *删除清单商品
+             */
             $('.ord_qingdan_sc').on('click',function(){
                 var node = $(this);
                 var gallery_id = node.attr('data');
@@ -79,6 +82,10 @@
                 }
             });
             heji();
+            /**
+             *计算总价格
+             *
+             */
             function heji(){
                 var pl = $(".js_heji:last");
                 var reg = /(.*[\￥]\s*)([\+\d\.]+)(\s*元)/g;
@@ -87,8 +94,11 @@
                 {
                     sum += parseFloat ($(this).text().replace(reg, "$2"));
                 });
-                pl.text(pl.text().replace(reg, "$1" + sum + "$3"));
+                pl.text(pl.text().replace(reg, "$1" + sum.toFixed(2) + "$3"));
             }
+            /**
+             * 获取用户输入的商品数量
+             */
             $('.sy_num').on('change',function(){
                 if(!isNaN($(this).val())){
                 var goodId=$(this).next().attr('data');
@@ -96,11 +106,17 @@
                 heji();
                 }
             });
+            /**
+             * 点击+号添加数据库商品数量
+             */
             $('.sy_plus').on('click',function(){
                 var num=parseInt($(this).prev('.sy_num').val())+1;
                 var goodId=$(this).attr('data');
                 $.post('{:U("index.php/admin/GoodsList/save")}',{'num':num,'goods_id':goodId});
             });
+            /**
+             * 点击+号减少数据库商品数量
+             */
             $('.sy_minus').on('click',function(){
                 var num=parseInt($(this).next('.sy_num').val())-1;
                 var goodId=$(this).attr('data');

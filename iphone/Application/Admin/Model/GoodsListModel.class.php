@@ -22,15 +22,26 @@ class GoodsListModel extends Model{
      * @return bool|string
      */
     public function setGoodsList($data){
-        return $this->addAll(I('post.'));
+        $bool=true;
+        foreach($data as $val){
+            if($this->where(array('goods_id'=>$val['goods_id'],'member_id'=>session('MEMBER_INFO')['id']))->select()){
+                if(!$this->where(array('goods_id'=>$val['goods_id']))->setInc('num',$val['num'])){
+                    $bool=false;
+                }
+            }else{
+                if(!$this->add($val)){
+                    $bool=false;
+                }
+            }
+        }
+        return $bool;
     }
     public function getGoodsList($member_id){
-
         return $this->distinct(true)
             ->table('goods')
             ->join('__GOODS_LIST__ as gl ON goods.`id`=gl.`goods_id`')
             ->where(array('member_id'=>$member_id))
-            ->getField('gl.id,gl.num,goods.name,goods.market_price,goods.norintro,goods.norms,goods.logo',true);
+            ->getField('gl.id,gl.num as num,goods.name,goods.market_price'.session('MEMBER_INFO')['rank'].',goods.norintro,goods.norms,goods.logo',true);
     }
     public function goodsListDelete(){
         return $this->where(array('id'=>I('get.id')))->delete();

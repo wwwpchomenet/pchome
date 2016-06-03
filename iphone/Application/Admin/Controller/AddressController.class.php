@@ -28,6 +28,7 @@ class AddressController extends Controller{
     public function  add(){
         if(IS_POST){
             $orderModel=D('Address');
+            dump($orderModel->create());
             if($orderModel->create()===false){
                $this->error(get_error($orderModel->getError()));
             }

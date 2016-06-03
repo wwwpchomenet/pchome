@@ -29,21 +29,27 @@
         <p>您的收货地址</p>
       </div>
       <div class="set_dizhi">
-        <a href="{:U('index.php/Admin/Address/index')}">
-            <p class="set_dizhi_head">{:$AddressDefault['detail_address']}</p>
-            <p class="set_dizhi_xinxi fl">{:$AddressDefault['name']} {:$AddressDefault['tel']}</p>
-            <p class="set_dizhi_jiantou fr"></p>
-            <p class="set_dizhi_fapiao">
-                发票抬头：{:$AddressDefault['invoice']}
-                <span>税号：{:$AddressDefault['ein']}</span>
-            </p>
-        </a>
+          <if condition="($AddressDefault)">
+            <a href="{:U('index.php/Admin/Address/index')}">
+                <p class="set_dizhi_head">{:$AddressDefault['detail_address']}</p>
+                <p class="set_dizhi_xinxi fl">{:$AddressDefault['name']} {:$AddressDefault['tel']}</p>
+                <p class="set_dizhi_jiantou fr"></p>
+                <p class="set_dizhi_fapiao">
+                    发票抬头：{:$AddressDefault['invoice']}
+                    <span>税号：{:$AddressDefault['ein']}</span>
+                </p>
+            </a>
+              <else/>
+              <a href="{:U('index.php/Admin/Address/add')}" style="color: #8D8D8D">
+                 您还没有收货地址 点我添加吧！
+              </a>
+          </if>
       </div>
       <div class="set_head ma_matop20">
         <p>付款方式</p>
       </div>
       <div class="set_fukuan">
-      	<a href="">
+      	<a href="javascript:;">
         	<p class="fl">货到付款</p>
             <p class="set_dizhi_jiantou fr" style="margin-top: 6px;"></p>
         </a>
@@ -51,7 +57,7 @@
   </div>
   <div class="cp_dianjick">
     <p class="pro_jiage fl">总金额为:<span style="color:red;"></span></p>
-    <a class="pro_qingdan fl" href="">提交订单</a> 
+    <a class="pro_qingdan fl" href="javascript:;">提交订单</a>
   </div>
 </section>
 </block>
@@ -61,7 +67,6 @@
             'background-position':'-40px 0px',
         });
         $(function(){
-
             $('.in_footer_lish_tu3').css({
                 width:26+'px',
                 height:26+'px',

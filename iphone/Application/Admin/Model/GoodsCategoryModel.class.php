@@ -11,9 +11,18 @@ namespace Admin\Model;
 
 use Think\Model;
 
+/**
+ * 商品分类
+ * Class GoodsCategoryModel
+ * @package Admin\Model
+ */
 class GoodsCategoryModel extends Model{
+    /**
+     *
+     * @return 商品的顶级菜单
+     */
     public function getGoods(){
-       $goods= $this->limit(6)->getField('id,name',true);
+       $goods= $this->where(array('parent_id'=>0))->getField('id,name',true);
         $data=array(0=>'全部');
         foreach($goods as $key=>$val){
             $data[$key]=$val;

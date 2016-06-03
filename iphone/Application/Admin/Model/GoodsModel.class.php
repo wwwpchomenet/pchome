@@ -17,11 +17,9 @@ use Think\Model;
 class GoodsModel extends Model{
     public function getGoods($id){
         if($id==0){
-            $count=$this->count();
-            $rand=mt_rand(0,$count-1); //产生随机数。
-            return  $this->limit($rand,6)->order("inputtime desc")->select();
+            return  $this->where(array('website'=>1))->limit(6)->order("inputtime desc")->select();
         }
-      return  $this->where(array('goods_category_id'=>$id))->limit(6)->order("inputtime desc")->select();
+      return  $this->where(array('goods_category_id'=>$id,'website'=>1))->limit(6)->order("inputtime desc")->select();
     }
     public function getList($id){
         return $this->where(array('goods_category_id'=>$id))->order("inputtime desc")->select();

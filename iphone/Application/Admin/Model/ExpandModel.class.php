@@ -7,13 +7,9 @@
  */
 
 namespace Admin\Model;
-
-
 use Think\Model;
-
 class ExpandModel extends Model{
     public function getDetails(){
-        $this->limit(3)->getField('*',true);
-        return $this->select();
+        return $this->where(array('status'=>1))->select();
     }
 }
