@@ -2,21 +2,24 @@
  <extend name='Lyout:comment'/>
 
  <block name="js">
-     <js href="__EXT__/jquery_validation/jquery.validate.js"/>
      <js href="__LAYER__/layer.js"/>
        <script type="text/javascript">
           
           function bindPhoneNum() {
+               
             //发送ajax请求到后台
-            var url = '{:U("index.php/Admin/Member/sendSMS")}';
+            var url = '{:U("index.php/Admin/Member/findtel")}';
             var data = {
                 'telphone':$('#tel').val()
             };
             $.getJSON(url,data,function(response){
+                  
                 if(response['status']===1){
                     layer.msg('验证码发送成功');
+                }else if(response===0){
+                    layer.msg("用户不存在");
                 }else{
-                     layer.msg('稍等一下,再点击吧');
+                      layer.msg('点击失败，请稍后点击');
                 }
                 console.debug(response);
             });
@@ -35,12 +38,8 @@
     </div>
   </div> 
   <!-- end --> 
-  <div class="lo_bj">
-  	<a href="login.html" class="fl">登录</a>
-    <a href="findpwd.html" class="lo_bottom fl">注册</a>
-  </div>
 <!--  ------------------表单开始--------------------->
-   <form action="{:U('index.php/Admin/Member/registerOne')}" method="post" id='signup'>
+   <form action="{:U('index.php/Admin/Member/findpwd')}" method="post" id='signup'>
   <div class="reg_registered">
 	<div class="reg_registered_kk">
     	<input type="text" placeholder="手机号" class="reg_phone fl" name="tel" id='tel'/>
@@ -50,11 +49,11 @@
   
     <div class="reg_registered_kk"><input type="password" placeholder="密码" name="password"/></div>
     <div class="reg_registered_kk"><input type="password" placeholder="再次输入密码" name="repassword"/></div> 
-    <div class="reg_registered_kk"><input type="text" placeholder="销售码（选填）" name="invitation" /></div>  
+   
   </div>
   
-       <input type="submit" class="lo_anniu" value="注册提交资料">
-<!--       <a class="lo_anniu" href="registeredNext.html">下一步</a>-->
+       <input type="submit" class="lo_anniu" value="确定修改">
+
    </form>
 <!---------------------表单结束------------------------------------>
 </section>

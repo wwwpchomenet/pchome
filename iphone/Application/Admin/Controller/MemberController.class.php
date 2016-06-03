@@ -28,7 +28,7 @@ class MemberController extends \Think\Controller {
      */
     public function registerOne() {
         if (IS_POST) {
-            if ($this->_model->create() === false) {
+            if ($this->_model->create('','tell') === false) {
                 $this->error(get_error($this->_model->getError()));
             }
             if ($this->_model->addMember() === false) {
@@ -117,8 +117,6 @@ class MemberController extends \Think\Controller {
                 $this->error(get_error($this->_model->getError()));
             }
             $member = session('MEMBER_INFO')['status'];
-//            dump($member);
-//            exit;
             if($member == 1){
                  $this->redirect('index.php/Admin/Banner/index');
             }elseif($member == -1) {
@@ -155,4 +153,38 @@ class MemberController extends \Think\Controller {
         }
         exit;
     }
+    /**
+     * 找回密码
+     */
+    public function findpwd(){
+        if(IS_POST){
+            $tel = I('post.tel');
+           $password = md5(I('post.password'));
+            if($this->_model->create('','tell')===false){
+                $this->error(get_error($this->_model->getError()));
+            }
+        if($this->_model->where(array('tel'=>$tel))->setField('password', $password)===false){ 
+             $this->error(get_error($this->_model->getError()));
+        }else {
+              $this->redirect('index.php/Admin/Member/login');
+        }  
+           
+        }else{
+        $this->display();
+        }
+    }
+    /**
+     * 忘记密码，判断输入的手机号是否正确
+     * @param type $telphone
+     */
+    public function  findtel($telphone){
+        $row =  $this->_model->where(array('tel'=>$telphone))->find();
+        if(empty($row)){
+         $this->ajaxReturn(0);
+        }else{
+            $this->sendSMS($telphone);
+        }
+        
+    }
+    
 }

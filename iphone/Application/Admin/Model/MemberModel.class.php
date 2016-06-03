@@ -20,7 +20,7 @@ class MemberModel extends \Think\Model{
        ['name', '2,16', '用户名长度应该在2-16位', self::EXISTS_VALIDATE, 'length', self::MODEL_INSERT],
          ['tel', 'require', '手机号码必填', self::EXISTS_VALIDATE, '', self::MODEL_INSERT],
         ['peimit', 'require', '营业执照必填', self::EXISTS_VALIDATE, '', self::MODEL_INSERT],
-       ['tel', '', '手机号码已存在,请直接登录', self::EXISTS_VALIDATE, 'unique', self::MODEL_INSERT],
+       ['tel', '', '手机号码已存在,请直接登录', self::EXISTS_VALIDATE, 'unique', self::MODEL_INSERT,'','tell'],
         ['tel', '/^(13|14|15|17|18)\d{9}$/', '手机号码不合法', self::EXISTS_VALIDATE, 'regex', self::MODEL_INSERT],
        ['captcha', 'checkPhoneCode', '手机验证码不正确', self::EXISTS_VALIDATE, 'callback', self::MODEL_INSERT],
         ['password', 'require', '密码必填', self::EXISTS_VALIDATE, '', self::MODEL_INSERT],
