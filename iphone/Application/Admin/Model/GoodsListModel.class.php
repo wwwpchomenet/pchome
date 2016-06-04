@@ -22,15 +22,15 @@ class GoodsListModel extends Model{
      * @return bool|string
      */
     public function setGoodsList($data){
-        $bool=true;
+        $bool=false;
         foreach($data as $val){
             if($this->where(array('goods_id'=>$val['goods_id'],'member_id'=>session('MEMBER_INFO')['id']))->select()){
-                if(!$this->where(array('goods_id'=>$val['goods_id']))->setInc('num',$val['num'])){
-                    $bool=false;
+                if($this->where(array('goods_id'=>$val['goods_id']))->setInc('num',$val['num'])){
+                    $bool=true;
                 }
             }else{
-                if(!$this->add($val)){
-                    $bool=false;
+                if($this->add($val)){
+                    $bool=true;
                 }
             }
         }
