@@ -52,6 +52,7 @@
 </section>
 </block>
 <block name="js">
+     <js href="__LAYER__/layer.js"/>
     <script type="text/javascript">
         $(document).keydown(function(event){
             var search=$('#search').val();
@@ -82,9 +83,11 @@
             });
             $.post("{:U('index.php/Admin/GoodsList/add')}",data,function(da){
                 if(da){
-                    alert(goods_name+'少于起订数量下单失败');
+                   // alert(goods_name+'少于起订数量下单失败');
+                      layer.msg(goods_name+'少于起订数量下单失败');
                 }else if(goods_name){
-                    alert(goods_name1+'添加成功');
+                   // alert(goods_name1+'添加成功');
+                     layer.msg(goods_name1+'添加成功');
                 }
             });
         });
@@ -106,7 +109,8 @@
                 });
                 pl.text(pl.text().replace(reg, "$1" + sum + "$3"));
             }else{
-                alert('请输入数字');
+                //alert('请输入数字');
+                 layer.msg('请输入数字');
             }
         });
         $('.in_footer_lish_tu2').css({

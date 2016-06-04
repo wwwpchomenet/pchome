@@ -45,6 +45,7 @@
     </section>
 </block>
 <block name="js">
+       <js href="__LAYER__/layer.js"/>
     <script type="text/javascript">
 
         $('.in_footer_lish_tu2').css({
@@ -107,7 +108,8 @@
                 $.post('{:U("index.php/admin/GoodsList/save")}',{'num':$(this).val(),'goods_id':goodId});
                 heji();
                 }else{
-                    alert('请输入数字');
+//                    alert('请输入数字');
+                     layer.msg('请输入数字');
                 }
             });
             /**
