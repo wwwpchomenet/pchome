@@ -100,10 +100,14 @@
              * 获取用户输入的商品数量
              */
             $('.sy_num').on('change',function(){
-                if(!isNaN($(this).val())){
+                var reg = new RegExp("^[0-9]*$");
+                var obj = $(this).val();
+                if(reg.test(obj)){
                 var goodId=$(this).next().attr('data');
                 $.post('{:U("index.php/admin/GoodsList/save")}',{'num':$(this).val(),'goods_id':goodId});
                 heji();
+                }else{
+                    alert('请输入数字');
                 }
             });
             /**

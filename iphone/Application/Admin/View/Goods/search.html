@@ -92,17 +92,22 @@
          * 获取用户输入的商品数量
          */
         $('.sy_num').on('change',function(){
-            var pl = $(".js_heji:last");
-            var reg = /(.*[\￥]\s*)([\+\d\.]+)(\s*元)/g;
-            pc = $(this).closest(".js_num");
-                var price = parseFloat (pc.prev(".js_danjia").text().replace(reg,'$2')) * $(this).val ();
-                pc.next(".js_bb").text (pc.next(".js_bb").text().replace(reg, "$1" + price + "$3"));
+            var reg = new RegExp("^[0-9]*$");
+            var obj = $(this).val();
+            if(reg.test(obj)) {
+                var pl = $(".js_heji:last");
+                var reg = /(.*[\￥]\s*)([\+\d\.]+)(\s*元)/g;
+                pc = $(this).closest(".js_num");
+                var price = parseFloat(pc.prev(".js_danjia").text().replace(reg, '$2')) * $(this).val();
+                pc.next(".js_bb").text(pc.next(".js_bb").text().replace(reg, "$1" + price + "$3"));
                 var sum = 0;
-                $(".js_num").next(".js_bb").each(function (i, dom)
-                {
-                    sum += parseFloat ($(this).text().replace(reg, "$2"));
+                $(".js_num").next(".js_bb").each(function (i, dom) {
+                    sum += parseFloat($(this).text().replace(reg, "$2"));
                 });
                 pl.text(pl.text().replace(reg, "$1" + sum + "$3"));
+            }else{
+                alert('请输入数字');
+            }
         });
         $('.in_footer_lish_tu2').css({
             'background-position':'-40px 0px',

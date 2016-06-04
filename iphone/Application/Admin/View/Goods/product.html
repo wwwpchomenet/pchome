@@ -112,7 +112,7 @@
                         div+='  <p class="pro_lish_text_jiage fr js_danjia">'+data[i]["market_price{:session('MEMBER_INFO')['rank']}"]+'元/件</p>';
                     </if>
                     div+='  <div class="se_lish_text_shuliang fl js_num"> <span class="sy_minus fl" id="sy_minus_gid1">-</span>';
-                    div+='       <input type="text" name="num" class="sy_num fl" value="0">';
+                    div+='       <input type="text" name="num" class="sy_num fl" value="0" >';
                     div+='          <span class="sy_plus fl" id="sy_plus_gid1">+</span>';
                     div+='   </div>';
                     div+='     <p style="display:none;" class="js_bb">需支付￥0元</p>';
@@ -150,6 +150,9 @@
              * 获取用户输入的商品数量
              */
             $('body').on('change','.sy_num',function(){
+                var reg = new RegExp("^[0-9]*$");
+                var obj = $(this).val();
+                if(reg.test(obj)){
                 var pl = $(".js_heji:last");
                 var reg = /(.*[\￥]\s*)([\+\d\.]+)(\s*元)/g;
                 pc = $(this).closest(".js_num");
@@ -161,6 +164,9 @@
                     sum += parseFloat ($(this).text().replace(reg, "$2"));
                 });
                 pl.text(pl.text().replace(reg, "$1" + sum + "$3"));
+                }else{
+                    alert('请输入数字');
+                }
             });
             /**
              * 按回车键   搜索用户查询信息
