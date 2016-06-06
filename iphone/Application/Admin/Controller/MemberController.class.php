@@ -159,9 +159,14 @@ class MemberController extends \Think\Controller {
     public function findpwd(){
         if(IS_POST){
            $tel = I('post.tel');
+           $p1 =I('post.password');
+           $p2 = I('post.repassword');
            $password = md5(I('post.password'));
             if($this->_model->create('','tell')===false){
                 $this->error(get_error($this->_model->getError()));
+            }
+            if($p1!==$p2){
+                 $this->error('两次密码不一致,请重新确认密码',U('index.php/Admin/Member/findpwd'));
             }
         if($this->_model->where(array('tel'=>$tel))->setField('password', $password)===false){ 
              $this->error(get_error($this->_model->getError()));

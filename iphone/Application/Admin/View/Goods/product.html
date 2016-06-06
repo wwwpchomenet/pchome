@@ -134,6 +134,7 @@
                     if($(this).children().children().children('input').val()>0){
                     if($(this).children().children().children('input').val()>=parseInt($($(this).children().children('p')[3]).text())){
                         data[k]={'member_id':'<?php echo session("MEMBER_INFO")["id"] ?>','goods_id':$(this).children('input').val(),'num':$(this).children().children().children('input').val()};
+                        $(this).children().children().children('input').val(0);
                         goods_name1+=$($(this).children().children('p')[0]).text()+',';
                         $(this).children().children().children('input').val(0);
                     }else{
