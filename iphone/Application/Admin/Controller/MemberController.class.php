@@ -158,7 +158,7 @@ class MemberController extends \Think\Controller {
      */
     public function findpwd(){
         if(IS_POST){
-            $tel = I('post.tel');
+           $tel = I('post.tel');
            $password = md5(I('post.password'));
             if($this->_model->create('','tell')===false){
                 $this->error(get_error($this->_model->getError()));
