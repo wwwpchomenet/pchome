@@ -30,6 +30,8 @@ class MemberModel extends \Think\Model{
        ['password', 'require', '密码错误', self::MUST_VALIDATE, '', 'login'],
          ['tel', 'require', '手机号码必填', self::MUST_VALIDATE, '', 'tell'],
         ['captcha', 'require', '手机验证码必填', self::MUST_VALIDATE, '', 'tell'],
+          ['password', '6,16', '密码长度应该在6-16位', self::EXISTS_VALIDATE, 'length', self::MODEL_INSERT,'', 'tell'],
+          ['repassword', 'password', '两次密码不一致', self::EXISTS_VALIDATE, 'confirm', self::MODEL_INSERT,'', 'tell'],
         ['tel', '/^(13|14|15|17|18)\d{9}$/', '手机号码不合法', self::EXISTS_VALIDATE,'','tell'],
          ['captcha', 'checkPhoneCode', '手机验证码不正确', self::EXISTS_VALIDATE, 'callback','tell'],
     ];
