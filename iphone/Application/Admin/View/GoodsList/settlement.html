@@ -14,9 +14,9 @@
         <div class="set_cplish_text fl">
             <div class="set_cplish_text_title">
                 <p class="set_cplish_text_title_1 fl">{:$goodsList['name']}</p>
-                <p class="set_cplish_text_title_2 fr">￥{:$goodsList['market_price']*$goodsList['num']}</p>
+                <p class="set_cplish_text_title_2 fr">￥{:$goodsList['market_price'.session('MEMBER_INFO')['rank']]*$goodsList['num']}</p>
             </div>
-            <p class="set_cplish_text_gongjin"><b>{:$goodsList['market_price']}</b>元/公斤<span>x {:$goodsList['num']}</span></p>
+            <p class="set_cplish_text_gongjin"><b>{:$goodsList['market_price'.session('MEMBER_INFO')['rank']]}</b>元/公斤<span>x {:$goodsList['num']}</span></p>
             <p class="set_cplish_text_gongjin">（{:$goodsList['norintro']}公斤起订）</p>
         </div>
       </div>

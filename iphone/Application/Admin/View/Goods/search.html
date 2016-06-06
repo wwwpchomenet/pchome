@@ -68,14 +68,16 @@
             var goods_name='';
             var goods_name1='';
             $('.pro_lish').each(function(k,v){
+                console.debug($(this).children().children().children('input').val());
                 if($(this).children().children().children('input').val()>0) {
-                    if ($(this).children().children().children('input').val() >= parseInt($($(this).children().children('p')[3]).text())) {
+                    if (parseInt($(this).children().children().children('input').val()) >= parseInt($($(this).children().children('p')[3]).text())) {
                         data[k] = {
                             'member_id': '<?php echo session("MEMBER_INFO")["id"] ?>',
                             'goods_id': $(this).children().children('input').val(),
                             'num': $(this).children().children().children('input').val()
                         };
                         goods_name1+=$($(this).children().children('p')[0]).text()+',';
+                        $(this).children().children().children('input').val(0);
                     }else{
                         goods_name+=$($(this).children().children('p')[0]).text()+',';
                     }
@@ -83,11 +85,11 @@
             });
             $.post("{:U('index.php/Admin/GoodsList/add')}",data,function(da){
                 if(da){
-                   // alert(goods_name+'少于起订数量下单失败');
-                      layer.msg(goods_name+'少于起订数量下单失败');
+                    // alert(goods_name1+'添加成功');
+                    layer.msg(goods_name1+'添加成功');
                 }else if(goods_name){
-                   // alert(goods_name1+'添加成功');
-                     layer.msg(goods_name1+'添加成功');
+                    // alert(goods_name+'少于起订数量下单失败');
+                    layer.msg(goods_name+'少于起订数量下单失败');
                 }
             });
         });
