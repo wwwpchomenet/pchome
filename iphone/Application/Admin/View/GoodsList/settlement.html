@@ -13,7 +13,8 @@
         <div class="set_cplish_tu fl"><img src="__UPLOAD_URL_PREFIX__/{:$goodsList['logo']}" /></div>
         <div class="set_cplish_text fl">
             <div class="set_cplish_text_title">
-                <p class="set_cplish_text_title_1 fl">{:$goodsList['name']}</p>
+                <input type='hidden' class="list" value='{:$goodsList['id']}'/>
+                <p class="set_cplish_text_title_1 fl" >{:$goodsList['name']}</p>
                 <p class="set_cplish_text_title_2 fr">￥{:$goodsList['market_price'.session('MEMBER_INFO')['rank']]*$goodsList['num']}</p>
             </div>
             <p class="set_cplish_text_gongjin"><b>{:$goodsList['market_price'.session('MEMBER_INFO')['rank']]}</b>元/公斤<span>x {:$goodsList['num']}</span></p>
@@ -32,11 +33,15 @@
           <if condition="($AddressDefault)">
             <a href="{:U('index.php/Admin/Address/index')}">
                 <p class="set_dizhi_head">{:$AddressDefault['detail_address']}</p>
-                <p class="set_dizhi_xinxi fl">{:$AddressDefault['name']} {:$AddressDefault['tel']}</p>
+                <p class="set_dizhi_xinxi fl">
+                     <span class='membername'>{:$AddressDefault['name']}</span>
+                     <span class="membertel">{:$AddressDefault['tel']}</span>
+  
+                </p>
                 <p class="set_dizhi_jiantou fr"></p>
                 <p class="set_dizhi_fapiao">
-                    发票抬头：{:$AddressDefault['invoice']}
-                    <span>税号：{:$AddressDefault['ein']}</span>
+                    发票抬头：<span class='title_name'>{:$AddressDefault['invoice']}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   税号:<span class='duty'>{:$AddressDefault['ein']}</span>
                 </p>
             </a>
               <else/>
@@ -57,12 +62,42 @@
   </div>
   <div class="cp_dianjick">
     <p class="pro_jiage fl">总金额为:<span style="color:red;"></span></p>
-    <a class="pro_qingdan fl" href="javascript:;">提交订单</a>
+    <a class="pro_qingdan fl" href="javascript:;" id='order'>提交订单</a>
   </div>
 </section>
 </block>
 <block name="js">
     <script type="text/javascript" charset="utf-8">
+       //---------------列表的id-----------------
+         $('#order').on('click',function(){
+            var cond = new Array();
+            var  list = $(".list");
+          console.debug(list);
+             var i;
+            for(i=0;i<list.length;i++){
+                 cond[i] = list[i]["defaultValue"];
+            }
+         //----------------收获信息--------------------------   
+            var detail_address =$('.set_dizhi_head').text();//地址
+            var name = $('.membername').text();//姓名
+            var tel = $('.membertel').text();//电话
+            var title_name = $('.title_name').text();
+            var duty = $('.duty').text();
+//            console.debug(duty);
+           
+           //---------------ajax----------------------------
+          $.post('{:U("index.php/Admin/GoodsList/setStatus")}',{'id':cond,'name':name,'tel':tel,'title_name':title_name,'duty':duty},function(spond){
+              console.debug(spond);
+          });
+            console.debug(cond);
+          
+            
+            
+        });
+        
+        
+        
+        //--------------------------------------------------
         $('.in_footer_lish_tu2').css({
             'background-position':'-40px 0px',
         });

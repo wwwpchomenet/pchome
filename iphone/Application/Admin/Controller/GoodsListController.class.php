@@ -81,4 +81,41 @@ class GoodsListController extends Controller{
         $data['num'] =I('post.num');
        $goodslistModel->where(array('id'=>I('post.goods_id')))->save($data);
     }
+    
+    public function setStatus(){
+        if(IS_POST){
+            $data=I('post.');
+            $listid = $data['id'];
+           //---------------修改订单列表的状态值--------------------
+            foreach ($listid as $value){
+               if(M('GoodsList')->where(array('id'=>$value))->setField('status',1)===false){
+                   $this->ajaxReturn("提交失败");
+               } 
+            }   
+            //------------新增列表所有状态-----------------
+            $member = session('MEMBER_INFO')['id'];
+            $arr = array();
+            foreach ($listid as $k=>$v){
+                $arr[$k]['list_id'] = $v;
+                $arr[$k]['member_id'] =$member;
+                $arr[$k]['name'] = $data['name'];
+                $arr[$k]['tel'] = $data['tel'];
+                $arr[$k]['title_name'] = $data['title_name'];
+                $arr[$k]['duty'] = $data['duty'];
+            }
+
+          
+            if(M('OrderInfo')->addAll($arr)===false){
+               $this->error(get_error(M('OrderInfo')->getError()));
+            }else{
+               $this->redirect($url);
+            }
+        }else{
+            
+        }
+    }
+    
+     public function setlist(){
+          $this->display('OrderDetails');
+    }
 }

@@ -4,14 +4,6 @@ $(document).ready (function ()
         var reg = /(.*[\￥]\s*)([\+\d\.]+)(\s*元)/g;
         $ (".sy_minus").live('click',function (event)
         {
-            var reg = new RegExp("^[0-9]*$");
-            var obj = $(this).val();
-            var e=window.event || event;
-            if(reg.test(obj)){
-                e.stopPropagation();
-            }else{
-                e.cancelBubble = true;
-            }
                 var me = $ (this), txt = me.next (":text"), pc = me.closest(".js_num");
                 var val = parseFloat (txt.val ());
                 val = val < 1 ? 1 : val;
@@ -28,14 +20,7 @@ $(document).ready (function ()
          
         $(".sy_plus").live('click',function ()
         {
-            var reg = new RegExp("^[0-9]*$");
-            var obj = $(this).val();
-            var e=window.event || event;
-            if(reg.test(obj)){
-                e.stopPropagation();
-            }else{
-                e.cancelBubble = true;
-            }
+          
             var me = $ (this), txt = me.prev (":text"), pc = me.closest(".js_num");
             var val = parseFloat (txt.val ());
             txt.val (val + 1);

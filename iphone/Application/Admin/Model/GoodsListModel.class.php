@@ -46,7 +46,8 @@ class GoodsListModel extends Model{
     public function goodsListDelete(){
         return $this->where(array('id'=>I('get.id')))->delete();
     }
-    public function setlist(){
-
-    }
+    
+    
+    
+   
 }
