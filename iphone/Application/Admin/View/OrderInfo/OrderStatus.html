@@ -4,7 +4,7 @@
         <div class="set_con">
             <div class="sdx_head">
                 <a class="sdx_head_on fl">订单状态</a>
-                <a class="fl">订单详情</a>
+                <a class="fl" href="{:U('index.php/Admin/OrderInfo/showList')}">订单详情</a>
             </div>
             <!-- 状态 --> 
             <div class="os_zhuangtai">
@@ -38,20 +38,97 @@
                 </div>
                 <div class="os_zhuangtai_right fr">
                      <foreach name="rows" item="row">
-                    <div class="os_zhuangtai_kk fr">
-                        <div class="os_zhuangtai_kk_head">
-                            <if condition="$row['status'] eq 1 ">
-                                <p class="os_zhuangtai_kk_head_text fl">订单已提交成功</p>
-                                <p class="os_zhuangtai_kk_head_time fr">{$row['add_time']}</p>
-                       </div>
-                          <p class="os_zhuangtai_kk_zt">商品准备中</p>
-                           <p class="os_zhuangtai_kk_jj"></p>
-                             </div>
-                                <elseif condition="$row['status'] eq 2"/>
-                                <p class="os_zhuangtai_kk_head_text fl">订单已提交成功</p>
-                                <p class="os_zhuangtai_kk_head_time fr">{$row['add_time']}</p>
+                         <if condition="$row['status'] eq 1 ">
+                             
+                       <div class="os_zhuangtai_kk fr">
+                	<div class="os_zhuangtai_kk_head">
+                    	<p class="os_zhuangtai_kk_head_text fl">订单已提交成功</p>
+                        <p class="os_zhuangtai_kk_head_time fr">{$row['add_time']}</p>
+                    </div>
+                    <p class="os_zhuangtai_kk_zt">商品准备中</p>
+                    <p class="os_zhuangtai_kk_jj"></p>
+                </div>
+                  <elseif condition="$row['status'] eq 2"/>
+                   <div class="os_zhuangtai_kk fr">
+                	<div class="os_zhuangtai_kk_head">
+                    	<p class="os_zhuangtai_kk_head_text fl">订单已提交成功</p>
+                        <p class="os_zhuangtai_kk_head_time fr">{$row['add_time']}</p>
+                    </div>
+                    <p class="os_zhuangtai_kk_zt">商品准备中</p>
+                    <p class="os_zhuangtai_kk_jj"></p>
+                </div>             
+                 <div class="os_zhuangtai_kk fr">
+                	<div class="os_zhuangtai_kk_head">
+                    	<p class="os_zhuangtai_kk_head_text fl">订单已在配送途中</p>
+                        <p class="os_zhuangtai_kk_head_time fr">{$row['delivery']}</p>
+                    </div>
+                    <p class="os_zhuangtai_kk_zt">配送中</p>
+                    <p class="os_zhuangtai_kk_jj"></p>
+                </div>                
+                                
+                <elseif condition="$row['status'] eq 3"/>
+                
+                   <div class="os_zhuangtai_kk fr">
+                	<div class="os_zhuangtai_kk_head">
+                    	<p class="os_zhuangtai_kk_head_text fl">订单已提交成功</p>
+                        <p class="os_zhuangtai_kk_head_time fr">{$row['add_time']}</p>
+                    </div>
+                    <p class="os_zhuangtai_kk_zt">商品准备中</p>
+                    <p class="os_zhuangtai_kk_jj"></p>
+                </div>             
+                 <div class="os_zhuangtai_kk fr">
+                	<div class="os_zhuangtai_kk_head">
+                    	<p class="os_zhuangtai_kk_head_text fl">订单已在配送途中</p>
+                        <p class="os_zhuangtai_kk_head_time fr">{$row['delivery']}</p>
+                    </div>
+                    <p class="os_zhuangtai_kk_zt">配送中</p>
+                    <p class="os_zhuangtai_kk_jj"></p>
+                </div>                       
+                 <div class="os_zhuangtai_kk fr">
+                	<div class="os_zhuangtai_kk_head">
+                    	<p class="os_zhuangtai_kk_head_text fl">订单已配送成功</p>
+                        <p class="os_zhuangtai_kk_head_time fr">{$row['shipments']}</p>
+                    </div>
+                    <p class="os_zhuangtai_kk_zt">配送成功</p>
+                    <p class="os_zhuangtai_kk_jj"></p>
+                </div>               
+                                
+                                
+                                <elseif condition="$row['status'] eq 4"/>
+                                 <div class="os_zhuangtai_kk fr">
+                	<div class="os_zhuangtai_kk_head">
+                    	<p class="os_zhuangtai_kk_head_text fl">订单已提交成功</p>
+                        <p class="os_zhuangtai_kk_head_time fr">{$row['add_time']}</p>
+                    </div>
+                    <p class="os_zhuangtai_kk_zt">商品准备中</p>
+                    <p class="os_zhuangtai_kk_jj"></p>
+                </div>             
+                 <div class="os_zhuangtai_kk fr">
+                	<div class="os_zhuangtai_kk_head">
+                    	<p class="os_zhuangtai_kk_head_text fl">订单已在配送途中</p>
+                        <p class="os_zhuangtai_kk_head_time fr">{$row['delivery']}</p>
+                    </div>
+                    <p class="os_zhuangtai_kk_zt">配送中</p>
+                    <p class="os_zhuangtai_kk_jj"></p>
+                </div>                       
+                 <div class="os_zhuangtai_kk fr">
+                	<div class="os_zhuangtai_kk_head">
+                    	<p class="os_zhuangtai_kk_head_text fl">订单已配送成功</p>
+                        <p class="os_zhuangtai_kk_head_time fr">{$row['shipments']}</p>
+                    </div>
+                    <p class="os_zhuangtai_kk_zt">配送成功</p>
+                    <p class="os_zhuangtai_kk_jj"></p>
+                </div>               
+                        <div class="os_zhuangtai_kk fr">
+                	<div class="os_zhuangtai_kk_head">
+                    	<p class="os_zhuangtai_kk_head_text fl">订单已完成</p>
+                        <p class="os_zhuangtai_kk_head_time fr">{$row['finish']}</p>
+                    </div>
+                    <p class="os_zhuangtai_kk_zt">配送完成</p>
+                    <p class="os_zhuangtai_kk_jj"></p>
+                </div>        
                                 <else /> 
-                                value3
+                              
                             </if>
 
 
@@ -62,33 +139,7 @@
         </foreach>
                   
 
-                    <div class="os_zhuangtai_kk fr">
-                        <div class="os_zhuangtai_kk_head">
-                            <p class="os_zhuangtai_kk_head_text fl">订单已在配送途中</p>
-                            <p class="os_zhuangtai_kk_head_time fr">2016-7-21 18:35</p>
-                        </div>
-                        <p class="os_zhuangtai_kk_zt">配送中</p>
-                        <p class="os_zhuangtai_kk_jj"></p>
-                    </div>
-
-                    <div class="os_zhuangtai_kk fr">
-                        <div class="os_zhuangtai_kk_head">
-                            <p class="os_zhuangtai_kk_head_text fl">订单已配送成功</p>
-                            <p class="os_zhuangtai_kk_head_time fr">2016-7-21 18:35</p>
-                        </div>
-                        <p class="os_zhuangtai_kk_zt">配送成功</p>
-                        <p class="os_zhuangtai_kk_jj"></p>
-                    </div>
-
-                    <div class="os_zhuangtai_kk fr">
-                        <div class="os_zhuangtai_kk_head">
-                            <p class="os_zhuangtai_kk_head_text fl">订单已完成</p>
-                            <p class="os_zhuangtai_kk_head_time fr">2016-7-21 18:35</p>
-                        </div>
-                        <p class="os_zhuangtai_kk_zt">配送完成</p>
-                        <p class="os_zhuangtai_kk_jj"></p>
-                    </div>
-
+                   
 
                 </div>
             </div>

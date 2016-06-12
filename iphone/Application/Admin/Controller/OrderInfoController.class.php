@@ -32,8 +32,7 @@ class OrderInfoController extends \Think\Controller{
    */
     public function  showList(){
         $order_num = session('ORDER_NUM');
-        dump($order_num);
-        exit;
+
         //查询所有的订单相同的编号
         $rows =$this->_model->showinfo($order_num);
         $this->assign('rows',$rows);
@@ -50,7 +49,14 @@ class OrderInfoController extends \Think\Controller{
         $this->assign('rows',$rows);
         $this->display('OrderStatus');
     }
- 
+  public function showTwo2(){
+       $order_num = session('ORDER_NUM');
+        $rows = $this->_model->where(array('order_num'=>$order_num))->limit(1)->select();
+//        dump($rows);
+//        exit;
+        $this->assign('rows',$rows);
+        $this->display('OrderStatus');
+    }
     
     
     
