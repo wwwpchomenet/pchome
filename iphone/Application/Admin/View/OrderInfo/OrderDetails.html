@@ -1,0 +1,112 @@
+<extend name='Lyout:menu'/>
+
+<block name='admin'>
+<section>
+  <div class="set_con">
+  	  <div class="sdx_head">
+    	<a class="fl">订单状态</a>
+        <a class="sdx_head_on fl">订单详情</a>
+      </div>
+        
+      <div class="os_head">
+		<div class="os_conter">
+        	<p class="os_conter_qingdan fl">您的订货清单</p>
+                <p class="os_conter_jiage fr" >价格总计 ￥<b id="sk"></b></p> 
+        </div>
+         
+      </div> 
+       <foreach name='rows' item='row'>
+      <div class="set_cplish">
+        <div class="set_cplish_tu fl"><img src="__UPLOAD_URL_PREFIX__/{$row['logo']}" /></div>
+        <div class="set_cplish_text fl">
+            <div class="set_cplish_text_title">
+                <p class="set_cplish_text_title_1 fl">{$row['good_name']}</p>
+                <p class="set_cplish_text_title_2 fr">￥{$row['price']}</p>
+            </div>
+            <p class="set_cplish_text_gongjin"><b>{$row['univalence']}</b>元/公斤<span>x {$row['num']}</span></p>
+            <p class="set_cplish_text_gongjin">（{$row['norms']}公斤起订）</p>
+            <input type='hidden' class='coutnum' value="{$row['countmeny']}" />
+            <input type='hidden' class='title_name' value="{$row['title_name']}" />
+            <input type='hidden' class='name' value="{$row['name']}" />
+            <input type='hidden' class='duty' value="{$row['duty']}" />
+            <input type='hidden' class='tel' value="{$row['tel']}" />
+            <input type='hidden' class='detail_address' value="{$row['detail_address']}" />
+        </div>
+      </div>
+      
+      </foreach>
+      <div class="set_alldingdan">
+        <a href="">查看全部订货清单</a>
+      </div>
+      
+      <div class="set_head ma_matop20">
+        <p>您的收货地址</p>
+      </div>
+      <div class="set_dizhi">
+        <a href="">
+            <p class="set_dizhi_head"> </p>
+            <p class="set_dizhi_xinxi fl"></p>
+            <p class="set_dizhi_jiantou fr"></p>
+            <p class="set_dizhi_fapiao">
+                <b class="fabiao"> 发票抬头：</b>
+                <span class="suihao">税号：</span>
+            </p>
+        </a>
+      </div>
+      <div class="set_head ma_matop20">
+        <p>付款方式</p>
+      </div>
+      <div class="set_fukuan">
+      	<a href="">
+        	<p class="fl">货到付款</p>
+            <p class="set_dizhi_jiantou fr" style="margin-top: 6px;"></p>
+        </a>
+      </div>
+  </div>
+
+</block>
+<block name='footer' ></block>
+<block name="js">
+    
+   <script type="text/javascript">
+       $('.in_footer_lish_tu1').css({
+            'background-position': '0px 0px',
+        });
+        $('.in_footer_lish_tu3').css({
+            'background-position': '-0px 0px',
+        });
+        $('.in_footer_lish_tu2').css({
+            'background-position': '-40px 0px',
+        });
+        $(function () {
+
+            $('.in_footer_lish_tu3').css({
+                width: 26 + 'px',
+                height: 26 + 'px',
+                background: 'url(__IMG__/icon.png)',
+                'background-position': '57px 30px',
+                margin: 0 + 'auto',
+                'margin-top': 8 + 'px',
+            });
+        })
+       //设置总金额
+      var coutnum =  $('.coutnum').val();
+      $('#sk').after(coutnum);
+      //设置收获地址
+      var detail_address = $('.detail_address').val();
+      $('.set_dizhi_head').append(detail_address);
+      //设置收货人
+      var name = $('.name').val();
+      $('.set_dizhi_xinxi').append(name);
+      //设置电话号码
+      var tel = $('.tel').val();
+       $('.set_dizhi_xinxi').append('&nbsp;&nbsp;&nbsp;'+ tel);
+       //发票抬头
+       var title_name = $('.title_name').val();
+       $('.fabiao').append(title_name);
+       //税号
+       var duty = $('.duty').val();
+       $('.suihao').append(duty);
+          
+   </script>
+</block>

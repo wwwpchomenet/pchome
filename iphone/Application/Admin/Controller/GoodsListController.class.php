@@ -82,40 +82,44 @@ class GoodsListController extends Controller{
        $goodslistModel->where(array('id'=>I('post.goods_id')))->save($data);
     }
     
+    /**
+     *增加订单 
+     */
     public function setStatus(){
         if(IS_POST){
             $data=I('post.');
             $listid = $data['id'];
            //---------------修改订单列表的状态值--------------------
             foreach ($listid as $value){
-               if(M('GoodsList')->where(array('id'=>$value))->setField('status',1)===false){
+               if(M('GoodsList')->where(array('id'=>$value[0]))->setField('status',1)===false){
                    $this->ajaxReturn("提交失败");
                } 
-            }   
+            }
+            
             //------------新增列表所有状态-----------------
             $member = session('MEMBER_INFO')['id'];
+            //订单编号
+            $order_num=D('GoodsList')->_calc_sn();
             $arr = array();
             foreach ($listid as $k=>$v){
-                $arr[$k]['list_id'] = $v;
-                $arr[$k]['member_id'] =$member;
-                $arr[$k]['name'] = $data['name'];
-                $arr[$k]['tel'] = $data['tel'];
-                $arr[$k]['title_name'] = $data['title_name'];
-                $arr[$k]['duty'] = $data['duty'];
+                $arr[$k]['list_id'] = $v[0];//商品列表id
+                $arr[$k]['univalence']=$v[1];//商品单价
+                $arr[$k]['num']=$v[2];//商品数量
+                $arr[$k]['price']=$v[3];//商品价格
+                $arr[$k]['delivery_name']='由供应链提供配送服务';//物流方式
+                $arr[$k]['order_num']=$order_num;//订单编号
+                $arr[$k]['member_id'] =$member;//会员id
+                $arr[$k]['name'] = $data['name'];//收货人姓名
+                $arr[$k]['tel'] = $data['tel'];//收获人电话
+                $arr[$k]['detail_address'] = $data['detail_address'];//收获人地址
+                $arr[$k]['title_name'] = $data['title_name'];//发票姓名
+                $arr[$k]['duty'] = $data['duty'];//税号
+                $arr[$k]['countmeny'] = $data['countmeny'];//此订单总金额
             }
-
-          
             if(M('OrderInfo')->addAll($arr)===false){
-               $this->error(get_error(M('OrderInfo')->getError()));
-            }else{
-               $this->redirect($url);
+                 $this->ajaxReturn("订单失败");
             }
-        }else{
-            
         }
     }
-    
-     public function setlist(){
-          $this->display('OrderDetails');
-    }
+  
 }

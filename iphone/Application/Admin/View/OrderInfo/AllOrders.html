@@ -1,0 +1,69 @@
+<extend name='Lyout:menu'/>
+<block name='admin'>
+    <section>  
+        <div class="ao_con">
+            <foreach name="rows" item="row">
+                <div class="ao_lish">
+                    <div class="ao_lish_tu fl"><img src="__UPLOAD_URL_PREFIX__/{$row['logo']}" /></div>
+                    <div class="ao_lish_text fl">
+
+                        <div class="ao_lish_text_head">
+                            <p class="ao_lish_text_ziti fl">{$row['good_name']}等{$row['count']}个商品</p>
+                            <p class="ao_lish_text_fukuan clo_ff9 fr">
+                            <if condition="$row['status'] eq 1 ">
+                                待发货
+                                <elseif condition="$row['status'] eq 2"/>
+                                配送中,待收货
+                                <elseif condition="$row['status'] eq 4"/>
+                                 <a href="" class="ao_lish_text_jiage_aniu ao_bj1 fr">确认收货</a>
+                                <else /> 
+                                  <a href="" class="ao_lish_text_jiage_aniu ao_bj2 fr">立即付款</a>
+                            </if>
+                            </p>
+                        </div>
+                        <div class="ao_lish_text_jiage">
+                            <p class="ao_lish_text_jiage_zi fl">￥{$row['countmeny']}</p>
+                        </div>
+                        <div class="ao_lish_text_ztai">
+                            <div class="ao_lish_text_ztai_time fl">
+                                <p>{$row['add_time']}</p>
+                                <p>{$row['delivery_name']}</p>
+                            </div>
+                            <a href="{:U('index.php/Admin/OrderInfo/showTwo',array('order_num'=>$row['order_num']))}" class="ao_lish_text_jiage_aniu fr">订单状态</a>
+                        </div>
+
+                    </div>                
+                </div>
+            </foreach>   
+
+        </div>
+
+
+        <!-- footer -->
+    </section>
+</block>
+<block name='footer'></block>
+<block name='js'>
+    <script type="text/javascript" charset="utf-8">
+        $('.in_footer_lish_tu1').css({
+            'background-position': '0px 0px',
+        });
+        $('.in_footer_lish_tu3').css({
+            'background-position': '-0px 0px',
+        });
+        $('.in_footer_lish_tu2').css({
+            'background-position': '-40px 0px',
+        });
+        $(function () {
+
+            $('.in_footer_lish_tu3').css({
+                width: 26 + 'px',
+                height: 26 + 'px',
+                background: 'url(__IMG__/icon.png)',
+                'background-position': '57px 30px',
+                margin: 0 + 'auto',
+                'margin-top': 8 + 'px',
+            });
+        })
+    </script>
+</block>

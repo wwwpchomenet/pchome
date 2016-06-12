@@ -15,9 +15,9 @@
             <div class="set_cplish_text_title">
                 <input type='hidden' class="list" value='{:$goodsList['id']}'/>
                 <p class="set_cplish_text_title_1 fl" >{:$goodsList['name']}</p>
-                <p class="set_cplish_text_title_2 fr">￥{:$goodsList['market_price'.session('MEMBER_INFO')['rank']]*$goodsList['num']}</p>
+                <p class="set_cplish_text_title_2 fr">￥<span class="price">{:$goodsList['market_price'.session('MEMBER_INFO')['rank']]*$goodsList['num']}</span> </p>   
             </div>
-            <p class="set_cplish_text_gongjin"><b>{:$goodsList['market_price'.session('MEMBER_INFO')['rank']]}</b>元/公斤<span>x {:$goodsList['num']}</span></p>
+            <p class="set_cplish_text_gongjin"><b class="univalence">{:$goodsList['market_price'.session('MEMBER_INFO')['rank']]}</b>元/公斤<span>x</span ><span class="num">{:$goodsList['num']}</span></p>
             <p class="set_cplish_text_gongjin">（{:$goodsList['norintro']}公斤起订）</p>
         </div>
       </div>
@@ -32,7 +32,7 @@
       <div class="set_dizhi">
           <if condition="($AddressDefault)">
             <a href="{:U('index.php/Admin/Address/index')}">
-                <p class="set_dizhi_head">{:$AddressDefault['detail_address']}</p>
+                <p class="set_dizhi_head">{:$AddressDefault['detail_address']}{:$AddressDefault['shop_name']}</p>
                 <p class="set_dizhi_xinxi fl">
                      <span class='membername'>{:$AddressDefault['name']}</span>
                      <span class="membertel">{:$AddressDefault['tel']}</span>
@@ -61,35 +61,53 @@
       </div>
   </div>
   <div class="cp_dianjick">
-    <p class="pro_jiage fl">总金额为:<span style="color:red;"></span></p>
+      <p class="pro_jiage fl">总金额为:<span style="color:red;" class="countmeny"></span></p>
     <a class="pro_qingdan fl" href="javascript:;" id='order'>提交订单</a>
   </div>
 </section>
 </block>
 <block name="js">
+      <js href="__LAYER__/layer.js"/>
     <script type="text/javascript" charset="utf-8">
        //---------------列表的id-----------------
          $('#order').on('click',function(){
             var cond = new Array();
             var  list = $(".list");
-          console.debug(list);
-             var i;
+            var price = $(".price");//总价格
+            var univalence =$(".univalence");//单价
+            var num = $(".num");
+           
+            var i;
             for(i=0;i<list.length;i++){
-                 cond[i] = list[i]["defaultValue"];
+                 cond[i] =[
+                     list[i]["defaultValue"] ,//id
+                     univalence[i]['innerHTML'],//单价
+                     num[i]['innerHTML'],//数量
+                     price[i]['innerHTML']
+                 ];
             }
-         //----------------收获信息--------------------------   
+           
+         //----------------收货信息--------------------------   
             var detail_address =$('.set_dizhi_head').text();//地址
             var name = $('.membername').text();//姓名
             var tel = $('.membertel').text();//电话
-            var title_name = $('.title_name').text();
-            var duty = $('.duty').text();
-//            console.debug(duty);
+            var title_name = $('.title_name').text();//发票姓名
+            var duty = $('.duty').text();//税号
+            var countmeny =$('.countmeny').text();//此订单的总价
+            var detail_address = $('.set_dizhi_head').text();//收货地址
+            // console.debug(countmeny);
            
            //---------------ajax----------------------------
-          $.post('{:U("index.php/Admin/GoodsList/setStatus")}',{'id':cond,'name':name,'tel':tel,'title_name':title_name,'duty':duty},function(spond){
-              console.debug(spond);
+          $.post('{:U("index.php/Admin/GoodsList/setStatus")}',{'id':cond,'name':name,'tel':tel,'title_name':title_name,'duty':duty,'detail_address':detail_address,'countmeny':countmeny},function(spond){
+             // console.debug(spond);
+             if(spond==""){
+                  location.href="{:U('index.php/Admin/OrderInfo/setlist')}";
+             }else{
+                  layer.msg(spond);
+             }
+            
           });
-            console.debug(cond);
+           // console.debug(cond);
           
             
             
@@ -115,6 +133,7 @@
             $('.set_cplish_text_title_2').each(function(){
                 var s=parseInt($(this).text().substring(1));
                 sum=s+sum;
+               // console.debug(sum);
             });
                 $('.pro_jiage').children().text(sum);
             }
