@@ -1,0 +1,50 @@
+<extend name='Lyout:comment'/>
+<block name='css'>
+    <css href='__CSS__/page.css'/>
+</block>
+<block name='admin'>
+    <h1>
+        <span class="action-span"><a href="{:U('add')}">添加新商品</a></span>
+        <span class="action-span1"><a href="{:U('Goods/index')}">重庆火锅国际供应链股份有限公司   管理中心</a></span>
+        <span id="search_id" class="action-span1"> - {$meta_title} </span>
+        <div style="clear:both"></div>
+    </h1>
+<div class="list-div" id="listDiv">
+<table cellpadding="3" cellspacing="1">
+    <tr>
+        <th>编号</th>
+        <th>收货人姓名</th>
+        <th>手机号</th>
+        <th>详细地址</th>
+        <th>第三方支付交易号</th>
+        <th>发票头</th>
+        <th>配送方式</th>
+        <th>支付方式</th>
+        <th>商品单价</th>
+        <th>商品数量</th>
+        <th>总金额</th>
+        <th>下单时间</th>
+        <th>操作</th>
+    </tr>
+    <foreach name="row" item="row" key="k">
+        <tr>
+            <td align="center">{$k+1}</td>
+            <td align="center" class="first-cell"><span>{$row.name}</span></td>
+            <td align="center">{$row.tel}</td>
+            <td align="center">{$row.detail_address}</td>
+            <td align="center">{$row.trade_no}</td>
+            <td align="center">{$row.title_name}</td>
+            <td align="center">{$row.delivery_id}</td>
+            <td align="center">{$row.pay_type}</td>
+            <td align="center">{$row.univalence}</td>
+            <td align="center">{$row.num}</td>
+            <td align="center">{$row.price}</td>
+            <td align="center">{$row.add_time}</td>
+            <td align="center">
+                <a href="{:U('edit',array('id'=>$row['id']))}" title="修改"><img src="__IMG__/icon_edit.gif" width="16" height="16" border="0" /></a>
+                <a href="{:U('del',array('id'=>$row['id']))}" onclick="" title="回收站"><img src="__IMG__/icon_trash.gif" width="16" height="16" border="0" /></a></td>
+        </tr>
+    </foreach>
+</table>
+    </div>
+</block>
