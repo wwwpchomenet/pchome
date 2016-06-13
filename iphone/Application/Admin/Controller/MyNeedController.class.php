@@ -31,7 +31,8 @@ class MyNeedController extends \Think\Controller{
              * 
              */
          $data = I("post.");
-         dump($data);
+          dump($data);
+          exit;
         if($this->_model->addAll($data)===fasle){
             $this->error(get_error($this->_model->getError()));
               }else{
@@ -58,7 +59,7 @@ class MyNeedController extends \Think\Controller{
      */
     public function singledemand(){
 
-        if(($rows = $this->_model->getList())===false){
+        if(($rows = $this->_model->getPageResult())===false){
              $this->error(get_error($this->_model->getError()));
         }
 //        dump($rows);
