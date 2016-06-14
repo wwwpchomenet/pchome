@@ -13,7 +13,7 @@ class OrderInfoModel extends \Think\Model{
    public function getinfo(){
        $member = session('MEMBER_INFO')['id'];//获取会员的id值
        //按照订单编号分组查询
-       $rows = $this->where(array('member_id'=>$member))->group('order_num')->select();
+       $rows = $this->where(array('member_id'=>$member))->order('id desc')->group('order_num')->select();
        //用数组保存数据
        $list = array();
        foreach ($rows as  $k=>$row) {

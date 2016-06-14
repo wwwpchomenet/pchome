@@ -9,7 +9,7 @@
                 <elseif condition="$member.status eq -1"/>
                 待审核
                 <elseif condition="$member.status eq ''"/>
-                  请登录
+                <a href="{:U('index.php/Admin/Member/login')}">请登录</a>
                 <else />
                 审核未通过
             </if>
@@ -32,7 +32,7 @@
         </a>
     </div>
     <div class="pc_user">
-    	<a href="">
+    	<a href="{:U('index.php/Admin/Wallet/wallet')}">
         	<p class="pc_user_tu3 fl"></p>
             <p class="pc_user_zi fl">我的钱包</p>
             <p class="set_dizhi_jiantou pc_top_10 fr"></p>
@@ -62,7 +62,7 @@
     <div class="pc_user">
     	<a href="{:U('index.php/Admin/Member/logout')}">
         	<p class="pc_user_tu4 fl"></p>
-            <p class="pc_user_zi fl">退出</p>
+            <p class="pc_user_zi fl">登录|注销</p>
             <p class="set_dizhi_jiantou pc_top_10 fr"></p>
         </a>
     </div>
@@ -89,6 +89,6 @@
                 margin:0 +'auto',
                 'margin-top': 8+'px',
             });
-        })
+        });
     </script>
 </block>

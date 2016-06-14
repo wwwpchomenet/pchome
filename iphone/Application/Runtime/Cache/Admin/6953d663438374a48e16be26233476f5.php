@@ -1,6 +1,20 @@
-<extend name='Lyout:menu'/>
- 
-      <block name='admin'>
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width,user-scalable=no,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" name="viewport">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>重庆火锅国际供应链股份有限公司</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<link rel="stylesheet" href="http://www.wap.com/iphone/Public/Css/index.css" />
+<script src="http://www.wap.com/iphone/Public/Js/jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="http://www.wap.com/iphone/Public/Js/TouchSlide.1.1.js" type="text/javascript" charset="utf-8"></script>
+<script src="http://www.wap.com/iphone/Public/Js/public.js" type="text/javascript" charset="utf-8"></script>
+     
+</head>
+<body>
+
 <section>
   <!-- 头部 -->
   <div class="se_head">
@@ -14,43 +28,23 @@
 <!--  一级分类-->
   <div class="se_cpname">
     <ul >
-         <foreach name="goodscategory" item="val">
-             <if condition="($goodscategory['parent_id'] eq 0)">
-           <li class="category <if condition="($val['id'] eq 1)">se_cpname_on</if>" id="{$row.id}"><a href="javascript:void(0)">{$val.name}</a></li>
-             </if>
-           </foreach>
+         <?php if(is_array($goodscategory)): foreach($goodscategory as $key=>$val): if(($goodscategory['parent_id'] == 0)): ?><li class="category <?php if(($val['id'] == 1)): ?>se_cpname_on<?php endif; ?>" id="<?php echo ($row["id"]); ?>"><a href="javascript:void(0)"><?php echo ($val["name"]); ?></a></li><?php endif; endforeach; endif; ?>
     </ul>
   </div>
        
   <!--产品中部-->
 <div id="pro_left">
     <div class="pro_left fl pro_left_lish1" >
-    <foreach name="goodscategory" item="v" key="k">
-        <if condition="($v['parent_id'] eq 1)">
-          <div class="pro_left_lish <if condition="($k eq 1)">pro_on</if>"> <a href="javascript:;" data="{:$v['id']}">{:$v['name']} </a> </div>
-        </if>
-    </foreach>
+    <?php if(is_array($goodscategory)): foreach($goodscategory as $k=>$v): if(($v['parent_id'] == 1)): ?><div class="pro_left_lish <?php if(($k == 1)): ?>pro_on<?php endif; ?>"> <a href="javascript:;" data="<?php echo $v['id'];?>"><?php echo $v['name'];?> </a> </div><?php endif; endforeach; endif; ?>
 </div>
     <div class="pro_left fl">
-        <foreach name="goodscategory" item="v" key="k">
-            <if condition="($v['parent_id'] eq 2)">
-                <div class="pro_left_lish "> <a href="javascript:;" data="{:$v['id']}">{:$v['name']} </a> </div>
-            </if>
-        </foreach>
+        <?php if(is_array($goodscategory)): foreach($goodscategory as $k=>$v): if(($v['parent_id'] == 2)): ?><div class="pro_left_lish "> <a href="javascript:;" data="<?php echo $v['id'];?>"><?php echo $v['name'];?> </a> </div><?php endif; endforeach; endif; ?>
     </div>
     <div class="pro_left fl">
-        <foreach name="goodscategory" item="v" key="k">
-            <if condition="($v['parent_id'] eq 3)">
-                <div class="pro_left_lish "> <a href="javascript:;" data="{:$v['id']}">{:$v['name']} </a> </div>
-            </if>
-        </foreach>
+        <?php if(is_array($goodscategory)): foreach($goodscategory as $k=>$v): if(($v['parent_id'] == 3)): ?><div class="pro_left_lish "> <a href="javascript:;" data="<?php echo $v['id'];?>"><?php echo $v['name'];?> </a> </div><?php endif; endforeach; endif; ?>
     </div>
     <div class="pro_left fl">
-        <foreach name="goodscategory" item="v" key="k">
-            <if condition="($v['parent_id'] eq 4)">
-                <div class="pro_left_lish "> <a href="javascript:;" data="{:$v['id']}">{:$v['name']} </a> </div>
-            </if>
-        </foreach>
+        <?php if(is_array($goodscategory)): foreach($goodscategory as $k=>$v): if(($v['parent_id'] == 4)): ?><div class="pro_left_lish "> <a href="javascript:;" data="<?php echo $v['id'];?>"><?php echo $v['name'];?> </a> </div><?php endif; endforeach; endif; ?>
     </div>
 </div>
   <div class="pro_right fr"> 
@@ -58,18 +52,35 @@
   </div>
   <!-- end --> 
   <!-- 红色区域 -->
-    <if condition="(session('MEMBER_INFO') neq '')">
-        <div class="cp_dianjick">
+    <?php if((session('MEMBER_INFO') != '')): ?><div class="cp_dianjick">
             <p class="pro_jiage  fl js_heji">合计金额&nbsp;&nbsp;￥0元</p>
             <a class="pro_qingdan fl" href="javascript:;">加入清单</a>
         </div>
-        <else/>
-        <a class="is_cp_dianjick" href="{:U('index.php/Admin/member/login')}">点击查看商品价格</a>
-    </if>
+        <?php else: ?>
+        <a class="is_cp_dianjick" href="<?php echo U('index.php/Admin/member/login');?>">点击查看商品价格</a><?php endif; ?>
 </section>
-      </block>
-    <block name="js">
-         <js href="__LAYER__/layer.js"/>
+      
+<div class="in_footer">
+    <div class="in_footer_lish fl"> <a href="<?php echo U('index.php/Admin/Banner/index');?>" class="">
+        <div class="in_footer_lish_tu1"></div>
+        <p class="in_footer_lish_zi">首页</p>
+    </a> </div>
+    <div class="in_footer_lish fl"> <a href="<?php echo U('index.php/Admin/goods/index');?>" class="in_footer_on">
+        <div class="in_footer_lish_tu2"></div>
+        <p class="in_footer_lish_zi">全部商品</p>
+    </a> </div>
+    <div class="in_footer_lish fl"> <a href="<?php echo U('index.php/Admin/GoodsList/getList');?>" class="">
+        <div class="in_footer_lish_tu3"></div>
+        <p class="in_footer_lish_zi">订货清单</p>
+    </a> </div>
+    <div class="in_footer_lish fl"> <a href="<?php echo U('index.php/Admin/PersonalCenter/index');?>" class="">
+        <div class="in_footer_lish_tu4"></div>
+        <p class="in_footer_lish_zi">我的帐号</p>
+    </a> </div>
+</div>
+</body>
+
+         <script type="text/javascript" src="http://www.wap.com/iphone/Public/ext/layer/layer.js"></script>
         <script type="text/javascript">
             
             $(function(){
@@ -82,7 +93,7 @@
                        if(index==$(this).index()){
                            var id=$(this).children().children().attr('data');
                            $(this).children().addClass('pro_on').siblings().removeClass('pro_on')
-                           $.getJSON("{:U('index.php/Admin/Goods/goodsList')}",{id:id},function(data){
+                           $.getJSON("<?php echo U('index.php/Admin/Goods/goodsList');?>",{id:id},function(data){
                                fordata(data);
                            });
                            $(this).css( 'display', 'block').siblings().css('display', 'none')
@@ -92,12 +103,12 @@
                 $('.pro_left_lish').on('click',function(){
                     $(this).addClass('pro_on').siblings().removeClass('pro_on')
                    var id=$(this).children().attr('data');
-                    $.getJSON("{:U('index.php/Admin/Goods/goodsList')}",{id:id},function(data){
+                    $.getJSON("<?php echo U('index.php/Admin/Goods/goodsList');?>",{id:id},function(data){
                         fordata(data);
                     });
                 });
             });
-            $.getJSON("{:U('index.php/Admin/Goods/goodsList')}",{id:8},function(data){
+            $.getJSON("<?php echo U('index.php/Admin/Goods/goodsList');?>",{id:8},function(data){
                 fordata(data);
             });
             function fordata(data){
@@ -105,15 +116,13 @@
                 for(var i=0;i<data.length;i++){
                     var div='  <div class="pro_lish">';
                     div+='<input type="hidden" name="id" value="'+data[i]["id"]+'" />';
-                    div+='  <div class="pro_lish_tu fl"> <img src="__UPLOAD_URL_PREFIX__/'+data[i]["logo"]+'"> </div>';
+                    div+='  <div class="pro_lish_tu fl"> <img src="http://www.wap.com/Uploads/'+data[i]["logo"]+'"> </div>';
                     div+='  <div class="pro_lish_text fl">';
                     div+='    <p class="pro_lish_text_name">'+data[i]["name"]+'</p>';
                     div+='   <p class="pro_lish_text_xq">产地 ：'+(data[i]["origin"]?data[i]["origin"]:'未知 ')+'    规格:'+data[i]["norintro"]+'</p>';
                     div+='   <p class="pro_lish_text_xq">'+data[i]["intro"]+'</p>';
                     div+='   <p class="pro_lish_text_xq">'+data[i]["norintro"]+'起订</p>';
-                    <if condition="(session('MEMBER_INFO') neq '')">
-                        div+='  <p class="pro_lish_text_jiage fr js_danjia">'+data[i]["market_price{:session('MEMBER_INFO')['rank']}"]+'元/件</p>';
-                    </if>
+                    <?php if((session('MEMBER_INFO') != '')): ?>div+='  <p class="pro_lish_text_jiage fr js_danjia">'+data[i]["market_price<?php echo session('MEMBER_INFO')['rank'];?>"]+'元/件</p>';<?php endif; ?>
                     div+='  <div class="se_lish_text_shuliang fl js_num"> <span class="sy_minus fl" id="sy_minus_gid1">-</span>';
                     div+='       <input type="text" name="num" class="sy_num fl" value="0" >';
                     div+='          <span class="sy_plus fl" id="sy_plus_gid1">+</span>';
@@ -142,7 +151,7 @@
                         }
                     }
                 });
-                $.post("{:U('index.php/Admin/GoodsList/add')}",data,function(da){
+                $.post("<?php echo U('index.php/Admin/GoodsList/add');?>",data,function(da){
                     if(goods_name){
                       
                          layer.msg(goods_name+'少于起订数量下单失败');
@@ -186,6 +195,3 @@
                 }
             });
         </script>
-    </block>
-    
-

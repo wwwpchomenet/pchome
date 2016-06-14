@@ -17,8 +17,8 @@ class OrderInfoModel extends Model{
      * @param $cond
      * @return array
      */
-    public function getOrder($cond,$del){
-        $count= $this->table('__ORDER_INFO__')->query('select count(*) as id from(select id,count(*) counts from order_info   where `del`="'.$del.'" group by `order_num`) t')[0]['id'];
+    public function getOrder($cond){
+        $count= $this->where($cond)->group('order_num')->count();
         //获取页尺寸
         $size      = C('PAGE_SIZE');
         $page_obj  = new \Think\Page($count, $size);
@@ -26,7 +26,7 @@ class OrderInfoModel extends Model{
         $page_html = $page_obj->show();
         $rows      = $this->where($cond)->page(I('get.p'), $size)->group("order_num")->select();
         return array(
-            'rows'       => $rows,
+            'rows'      => $rows,
             'page_html' => $page_html,
         );
     }
@@ -40,19 +40,17 @@ class OrderInfoModel extends Model{
         $goodsList=$this->where('order_num='.$orderNum)->select();
         $goods=array();
         foreach($goodsList as $k=>$val){
-            $goods[$k]=$this->table('Goods_list as gl')
+            $goods[$k]= $data=$this->table('Goods_list as gl')
                 ->join('__ORDER_INFO__ as oi ON gl.`id`=oi.`__LIST_ID__`')
-                ->where(array('gl.id'=>$val['list_id'],'order_num='.$orderNum))
+                ->where(array('gl.id'=>$val['list_id']))
                 ->field('oi.order_num,oi.id as oid,gl.goods_id,oi.num,oi.univalence')
                 ->find();
 
-
-           $tmp[$k]= $this->table('Goods')->where(array('id'=>$goods[$k]['goods_id']))->find();
+           $tmp[$k]= $this->table('Goods')->where(array('id'=>$data['goods_id']))->find();
             $tmp[$k]['oid']=$goods[$k]['oid'];
             $tmp[$k]['num']=$goods[$k]['num'];
             $tmp[$k]['univalence']=$goods[$k]['univalence'];
             $tmp[$k]['order_num']=$goods[$k]['order_num'];
-            unset($goods[$k]);
         }
        return $tmp;
     }

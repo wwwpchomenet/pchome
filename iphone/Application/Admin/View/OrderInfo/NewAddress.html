@@ -1,0 +1,72 @@
+<extend name='Lyout:menu'/>
+<block name='admin'>
+<section>
+    <form name="form1" action="{:U('index.php/admin/OrderInfo/add')}" method="post">
+          <div class="na_con">
+              <div class="na_head">联系人</div>
+              <div class="na_shuru">
+                <div class="na_shuru_90">
+                    <p class="na_shuru_zi fl">姓名</p>
+                    <p class="na_shuru_input fl"><input type="text" name="name" placeholder="请填写收货人姓名" /></p>
+                </div>
+              </div>
+              <div class="na_shuru">
+                <div class="na_shuru_90">
+                    <p class="na_shuru_zi fl">电话</p>
+                    <p class="na_shuru_input fl"><input type="text" name="tel" placeholder="请填写收货手机号码" /></p>
+                </div>
+              </div>
+              <div class="na_shuru">
+                <div class="na_shuru_90">
+                    <p class="na_shuru_zi fl">店铺名</p>
+                    <p class="na_shuru_input fl"><input type="text" name="shop_name" placeholder="请填写店铺名称" /></p>
+                </div>
+              </div>
+              <div class="na_shuru">
+                <div class="na_shuru_90">
+                    <p class="na_shuru_zi fl">地址</p>
+                    <p class="na_shuru_input fl"><input type="text" name="detail_address" placeholder="请填写您的详细收货地址" /></p>
+                </div>
+              </div>
+
+              <div class="na_head">联系人</div>
+              <div class="na_shuru">
+                <div class="na_shuru_90">
+                    <p class="na_shuru_zi fl">发票抬头</p>
+                    <p class="na_shuru_input fl"><input type="text" name="invoice" placeholder="请填写发票抬头" /></p>
+                </div>
+              </div>
+              <div class="na_shuru">
+                <div class="na_shuru_90">
+                    <p class="na_shuru_zi fl">税号</p>
+                    <p class="na_shuru_input fl"><input type="text" name="ein" placeholder="请填写税号" /></p>
+                </div>
+              </div>
+          </div>
+    </form>
+  
+  <!-- 红色区域 -->
+  <div class="na_dianjick">
+    <a class="na_shanchu fl" href="">
+    	<div class="na_sccon">
+            <p class="na_tubiao fl"></p>
+            <p class="na_ziti fl">删除地址</p>
+        </div>    
+    </a>
+    <a class="na_baocun fl" href="javascript:;"  onclick="submit()">
+    	<div class="na_sccon">
+            <p class="na_tubiao2 fl"></p>
+            <p class="na_ziti2 fl">保存地址</p>
+        </div> 
+    </a>
+  </div>
+  <!-- end -->
+</section>
+</block>
+<block name="js">
+    <script  type="text/javascript">
+        function submit(){
+            document.form1.submit();
+        }
+    </script>
+</block>

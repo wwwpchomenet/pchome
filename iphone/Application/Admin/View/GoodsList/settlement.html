@@ -14,6 +14,7 @@
         <div class="set_cplish_text fl">
             <div class="set_cplish_text_title">
                 <input type='hidden' class="list" value='{:$goodsList['id']}'/>
+                <input type='hidden' class="gid" value='{:$goodsList['gid']}'/>
                 <p class="set_cplish_text_title_1 fl" >{:$goodsList['name']}</p>
                 <p class="set_cplish_text_title_2 fr">￥<span class="price">{:$goodsList['market_price'.session('MEMBER_INFO')['rank']]*$goodsList['num']}</span> </p>   
             </div>
@@ -75,18 +76,20 @@
             var  list = $(".list");
             var price = $(".price");//总价格
             var univalence =$(".univalence");//单价
-            var num = $(".num");
-           
+            var num = $(".num");//数量
+            var gid = $(".gid");
+           //console.debug(gid);
             var i;
             for(i=0;i<list.length;i++){
                  cond[i] =[
                      list[i]["defaultValue"] ,//id
                      univalence[i]['innerHTML'],//单价
                      num[i]['innerHTML'],//数量
-                     price[i]['innerHTML']
+                     price[i]['innerHTML'],//价格
+                     gid[i]['defaultValue']//商品id
                  ];
             }
-           
+           //console.debug(list);
          //----------------收货信息--------------------------   
             var detail_address =$('.set_dizhi_head').text();//地址
             var name = $('.membername').text();//姓名

@@ -1,0 +1,55 @@
+<extend name="Lyout:menu"/>
+<block name="admin">
+<section>
+    <foreach name='rows' item='row'>
+  <div class="na_con">
+      <div class="mp_lish">
+      	<div class="mp_lish_con">
+        	<p class="mp_lish_name fl">保证金</p>
+            <p class="wt_lish_text fl">￥{$row.cash}</p>
+        </div>
+      </div>
+      <div class="mp_lish">
+      	<div class="mp_lish_con">
+        	<p class="mp_lish_name fl">可用余额</p>
+            <p class="wt_lish_text fl">￥{$row.balance}</p>
+        </div>
+      </div>
+      <div class="mp_lish">
+      	<div class="mp_lish_con">
+        	<p class="mp_lish_name fl">已反佣金</p>
+            <p class="wt_lish_text fl">￥{$row.brokerage}</p>
+        </div>
+      </div>
+      
+  </div>
+    </foreach>
+  <!-- 红色区域 -->
+  
+</section>
+</block>
+<block name="footer"></block>
+        <block name="js">
+             <script type="text/javascript">
+        $('.in_footer_lish_tu1').css({
+            'background-position':'0px 0px',
+        });
+        $('.in_footer_lish_tu3').css({
+            'background-position':'-72px 0px',
+        });
+        $('.in_footer_lish_tu2').css({
+            'background-position':'-40px 0px',
+        });
+        $(function(){
+
+            $('.in_footer_lish_tu4').css({
+                width:26+'px',
+                height:26+'px',
+                background:'url(__IMG__/icon.png)',
+                'background-position':'-103px 30px',
+                margin:0 +'auto',
+                'margin-top': 8+'px'
+            });
+        });
+    </script>
+        </block>

@@ -21,16 +21,12 @@ class GoodsListController extends Controller{
      * 显示所有商品清单
      */
     public function getList(){
-        if(session('MEMBER_INFO')['status']==1){
-                $goodsList = $this->_userGoodsList();
-            if($goodsList){
-                $this->assign('goodsList', $goodsList);
-                $this->display('order');
-            }else{
-                $this->display('order_kong');
-            }
+            $goodsList = $this->_userGoodsList();
+        if($goodsList){
+            $this->assign('goodsList', $goodsList);
+            $this->display('order');
         }else{
-            $this->redirect('index.php/Admin/PersonalCenter/index');
+            $this->display('order_kong');
         }
     }
 
@@ -38,13 +34,13 @@ class GoodsListController extends Controller{
      * 显示清单列表
      */
     public function getListing(){
-
-            $AddressDefault=$this->_getAddressDefault();
-            $goodsList = $this->_userGoodsList();
-            $this->assign('AddressDefault',$AddressDefault);
-            $this->assign('goodsList', $goodsList);
-            $this->display('settlement');
-
+        $AddressDefault=$this->_getAddressDefault();
+        $goodsList = $this->_userGoodsList();
+//        dump($goodsList);
+//        exit;
+        $this->assign('AddressDefault',$AddressDefault);
+        $this->assign('goodsList', $goodsList);
+        $this->display('settlement');
     }
 
     /**
@@ -95,11 +91,15 @@ class GoodsListController extends Controller{
         if(IS_POST){
             $data=I('post.');
             $listid = $data['id'];
+//            echo "<pre>";
+//            dump($listid);
+//            exit;
            //---------------修改订单列表的状态值--------------------
             foreach ($listid as $value){
-               if(M('GoodsList')->where(array('id'=>$value[0]))->setField('status',1)===false){
+               if(M('GoodsList')->where(array('id'=>$value[0]))->setField('status',1)===false || M('Goods')->where(array('id'=>$value[4]))->setDec('stock',$value[2])===false){
                    $this->ajaxReturn("提交失败");
                } 
+               
             }
             
             //------------新增列表所有状态-----------------

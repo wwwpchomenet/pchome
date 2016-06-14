@@ -51,7 +51,7 @@ class GoodsListModel extends Model{
             ->table('goods')
             ->join('__GOODS_LIST__ as gl ON goods.`id`=gl.`goods_id`')
             ->where($map)
-            ->getField('gl.id,gl.num as num,goods.name,goods.market_price'.session('MEMBER_INFO')['rank'].',goods.norintro,goods.norms,goods.logo',true);
+            ->getField('gl.id,gl.num as num,goods.id as gid,goods.name,goods.market_price'.session('MEMBER_INFO')['rank'].',goods.norintro,goods.norms,goods.logo',true);
     }
     public function goodsListDelete(){
         return $this->where(array('id'=>I('get.id')))->delete();

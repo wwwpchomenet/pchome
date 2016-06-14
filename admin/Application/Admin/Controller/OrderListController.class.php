@@ -18,6 +18,21 @@ use Think\Controller;
  */
 class OrderListController extends Controller{
     /**
+     * 显示列表
+     */
+    public function index(){
+        //准备搜索条件
+        $trade_no= I('get.order_num');
+        $cond         = array();
+        if ($trade_no) {
+            $cond['order_num'] = array('like', '%' . $trade_no . '%');
+        }
+        $orderInfoList=$this->_getOrderInfo($cond);
+        $this->assign('orderInfoList',$orderInfoList);
+        $this->display();
+    }
+
+    /**
      * 显示订单详情
      * @param $orderNum
      */
@@ -56,8 +71,18 @@ class OrderListController extends Controller{
      */
     public function del($id){
         $orderInfoModel=D('OrderInfo');
-        $orderInfoModel->where(array('order_num'=>$id))->setField('del','0');
+        $orderInfoModel->where(array('order_num'=>$id))->delete();
         $this->success('删除成功',U('index'));
+    }
+
+    /**
+     * 获取订单列表信息
+     * @return 订单列表
+     */
+    private function _getOrderInfo($cond){
+        $orderInfoModel=D('OrderInfo');
+        $orderList=$orderInfoModel->getOrder($cond);
+        return $orderList;
     }
 
     /**
@@ -85,42 +110,5 @@ class OrderListController extends Controller{
         for($i=0;$i<count($num);$i++){
             $orderInfoModel->where('id='.$id[$i])->save(array('num'=>$num[$i],'univalence'=>$univalence[$i]));
         }
-    }
-    /**
-     * 显示列表
-     */
-    public function indexShow($del,$show){
-        //准备搜索条件
-        $trade_no= I('get.order_num');
-        $cond         = array();
-        if ($trade_no) {
-            $cond['order_num'] = array('like', '%' . $trade_no . '%');
-
-        }
-        $cond['del']=$del;
-        $orderInfoModel=D('OrderInfo');
-        $orderInfoList=$orderInfoModel->getOrder($cond,$del);
-        $this->assign('orderInfoList',$orderInfoList);
-        $this->display($show);
-    }
-
-    /**
-     * 回收站管理
-     */
-    public function recycling(){
-        if(I('get.id')){
-            $orderInfoModel=D('OrderInfo');
-            $orderInfoModel->where(array('order_num'=>I('get.id')))->setField('del','1');
-            $this->indexShow('0', 'recycling');
-        }else {
-            $this->indexShow('0', 'recycling');
-        }
-    }
-
-    /**
-     * 订单显示
-     */
-    public function index(){
-        $this->indexShow('1','index');
     }
 }

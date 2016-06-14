@@ -41,9 +41,9 @@
                     <th>送达时间</th>
                     <th>操作</th>
                 </tr>
-                <foreach name="orderInfoList.rows" item="row" key="k">
-                    <tr class="bbb">
-                        <td align="center">{$k+1}</td>
+                <foreach name="orderInfoList.rows" item="row">
+                    <tr>
+                        <td align="center">{$row.id}</td>
                         <td align="center" class="first-cell"><span>{$row.order_num}</span></td>
                         <td align="center" class="first-cell"><span>{$row.name}</span></td>
                         <td align="center">{$row.tel}</td>
@@ -171,16 +171,6 @@
             $.post("{:U('OrderList/setData')}",$('form').serialize())
             }
         }
-        /**
-         * 鼠标移入时的动画效果
-         */
-        $(function(){
-            $('.bbb').hover(function(){
-                $(this).mouseover(function(){
-                    $(this).addClass("ccc").siblings().removeClass('ccc');
-                }).removeClass('ccc');
-            })
-        })
     </script>
 
 </block>

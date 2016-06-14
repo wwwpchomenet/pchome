@@ -22,9 +22,15 @@ class OrderInfoController extends \Think\Controller{
           * 4.订单状态
           * 5.总价格
           */
-      $rows = $this->_model->getinfo();
+        $member = session('MEMBER_INFO')['id'];//获取会员的id值
+        if(empty($member)){
+            $this->redirect('index.php/Admin/Member/login');
+        }else{
+       $rows = $this->_model->getinfo($member);
        $this->assign('rows',$rows);
        $this->display('AllOrders');
+        }
+     
     }
     
   /**
@@ -32,7 +38,6 @@ class OrderInfoController extends \Think\Controller{
    */
     public function  showList(){
         $order_num = session('ORDER_NUM');
-
         //查询所有的订单相同的编号
         $rows =$this->_model->showinfo($order_num);
         $this->assign('rows',$rows);
@@ -50,9 +55,8 @@ class OrderInfoController extends \Think\Controller{
         $this->display('OrderStatus');
     }
   public function showTwo2(){
-       $order_num = session('ORDER_NUM');
+        $order_num = session('ORDER_NUM');
         $rows = $this->_model->where(array('order_num'=>$order_num))->limit(1)->select();
-
         $this->assign('rows',$rows);
         $this->display('OrderStatus');
     }
@@ -89,5 +93,4 @@ class OrderInfoController extends \Think\Controller{
            $this->ajaxReturn('收货成功');
         }
     }
-    
 }

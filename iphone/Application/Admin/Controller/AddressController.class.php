@@ -17,9 +17,14 @@ class AddressController extends Controller{
      */
     public function  index(){
         $orderModel=D('Address');
-        $address=$orderModel->where('member_id='.session('MEMBER_INFO')['id'])->select();
+        if(empty(session('MEMBER_INFO')['id'])){
+             $this->redirect('index.php/Admin/Member/login');
+        }else{
+             $address=$orderModel->where('member_id='.session('MEMBER_INFO')['id'])->select();
         $this->assign('address',$address);
         $this->display('address');
+        }
+       
     }
 
     /**
