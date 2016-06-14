@@ -122,7 +122,11 @@
                         <div class="os_zhuangtai_kk fr">
                 	<div class="os_zhuangtai_kk_head">
                     	<p class="os_zhuangtai_kk_head_text fl">订单已完成</p>
-                        <p class="os_zhuangtai_kk_head_time fr">{$row['finish']}</p>
+                        <p class="os_zhuangtai_kk_head_time fr">{$row['finish']|date="Y-m-d H:i:s",###}
+<!--                       <?php 
+                         echo  date('Y-m-d H:i',$row['finish']); 
+                       ?>-->
+                        </p>
                     </div>
                     <p class="os_zhuangtai_kk_zt">配送完成</p>
                     <p class="os_zhuangtai_kk_jj"></p>

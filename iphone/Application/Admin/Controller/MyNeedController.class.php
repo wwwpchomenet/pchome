@@ -31,8 +31,8 @@ class MyNeedController extends \Think\Controller{
              * 
              */
          $data = I("post.");
-          dump($data);
-          exit;
+//          dump($data);
+//          exit;
         if($this->_model->addAll($data)===fasle){
             $this->error(get_error($this->_model->getError()));
               }else{

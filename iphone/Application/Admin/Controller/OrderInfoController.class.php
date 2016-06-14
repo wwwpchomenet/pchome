@@ -57,6 +57,37 @@ class OrderInfoController extends \Think\Controller{
         $this->display('OrderStatus');
     }
     
-    
+    /**
+     * 确认收获
+     * 1/会员id,和订单编号作为修改字段的条件
+     * 2.时间戳入库
+     */
+    public function  notarize(){
+        $data = I('post.');
+        //时间戳
+        $fin = $data['finish'];
+        //截取时间戳
+        $finish = substr($fin, 0,10);
+        //会员id
+        $member_id = $data['member_id'];
+        //订单编号
+        $order_num = $data['order_num'];
+        $tamp = array(
+            'status'=>4,
+            'finish'=>$finish
+        );
+        $tiaojian = array(
+            'member_id' => $member_id,
+            'order_num'=> $order_num
+        );
+        
+        if($this->_model->field('status,finish')->where($tiaojian)->save($tamp)===false){
+           
+            $this->error(get_error($this->_model->getError()));
+        }else{
+             
+           $this->ajaxReturn('收货成功');
+        }
+    }
     
 }
