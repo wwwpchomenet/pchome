@@ -24,7 +24,7 @@ class GoodsListModel extends Model{
     public function setGoodsList($data){
         $bool=false;
         foreach($data as $val){
-            if($this->where(array('goods_id'=>$val['goods_id'],'member_id'=>session('MEMBER_INFO')['id']))->select()){
+            if($this->where(array('goods_id'=>$val['goods_id'],'member_id'=>session('MEMBER_INFO')['id'],'status'=>0))->select()){
                 if($this->where(array('goods_id'=>$val['goods_id']))->setInc('num',$val['num'])){
                     $bool=true;
                 }

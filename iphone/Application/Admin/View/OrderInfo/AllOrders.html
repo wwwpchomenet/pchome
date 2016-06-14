@@ -4,6 +4,7 @@
         <div class="ao_con">
             <foreach name="rows" item="row">
                 <div class="ao_lish">
+                      
                     <div class="ao_lish_tu fl"><img src="__UPLOAD_URL_PREFIX__/{$row['logo']}" /></div>
                     <div class="ao_lish_text fl">
 
@@ -13,11 +14,17 @@
                             <if condition="$row['status'] eq 1 ">
                                 待发货
                                 <elseif condition="$row['status'] eq 2"/>
-                                配送中,待收货
-                                <elseif condition="$row['status'] eq 4"/>
-                                 <a href="" class="ao_lish_text_jiage_aniu ao_bj1 fr">确认收货</a>
+                                配送中...
+                                <elseif condition="$row['status'] eq 3"/>
+                                <div>
+                                <a  class="ao_lish_text_jiage_aniu ao_bj1 fr affirm" >确认收货</a>
+                                 <input type='hidden' class='member_id' value="{$row['member_id']}">
+                                  <input type='hidden' class='order_num' value="{$row['order_num']}">   
+                                </div>
+                                 <elseif condition="$row['status'] eq 4"/>
+                                 完成
                                 <else /> 
-                                  <a href="" class="ao_lish_text_jiage_aniu ao_bj2 fr">立即付款</a>
+                                <a href="" class="ao_lish_text_jiage_aniu ao_bj2 fr">立即付款</a>
                             </if>
                             </p>
                         </div>
@@ -29,6 +36,8 @@
                                 <p>{$row['add_time']}</p>
                                 <p>{$row['delivery_name']}</p>
                             </div>
+
+                           
                             <a href="{:U('index.php/Admin/OrderInfo/showTwo',array('order_num'=>$row['order_num']))}" class="ao_lish_text_jiage_aniu fr">订单状态</a>
                         </div>
 
@@ -44,6 +53,7 @@
 </block>
 <block name='footer'></block>
 <block name='js'>
+     <js href="__LAYER__/layer.js"/>
     <script type="text/javascript" charset="utf-8">
         $('.in_footer_lish_tu1').css({
             'background-position': '0px 0px',
@@ -64,6 +74,31 @@
                 margin: 0 + 'auto',
                 'margin-top': 8 + 'px',
             });
-        })
+        });
+        //--------------------------------------------------
+        $('.affirm').live('click',function () {
+          
+            //会员id
+            var member_id = $($(this).siblings('input')[0]).val();
+            //订单编号
+            var order_num = $($(this).siblings('input')[1]).val();
+            //当前时间的时间戳
+            var finish = new Date().getTime();
+            console.debug(finish);
+            layer.confirm('您是否确认收货？', {
+                btn: ['确定', '取消'] //按钮
+            }, function () {
+                $.post("{:U('index.php/Admin/OrderInfo/notarize')}",{'finish':finish,'member_id':member_id,'order_num':order_num},function(data){  
+                  if(data['status']==0){
+                      layer.msg('确定收货失败');
+                  }else{
+                       layer.msg(data);
+                       location.href="{:U('index.php/Admin/OrderInfo/setlist')}";
+                  }
+                });
+            }, function () {
+                layer.msg('取消确定收货');
+            });
+        });
     </script>
 </block>

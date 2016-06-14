@@ -28,14 +28,14 @@ class AddressController extends Controller{
     public function  add(){
         if(IS_POST){
             $orderModel=D('Address');
-            dump($orderModel->create());
+//            dump($orderModel->create());
             if($orderModel->create()===false){
                $this->error(get_error($orderModel->getError()));
             }
             if($orderModel->add()===false){
                 $this->error(get_error($orderModel->getError()));
             }
-            $this->success('添加成功',U('index.php/Admin/Address/index'));
+            $this->redirect('index.php/Admin/Address/index');
         }else{
             $this->display('NewAddress');
         }
