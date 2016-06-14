@@ -50,7 +50,6 @@
         <span id="search_id" class="action-span1"> - {$meta_title} </span>
         <div style="clear:both"></div>
     </h1>
-
     <div class="tab-div">
         <div id="tabbody-div">
             <form enctype="multipart/form-data" action="{:U()}" method="post">
@@ -61,149 +60,70 @@
                             <span class="require-field">*</span></td>
                     </tr>
                     <tr>
-                        <td class="label">商品货号： </td>
+                        <td class="label">手机号： </td>
                         <td>
-                            <input type="text" name="sn" value="{$row.sn}" size="20"/>
+                            <input type="text" name="tel" value="{$row.tel}" size="20"/>
                         </td>
                     </tr>
                     <tr>
-                        <td class="label">产地： </td>
+                        <td class="label">详细地址： </td>
                         <td>
-                            <input type="text" name="origin" value="{$row.origin}" size="20"/>
+                            <input type="text" name="detail_address" value="{$row.detail_address}" size="20"/>
                         </td>
                     </tr>
                     <tr>
-                        <td class="label">商品条码： </td>
+                        <td class="label">第三方支付号： </td>
                         <td>
-                            <input type="text" name="bc" value="{$row.bc}" size="20"/>
+                            <input type="text" name="trade_no" value="{$row.trade_no}" size="20"/>
                         </td>
                     </tr>
                     <tr>
-                        <td class="label">商品规格： </td>
+                        <td class="label">发票头： </td>
                         <td>
-                            <input type="text" name="norms" value="{$row.norms}" size="20"/>
-                             <span class="notice-span">如:24包 / 件 、10KG / 袋</span></td>
+                            <input type="text" name="title_name" value="{$row.title_name}" size="20"/>
                         </td>
                     </tr>
                      <tr>
-                        <td class="label">起订数量： </td>
+                        <td class="label">配送方式： </td>
                         <td>
-                              <input type="text" name="norintro" value="{$row.norintro}" size="20"/>
-                             <span class="notice-span">最低起订单位</span></td>
+                              <input type="text" name="delivery_id" value="{$row.delivery_id}" size="20"/>
                         </td>
                     </tr>
                     <tr>
-                        <td class="label">商品分类：</td>
+                        <td class="label">支付方式：</td>
                         <td>
-                            <input type="hidden" name='goods_category_id' value='' id='goods_category_id'/>
-                            <input type="text" id='goods_category_name' disabled='disabled'/>
-                            <ul id="treeDemo" class="ztree"></ul>
+                            <input type="text" name='pay_type' value='{$row.pay_type}'/>
                         </td>
                     </tr>
 
                     <tr>
-                        <td class="label">商品图片：</td>
-
+                        <td class="label">商品单价：</td>
                         <td>
-                            <input type="file" id="logo-upload" value="" size="20"/>
-                            <input type="hidden" name="logo" id="logo" value="{$row.logo}"/>
-                                    <div class="upload-pre-item">
-                                        <img src="__UPLOAD_URL_PREFIX__/{$row.logo}"/>
-
-                                  </div>
-                  <span >更换LOGO依然会显示原来LOGO,保存后自动修改</span>
+                            <input type="text" name="univalence"  value="{$row.univalence}" size="20"/>
                         </td>
 
                     </tr>
 
                     <tr>
-                        <td class="label">普通会员价格：</td>
+                        <td class="label">商品数量：</td>
                         <td>
-                            <input type="text" name="market_price1" size="6" value="{$row.market_price1}"  />&nbsp;元
+                            <input type="text" name="num"  value="{$row.num}"  />
                         </td>
                     </tr>
                     <tr>
-                        <td class="label">中级会员价格：</td>
+                        <td class="label">总金额：</td>
                         <td>
-                            <input type="text" name="market_price2" size="6" value="{$row.market_price2}"  />&nbsp;元
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="label">高级会员价格：</td>
-                        <td>
-                            <input type="text" name="market_price3" size="6" value="{$row.market_price3}" />&nbsp;元
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="label">库存：</td>
-                        <td>
-                            <input type="text" name="stock" size="8" value="{$row.stock|default=100}"/>
-                        </td>
-                    </tr>
-                    <tr>
-                    <td class="label">是否上架：</td>
-                    <td>
-                        <input type="radio" name="is_on_sale" value="1" /> 是
-                        <input type="radio" name="is_on_sale" value="0" /> 否
-                    </td>
-                    </tr>
-                    <tr>
-                    <td class="label">是否官网显示：</td>
-                    <td>
-                        <input type="radio" name="website" value="1" /> 是
-                        <input type="radio" name="website" value="0" /> 否
-                    </td>
-                    </tr>
-                    <tr>
-                        <td class="label">推荐排序：</td>
-                        <td>
-                            <input type="text" name="sort" size="5" value="{$row.sort|default=20}"/>
-                        </td>
-                    </tr>
-
-
-                    <tr>
-                        <td class="label">商品介绍</td>
-                        <td>
-                            <textarea name="intro" cols="40" rows="3">{$row.intro}</textarea>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td class="label">商品详细描述：</td>
-                        <td>
-                            <textarea name="content" cols="40" rows="3" id='editor'>{$row.content}</textarea>
+                            <input type="text" name="price" value="{$row.countmeny}"  />
                         </td>
                     </tr>
                     <tr>
                         <td></td>
-                        <td><hr /></td>
-                    </tr>
-
-                    <tr>
-                        <td class="label">商品相册：</td>
                         <td>
-                             <div class="upload-img-box">
-                                <foreach name='row.paths' item='path'>
-                                    <div class="upload-pre-item">
-                                        <img src="__UPLOAD_URL_PREFIX__/{$path.path}"/>
-                                        <a href="javascript:;" data='{$path.id}'>×</a>
-                                    </div>
-                                </foreach>
-                            </div>
-                            <div>
-                                <input type="file" id='gallery-upload'/>
-                            </div>
+                                <input type="hidden" name='order_num' value='{$row.order_num}'/>
+                                <input type="submit" value=" 确定 " class="button"/>
                         </td>
                     </tr>
-
                 </table>
-                <div class="button-div">
-                    <input type="hidden" name='id' value='{$row.id}'/>
-                    <input type="button" id="alert_button" onclick="zOpen()"/>
-                    <input type="submit" value=" 确定 " class="button"/>
-                    <input type="reset" value=" 重置 " class="button" />
-                </div>
             </form>
         </div>
     </div>

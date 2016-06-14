@@ -24,7 +24,7 @@ class GoodsListModel extends Model{
     public function setGoodsList($data){
         $bool=false;
         foreach($data as $val){
-            if($this->where(array('goods_id'=>$val['goods_id'],'member_id'=>session('MEMBER_INFO')['id']))->select()){
+            if($this->where(array('goods_id'=>$val['goods_id'],'member_id'=>session('MEMBER_INFO')['id'],'status'=>0))->select()){
                 if($this->where(array('goods_id'=>$val['goods_id']))->setInc('num',$val['num'])){
                     $bool=true;
                 }
@@ -36,6 +36,12 @@ class GoodsListModel extends Model{
         }
         return $bool;
     }
+
+    /**
+     * 读取未提交的购物车清单
+     * @param $member_id
+     * @return mixed
+     */
     public function getGoodsList($member_id){
         $map = array(
             'member_id'=>$member_id,

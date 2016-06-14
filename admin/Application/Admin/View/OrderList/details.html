@@ -26,9 +26,9 @@
         <th>下单时间</th>
         <th>操作</th>
     </tr>
+    {:dump($row);exit;}
     <foreach name="row" item="row" key="k">
         <tr>
-            <td align="center">{$k+1}</td>
             <td align="center" class="first-cell"><span>{$row.name}</span></td>
             <td align="center">{$row.tel}</td>
             <td align="center">{$row.detail_address}</td>
@@ -41,7 +41,8 @@
             <td align="center">{$row.price}</td>
             <td align="center">{$row.add_time}</td>
             <td align="center">
-                <a href="{:U('edit',array('id'=>$row['id']))}" title="修改"><img src="__IMG__/icon_edit.gif" width="16" height="16" border="0" /></a>
+
+                <a href="{:U('edit',array('id'=>$row['id']))}" title="修改地址信息"><img src="__IMG__/icon_edit.gif" width="16" height="16" border="0" /></a>
                 <a href="{:U('del',array('id'=>$row['id']))}" onclick="" title="回收站"><img src="__IMG__/icon_trash.gif" width="16" height="16" border="0" /></a></td>
         </tr>
     </foreach>

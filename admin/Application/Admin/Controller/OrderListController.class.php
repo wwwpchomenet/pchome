@@ -22,14 +22,10 @@ class OrderListController extends Controller{
      */
     public function index(){
         //准备搜索条件
-        $trade_no= I('get.num');
-        $name     = I('get.name');
+        $trade_no= I('get.order_num');
         $cond         = array();
         if ($trade_no) {
-            $cond['trade_no'] = array('like', '%' . $trade_no . '%');
-        }
-        if ($name) {
-            $cond['name'] = array('like', '%' . $name . '%');
+            $cond['order_num'] = array('like', '%' . $trade_no . '%');
         }
         $orderInfoList=$this->_getOrderInfo($cond);
         $this->assign('orderInfoList',$orderInfoList);
@@ -50,15 +46,24 @@ class OrderListController extends Controller{
      * 添加订单
      */
     public function add(){
-        echo 2;exit;
         $this->display();
     }
 
     /**
      * 删除订单
      */
-    public function edit(){
-        $this->display('add');
+    public function edit($order_num){
+        if(IS_POST){
+            $orderModel=D('OrderInfo');
+            $orderModel->create();
+            if($orderModel->setInfo()!==false){
+                $this->success('修改成功',U('index'));
+            }
+        }else{
+            $row=M('OrderInfo')->where(array('order_num'=>$order_num))->find();
+            $this->assign('row',$row);
+            $this->display('add');
+        }
     }
 
     /**
@@ -66,22 +71,8 @@ class OrderListController extends Controller{
      */
     public function del($id){
         $orderInfoModel=D('OrderInfo');
-        $orderInfoModel->where(array('id'=>$id))->delete();
+        $orderInfoModel->where(array('order_num'=>$id))->delete();
         $this->success('删除成功',U('index'));
-    }
-
-    /**
-     * 获取商品信心
-     */
-    private function _getGoods(){
-
-    }
-
-    /**
-     * 获取购物车列表
-     */
-    private function _getGoodsList(){
-
     }
 
     /**
@@ -92,5 +83,32 @@ class OrderListController extends Controller{
         $orderInfoModel=D('OrderInfo');
         $orderList=$orderInfoModel->getOrder($cond);
         return $orderList;
+    }
+
+    /**
+     * 修改发货时间
+     */
+    public function getDate(){
+        $orderInfoModel=M('OrderInfo');
+        if(I('post.status')==1){
+            $orderInfoModel->where(array('order_num'=>I('post.order_num')))->save(array('delivery'=>time()));
+        }
+        if(I('post.status')==2){
+            $orderInfoModel->where(array('order_num'=>I('post.order_num')))->save(array('shipments'=>time()));
+        }
+    }
+
+    /**
+     * 修改订单商品信息
+     */
+    public function setData(){
+        $orderInfoModel=M('OrderInfo');
+        $num=   I('post.num');
+        $univalence=I('post.univalence');
+        $id=I('post.id');
+        $arr=array();
+        for($i=0;$i<count($num);$i++){
+            $orderInfoModel->where('id='.$id[$i])->save(array('num'=>$num[$i],'univalence'=>$univalence[$i]));
+        }
     }
 }
