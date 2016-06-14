@@ -7,7 +7,7 @@
 <block name='admin'>
     <h1>
         <span class="action-span"><a href="{:U('add')}">添加新商品</a></span>
-        <span class="action-span1"><a href="{:U('Goods/index')}">重庆火锅国际供应链股份有限公司   管理中心</a></span>
+        <span class="action-span1"><a href="{:U('Goods/index')}">重庆火锅国际供应链股份有限公司   回收站</a></span>
         <span id="search_id" class="action-span1"> - {$meta_title} </span>
         <div style="clear:both"></div>
     </h1>
@@ -54,13 +54,12 @@
                         <td align="center">{$row.univalence}</td>
                         <td align="center">{$row.num}</td>
                         <td align="center">{$row.countmeny}</td>
-                        <td align="center">{$row['add_time']?(date('Y-m-d H-i-s',$row['add_time'])):('没有记录')}</td>
+                        <td align="center" >{$row['add_time']?(date('Y-m-d H-i-s',$row['add_time'])):('没有记录')}</td>
                         <td align="center">{$row['delivery']?(date('Y-m-d H-i-s',$row['delivery'])):('没有记录')}</td>
                         <td align="center">{$row['shipments']?(date('Y-m-d H-i-s',$row['shipments'])):('没有记录')}</td>
                         <td align="center">
-                            <a href="{:U('edit',array('order_num'=>$row['order_num']))}" title="查看详细信息"><img src="__IMG__/icon_edit.gif" width="16" height="16" border="0" /></a>
                             <a href="JavaScript:;" class="xiangqing" data="{$row.order_num}" title="查看商品信息"/><img src="__IMG__/icon_search.gif" width="16" height="16" border="0" /></a>
-                            <a href="{:U('del',array('id'=>$row['order_num']))}" onclick="return confirm('你确定要删除么！！！')" title="回收站"><img src="__IMG__/icon_trash.gif" width="16" height="16" border="0" /></a></td>
+                            <a href="{:U('recycling',array('id'=>$row['order_num']))}" onclick="return confirm('你确定要恢复么！！！')" title="回收站"><img src="__IMG__/icon_trash.gif" width="16" height="16" border="0" /></a></td>
                     </tr>
                 </foreach>
             </table>
@@ -94,7 +93,6 @@
             newDiv.style.background = "#EFEFEF";
             newDiv.style.border = "1px solid #860001";
             newDiv.innerHTML="<div align='right'><a href='#' onclick='closeWin();'><span style='color:red'>关闭</span></a></div><div class='new'></div>";
-            newDiv.innerHTML+="<table width='100%' border='0' align='center' cellspacing='10'><tr align='center'><td colspan='3' bgcolor='#f0ffff'><a href='javascript:;' onclick='editss()' style='font-size: 22px;color: red;'>修改信息</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href='javascript:;' onclick='fh()' style='font-size: 22px;color: #278296;'>点击发货</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href='javascript:;' id='fhcg' onclick='fhcg()' style='font-size: 22px;color: #278296;cursor: hand'>货物已送达</a></td></tr></table>";
             //newDiv.style.padding = "5px";
             document.body.appendChild(newDiv);
 
@@ -146,34 +144,10 @@
         $('.xiangqing').on('click',function(){
             var  data=$(this).attr('data');
             $.getJSON('{:U("OrderList/details")}',{'orderNum':data},function(da){
+                console.debug(da);
                 openNewDiv(da)
             });
         })
-        /**
-         * 添加发货时间
-         */
-        function fh(){
-            var date=Date.parse(new Date());
-            $.post("{:U('OrderList/getDate')}",{  order_num:$('.order_num').val(),status:1});
-        }
-        /**
-         * 添加发货完成时间
-         */
-        function fhcg(){
-            $.post("{:U('OrderList/getDate')}",{  order_num:$('.order_num').val(),status:2})
-        }
-        /**
-         * 修改商品数据
-         *
-         */
-        function editss(){
-            if(confirm('你确定要 修改？？？')){
-            $.post("{:U('OrderList/setData')}",$('form').serialize())
-            }
-        }
-        /**
-         * 鼠标移入时的动画效果
-         */
         $(function(){
             $('.bbb').hover(function(){
                 $(this).mouseover(function(){
