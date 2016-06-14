@@ -21,12 +21,16 @@ class GoodsListController extends Controller{
      * 显示所有商品清单
      */
     public function getList(){
-            $goodsList = $this->_userGoodsList();
-        if($goodsList){
-            $this->assign('goodsList', $goodsList);
-            $this->display('order');
+        if(session('MEMBER_INFO')['status']==1){
+                $goodsList = $this->_userGoodsList();
+            if($goodsList){
+                $this->assign('goodsList', $goodsList);
+                $this->display('order');
+            }else{
+                $this->display('order_kong');
+            }
         }else{
-            $this->display('order_kong');
+            $this->redirect('index.php/Admin/PersonalCenter/index');
         }
     }
 
@@ -34,11 +38,13 @@ class GoodsListController extends Controller{
      * 显示清单列表
      */
     public function getListing(){
-        $AddressDefault=$this->_getAddressDefault();
-        $goodsList = $this->_userGoodsList();
-        $this->assign('AddressDefault',$AddressDefault);
-        $this->assign('goodsList', $goodsList);
-        $this->display('settlement');
+
+            $AddressDefault=$this->_getAddressDefault();
+            $goodsList = $this->_userGoodsList();
+            $this->assign('AddressDefault',$AddressDefault);
+            $this->assign('goodsList', $goodsList);
+            $this->display('settlement');
+
     }
 
     /**

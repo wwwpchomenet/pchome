@@ -40,13 +40,15 @@
    </div>
   <!-- end -->
   <!-- 红色区域 -->
-    <if condition="(session('MEMBER_INFO') neq '')">
+    <if condition="(session('MEMBER_INFO')['status'] eq 1)">
         <div class="cp_dianjick">
             <p class="pro_jiage  fl js_heji">合计金额&nbsp;&nbsp;￥0元</p>
-            <a class="pro_qingdan fl" href="javascirpt:;">加入清单</a>
+            <a class="pro_qingdan fl" href="javascript:;">加入清单</a>
         </div>
-        <else/>
+        <elseif condition="(session('MEMBER_INFO')['status'] eq '')" />
         <a class="is_cp_dianjick" href="{:U('index.php/Admin/member/login')}">点击查看商品价格</a>
+        <else/>
+        <a class="is_cp_dianjick" href="{:U('index.php/Admin/PersonalCenter/index')}">您还没有通过审核！！！</a>
     </if>
   <!-- end -->
 </section>
